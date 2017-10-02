@@ -3,7 +3,7 @@
 ## Configuracao Inicial
 1. Crie uma pasta com o nome SikoSSP (pasta root do projecto) - a pasta que vai conter os dois projectos angular e laravel
 1. baixar ou clonar o Projecto para a pasta SikoSSP
-2. Entre no directorio root (TrabalhoSemestral) - `cd TrabalhoSemestral`
+2. Entre no directorio root (SikoSSP) - `cd SikoSSP`
 
 ### Para Laravel:
 1. Crie uma base de dados com nome `sup3`;
