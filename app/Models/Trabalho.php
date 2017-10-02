@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Trabalho extends Model
+{
+    protected $table = 'trabalhos';
+    protected $fillable = ['titulo', 'descricao', 'estudantes_id', 'eventos_id', 'is_aprovado'];
+
+
+    public function estudante(){
+        return $this->belongsTo('App\Models\Estudante', 'estudantes_id');
+    }
+
+
+    public function ficheirosTrabalhos(){
+        return $this->hasMany('App\Models\FicheirosTrabalho', 'trabalhos_id');
+    }
+
+
+    public function evento(){
+        return $this->belongsTo('App\Models\Evento', 'eventos_id');
+    }
+
+
+    //Muitos para muitos
+    public function docenteAreas(){
+        return $this->belongsToMany('App\Models\DocenteArea', 'docente_areas_trabalhos','trabalhos_id', 'docente_areas_id')
+            ->withPivot('id', 'funcoes_id');
+    }
+
+
+
+}
