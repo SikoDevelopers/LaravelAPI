@@ -56,7 +56,7 @@ class EstudanteController extends Controller implements InterfaceController
         if(!$estudante)
             return response()->json(['mensagem' => 'Estudante nao encontrado'], 404);
         else
-            return response()->json(['mensagem' => $estudante]);
+            return response()->json(['estudante' => $estudante], 200);
     }
 
     /**
@@ -66,7 +66,13 @@ class EstudanteController extends Controller implements InterfaceController
      */
     public function remover(Request $objecto, $id)
     {
-
+        $estudante = Estudante::find($id);
+        if(!$estudante)
+            return response()->json(['mensagem' => $estudante], 404);
+        else {
+            $estudante->delete();
+            return response()->json(['estudante' => $estudante], 200);
+        }
     }
 
     /**
