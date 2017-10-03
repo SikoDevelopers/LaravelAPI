@@ -13,6 +13,15 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/**
+ * Rotas para estudantes
+ */
+Route::prefix('estudante')->group(function(){
+    Route::get('listar', 'EstudanteController@listar');
+    Route::post('salvar', 'EstudanteController@salvar');
+    Route::put('editar/{id}', 'EstudanteController@editar');
+    Route::get('pesquisar/{id}', 'EstudanteController@pesquisar');
+    Route::delete('remover/{id}', 'EstudanteController@remover');
 });
+
+
