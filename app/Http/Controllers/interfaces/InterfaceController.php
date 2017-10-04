@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\interfaces;
+namespace App\Http\Controllers\interfaces;
 use Illuminate\Http\Request;
 use phpDocumentor\Reflection\Types\Integer;
 
@@ -16,9 +16,10 @@ interface InterfaceController{
 
     /**
      * funcao que busca lista de objectos
+     * @param $utilimo - (True or false) Ultimo ou nao
      * @return lista de todos objectos
      */
-    public function listar();
+    public function listar($utilimo = false);
 
 
     /**

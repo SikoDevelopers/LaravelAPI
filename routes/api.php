@@ -16,13 +16,9 @@ use Illuminate\Http\Request;
 /**
  * Rotas para estudantes
  */
-Route::prefix('estudante')->group(function(){
-    Route::get('listar', 'EstudanteController@listar');
-    Route::post('salvar', 'EstudanteController@salvar');
-    Route::put('editar/{id}', 'EstudanteController@editar');
-    Route::get('pesquisar/{id}', 'EstudanteController@pesquisar');
-    Route::delete('remover/{id}', 'EstudanteController@remover');
-    Route::get('buscarUltimo', 'EstudanteController@buscarUltimo');
-});
 
-
+    Route::get('estudantes', 'EstudanteController@listar');
+    Route::post('estudantes', 'EstudanteController@salvar');
+    Route::put('estudantes/{id}', 'EstudanteController@editar');
+    Route::get('estudantes/{id}', 'EstudanteController@pesquisar');
+    Route::delete('estudantes/{id}', 'EstudanteController@remover');

@@ -3,19 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\Estudante;
-use App\Models\interfaces\InterfaceController;
-use App\Models\interfaces\lista;
+use App\Http\Controllers\interfaces\InterfaceController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\classesAuxiliares\Auxiliar;
 
-class EstudanteController extends Controller implements InterfaceController
-{
+class EstudanteController extends Controller implements InterfaceController{
 
     /**
      * funcao que busca lista de objectos
      * @return lista de todos objectos
      */
-    public function listar()
-    {
+    public function listar($ultimo = false) {
         return response()->json(['estudantes' => Estudante::all()], 200);
     }
 
@@ -24,10 +22,9 @@ class EstudanteController extends Controller implements InterfaceController
      * @param Request $objecto - objecto a ser salvo
      * @return $objecto - objecto se for salvo
      */
-    public function salvar(Request $objecto)
-    {
+    public function salvar(Request $objecto) {
         $estudante = Estudante::create($objecto->all());
-        return response()->json(['estudante'=> $estudante], 200);
+        return response()->json(['estudante' => $estudante], 200);
     }
 
     /**
@@ -35,10 +32,9 @@ class EstudanteController extends Controller implements InterfaceController
      * @param $id - a chave primaria do objecto
      * @return $objecto se for actualizado
      */
-    public function editar(Request $objecto, $id)
-    {
+    public function editar(Request $objecto, $id) {
         $estudante = Estudante::find($id);
-        if(!$estudante)
+        if (!$estudante)
             return response()->json(['mensagem' => 'Estudante nao encontrado'], 404);
         else {
             $estudante->update($objecto->all());
@@ -50,11 +46,10 @@ class EstudanteController extends Controller implements InterfaceController
      * @param $id - do objecto pesquisado
      * @return $objecto encontrado
      */
-    public function pesquisar($id)
-    {
+    public function pesquisar($id) {
         $estudante = Estudante::find($id);
-        if(!$estudante)
-            return response()->json(['mensagem' => 'Estudante nao encontrado'], 404);
+        if (!$estudante)
+            return response()->json(['mensagem' => 'Estudante nao encontrado', 'status' => 404]);
         else
             return response()->json(['estudante' => $estudante], 200);
     }
@@ -64,10 +59,9 @@ class EstudanteController extends Controller implements InterfaceController
      * @param $id - a chave primaria do objecto
      * @return $objecto se for removido
      */
-    public function remover(Request $objecto, $id)
-    {
+    public function remover(Request $objecto, $id) {
         $estudante = Estudante::find($id);
-        if(!$estudante)
+        if (!$estudante)
             return response()->json(['mensagem' => $estudante], 404);
         else {
             $estudante->delete();
@@ -82,8 +76,7 @@ class EstudanteController extends Controller implements InterfaceController
      * @param Request[] ...$objectos - conjunto de objectos a serem salvos
      * @return $object - conjunto de objectos salvos
      */
-    public function salvarTransacao(Request ...$objectos)
-    {
+    public function salvarTransacao(Request ...$objectos) {
 
     }
 
@@ -92,8 +85,7 @@ class EstudanteController extends Controller implements InterfaceController
      * @param array ...$atributos - conjunto de atributos que serao usados para a pesquisa
      * @return $objecto retornado
      */
-    public function pesquisarMuitos(...$atributos)
-    {
+    public function pesquisarMuitos(...$atributos) {
 
     }
 
@@ -102,15 +94,30 @@ class EstudanteController extends Controller implements InterfaceController
      * busca o ultimo objecto a se adicionado
      * @return $object - ultimo objecto adicionado
      */
-    public function buscarUltimo()
-    {
-        if(Estudante::count() > 0 ) {
+    public function buscarUltimo() {
+        if (Estudante::count() > 0) {
             $estudante = Estudante::orderBy('created_at', 'desc')->first();
-            return response()->json(['estudante' => $estudante],200);
+            return Auxiliar::retornarDados('estudante', $estudante, 200);
         }
 
-        return response()->json(['mensagem' => 'Nao foi encontrado nenhum estudante'], 404);
-
-
+        return Auxiliar::retornarErros('Nao foi encontrado nenhum estudante', 404);
     }
+
+    /*------------------------------------------------- Metodos adicionais-------------------------------------------------------------------------*/
+
+    /**
+     * retorna todos os trabalhos de um estudante
+     * @param $idEstudante
+     * @return $trabahos
+     */
+    public function trabalhos($idEstudante){
+        $estudante = Estudante::find($idEstudante);
+        if($estudante)
+            return "";
+        return $this->retornarErro('Estudante nao encontrado', 404);
+    }
+
+
+
+
 }
