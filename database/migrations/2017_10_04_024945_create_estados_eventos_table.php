@@ -17,6 +17,7 @@ class CreateEstadosEventosTable extends Migration {
 			$table->integer('id', true);
 			$table->string('designacao', 45)->nullable();
 			$table->string('descricao', 45)->nullable();
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}

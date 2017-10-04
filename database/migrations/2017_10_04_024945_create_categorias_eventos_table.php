@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateDocenteAreasTable extends Migration {
+class CreateCategoriasEventosTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,12 @@ class CreateDocenteAreasTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('docente_areas', function(Blueprint $table)
+		Schema::create('categorias_eventos', function(Blueprint $table)
 		{
-			$table->integer('areas_id')->index('fk_areas_has_docentes_areas1_idx');
-			$table->integer('docentes_id')->index('fk_areas_has_docentes_docentes1_idx');
 			$table->integer('id', true);
+			$table->string('designacao', 45)->nullable();
+			$table->string('descricao', 45)->nullable();
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}
@@ -29,7 +30,7 @@ class CreateDocenteAreasTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('docente_areas');
+		Schema::drop('categorias_eventos');
 	}
 
 }

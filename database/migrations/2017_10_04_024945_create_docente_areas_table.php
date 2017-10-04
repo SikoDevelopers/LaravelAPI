@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateFunUsersTable extends Migration {
+class CreateDocenteAreasTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,14 +12,12 @@ class CreateFunUsersTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('fun_users', function(Blueprint $table)
+		Schema::create('docente_areas', function(Blueprint $table)
 		{
+			$table->integer('areas_id')->index('fk_areas_has_docentes_areas1_idx');
+			$table->integer('docentes_id')->index('fk_areas_has_docentes_docentes1_idx');
 			$table->integer('id', true);
-			$table->string('apelido', 45);
-			$table->string('nome', 45);
-			$table->string('username', 45);
-			$table->string('senha', 45);
-			$table->string('nivel_acesso', 45)->nullable();
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}
@@ -32,7 +30,7 @@ class CreateFunUsersTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('fun_users');
+		Schema::drop('docente_areas');
 	}
 
 }

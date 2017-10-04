@@ -18,6 +18,7 @@ class CreateTemasTable extends Migration {
 			$table->string('designacao', 45)->nullable();
 			$table->integer('docentes_id')->index('fk_temas_docentes1_idx');
 			$table->integer('areas_id')->index('fk_temas_areas1_idx');
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}

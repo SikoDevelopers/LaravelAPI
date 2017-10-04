@@ -3,7 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 
-class CreateFicheirosReprovadosTable extends Migration {
+class CreateDocentesTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -12,11 +12,13 @@ class CreateFicheirosReprovadosTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create('ficheiros_reprovados', function(Blueprint $table)
+		Schema::create('docentes', function(Blueprint $table)
 		{
 			$table->integer('id', true);
-			$table->string('motivo', 45)->nullable();
-			$table->string('data_nova_submissao', 45)->nullable();
+			$table->string('apelido', 45)->nullable();
+			$table->string('nome', 45)->nullable();
+			$table->string('sessao', 45)->nullable();
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}
@@ -29,7 +31,7 @@ class CreateFicheirosReprovadosTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop('ficheiros_reprovados');
+		Schema::drop('docentes');
 	}
 
 }

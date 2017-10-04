@@ -18,6 +18,7 @@ class CreateDocenteAreasTrabalhosTable extends Migration {
 			$table->integer('trabalhos_id')->index('fk_docente_areas_has_trabalhos_trabalhos1_idx');
 			$table->integer('id', true);
 			$table->integer('funcoes_id')->index('fk_docente_areas_has_trabalhos_funcoes1_idx');
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}

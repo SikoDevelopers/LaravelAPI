@@ -20,6 +20,7 @@ class CreateFicheirosTrabalhosTable extends Migration {
 			$table->integer('categorias_ficheiros_id')->index('fk_categorias_ficheiros_idx');
 			$table->integer('trabalhos_id')->index('fk_ficheiros_trabalhos_trabalhos1_idx');
 			$table->integer('ficheiros_reprovados_id')->nullable();
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}

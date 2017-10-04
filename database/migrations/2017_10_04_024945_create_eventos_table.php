@@ -24,6 +24,7 @@ class CreateEventosTable extends Migration {
 			$table->string('telefone', 45)->nullable();
 			$table->string('email', 45)->nullable();
 			$table->integer('categorias_eventos_id')->index('fk_eventos_categorias_eventos1_idx');
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}

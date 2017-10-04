@@ -21,6 +21,7 @@ class CreateEstudantesTable extends Migration {
 			$table->string('morada', 45)->nullable();
 			$table->string('sessao', 45)->nullable();
 			$table->integer('cursos_id')->index('fk_estudantes_cursos1_idx');
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}

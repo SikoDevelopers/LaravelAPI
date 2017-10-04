@@ -17,6 +17,7 @@ class CreateEventosEstadoEventosTable extends Migration {
 			$table->integer('estado_eventos_id')->index('fk_estado_eventos_has_eventos_estado_eventos1_idx');
 			$table->integer('eventos_id')->index('fk_estado_eventos_has_eventos_eventos1_idx');
 			$table->integer('id', true);
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}

@@ -19,6 +19,7 @@ class CreateFicheirosTrabalhosEstadosFicheirosTable extends Migration {
 			$table->string('data', 45)->nullable();
 			$table->boolean('is_actual')->nullable();
 			$table->integer('id', true);
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}

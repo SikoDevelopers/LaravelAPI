@@ -18,6 +18,7 @@ class CreateDirectoresCursosTable extends Migration {
 			$table->string('apelido', 45)->nullable();
 			$table->string('nome', 45)->nullable();
 			$table->integer('cursos_id')->index('fk_directores_curso_cursos1_idx');
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}

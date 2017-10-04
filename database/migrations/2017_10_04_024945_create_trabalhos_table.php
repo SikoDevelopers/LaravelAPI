@@ -20,6 +20,7 @@ class CreateTrabalhosTable extends Migration {
 			$table->integer('estudantes_id')->index('fk_trabalhos_estudantes1_idx');
 			$table->integer('eventos_id')->nullable()->index('fk_trabalhos_eventos1_idx');
 			$table->boolean('is_aprovado')->nullable();
+			$table->softDeletes();
 			$table->timestamps();
 		});
 	}

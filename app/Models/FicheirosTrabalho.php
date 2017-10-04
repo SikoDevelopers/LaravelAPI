@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class FicheirosTrabalho extends Model
 {
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
     protected $table = 'ficheiros_trabalhos';
     protected $fillable = ['caminho', 'data', 'categorias_ficheiros_id', 'trabalhos_id', 'ficheiros_aprovados_id'];
 
