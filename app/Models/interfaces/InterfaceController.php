@@ -69,6 +69,11 @@ interface InterfaceController{
     public function pesquisarMuitos(...$atributos);
 
 
+    /**
+     * busca o ultimo objecto a se adicionado
+     * @return $object - ultimo objecto adicionado
+     */
+    public function buscarUltimo();
 
 
 }

@@ -95,4 +95,21 @@ class EstudanteController extends Controller implements InterfaceController
     {
 
     }
+
+
+    /**
+     * busca o ultimo objecto a se adicionado
+     * @return $object - ultimo objecto adicionado
+     */
+    public function buscarUltimo()
+    {
+        if(Estudante::count() > 0 ) {
+            $estudante = Estudante::orderBy('created_at', 'desc')->first();
+            return response()->json(['estudante' => $estudante],200);
+        }
+
+        return response()->json(['mensagem' => 'Nao foi encontrado nenhum estudante'], 404);
+
+
+    }
 }

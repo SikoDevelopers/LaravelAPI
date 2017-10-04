@@ -22,6 +22,7 @@ Route::prefix('estudante')->group(function(){
     Route::put('editar/{id}', 'EstudanteController@editar');
     Route::get('pesquisar/{id}', 'EstudanteController@pesquisar');
     Route::delete('remover/{id}', 'EstudanteController@remover');
+    Route::get('buscarUltimo', 'EstudanteController@buscarUltimo');
 });
 
 
