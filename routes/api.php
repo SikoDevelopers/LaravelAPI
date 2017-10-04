@@ -18,6 +18,8 @@ use Illuminate\Http\Request;
  */
 
     Route::get('estudantes', 'EstudanteController@listar');
+    Route::get('estudantes/{id}/trabalhos', 'EstudanteController@trabalhos');
+    Route::get('estudantes/{id}/cursos', 'EstudanteController@cursos');
     Route::post('estudantes', 'EstudanteController@salvar');
     Route::put('estudantes/{id}', 'EstudanteController@editar');
     Route::get('estudantes/{id}', 'EstudanteController@pesquisar');

@@ -14,7 +14,7 @@ class EstudanteController extends Controller implements InterfaceController{
      * @return lista de todos objectos
      */
     public function listar($ultimo = false) {
-        return response()->json(['estudantes' => Estudante::all()], 200);
+        return Auxiliar::retornarDados('estudantes', Estudante::all(), 200);
     }
 
     /**
@@ -24,7 +24,10 @@ class EstudanteController extends Controller implements InterfaceController{
      */
     public function salvar(Request $objecto) {
         $estudante = Estudante::create($objecto->all());
-        return response()->json(['estudante' => $estudante], 200);
+        if($estudante)
+            return Auxiliar::retornarDados('estudante', $estudante, 200);
+        else
+            return Auxiliar::retornarErros('Nao foi possivel salvar o estudante', 404);
     }
 
     /**
@@ -35,10 +38,11 @@ class EstudanteController extends Controller implements InterfaceController{
     public function editar(Request $objecto, $id) {
         $estudante = Estudante::find($id);
         if (!$estudante)
-            return response()->json(['mensagem' => 'Estudante nao encontrado'], 404);
-        else {
+        return Auxiliar::retornarErros('Estudante nao encontrado', 404);
+
+    else {
             $estudante->update($objecto->all());
-            return response()->json(['estudante' => $estudante], 200);
+            return Auxiliar::retornarDados('estudante', $estudante, 200);
         }
     }
 
@@ -49,9 +53,10 @@ class EstudanteController extends Controller implements InterfaceController{
     public function pesquisar($id) {
         $estudante = Estudante::find($id);
         if (!$estudante)
-            return response()->json(['mensagem' => 'Estudante nao encontrado', 'status' => 404]);
+            return Auxiliar::retornarErros('Estudante nao encontrado', 404);
         else
-            return response()->json(['estudante' => $estudante], 200);
+            return Auxiliar::retornarDados('estudante', $estudante, 200);
+
     }
 
     /**
@@ -62,10 +67,11 @@ class EstudanteController extends Controller implements InterfaceController{
     public function remover(Request $objecto, $id) {
         $estudante = Estudante::find($id);
         if (!$estudante)
-            return response()->json(['mensagem' => $estudante], 404);
+            return Auxiliar::retornarErros('Estudante nao encontrado', 404);
         else {
             $estudante->delete();
-            return response()->json(['estudante' => $estudante], 200);
+            return Auxiliar::retornarDados('estudante', $estudante, 200);
+
         }
     }
 
@@ -112,11 +118,28 @@ class EstudanteController extends Controller implements InterfaceController{
      */
     public function trabalhos($idEstudante){
         $estudante = Estudante::find($idEstudante);
-        if($estudante)
-            return "";
-        return $this->retornarErro('Estudante nao encontrado', 404);
+
+        if($estudante) {
+            $trabalho = $estudante->trabalho();
+            return Auxiliar::retornarDados('trabalho', $estudante->trabalho, 200);
+        }
+        return Auxiliar::retornarErros('Estudante nao encontrado', 404);
     }
 
+    /**
+     * retorna todos os trabalhos de um estudante
+     * @param $idEstudante
+     * @return $trabahos
+     */
+    public function cursos($idEstudante){
+        $estudante = Estudante::find($idEstudante);
+
+        if($estudante) {
+            $curso = $estudante->curso;
+            return Auxiliar::retornarDados('curso', $curso, 200);
+        }
+        return Auxiliar::retornarErros('Estudante nao encontrado', 404);
+    }
 
 
 
