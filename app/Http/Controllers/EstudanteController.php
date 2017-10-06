@@ -11,10 +11,16 @@ class EstudanteController extends Controller implements InterfaceController{
 
     /**
      * funcao que busca lista de objectos
+     * @param $completo - especifica se deve ser retornado o objecto com todos
+     * os seus objectos relacionados.
      * @return lista de todos objectos
      */
-    public function listar($ultimo = false) {
-        return Auxiliar::retornarDados('estudantes', Estudante::all(), 200);
+    public function listar(Request $completo) {
+        if ($completo->input('completo') == 'true'){
+            return Auxiliar::retornarDados('estudantes', Estudante::with(['trabalho', 'curso'])->get(), 200);
+        }
+        else
+            return Auxiliar::retornarDados('estudantes', Estudante::all(), 200);
     }
 
     /**
@@ -48,9 +54,11 @@ class EstudanteController extends Controller implements InterfaceController{
 
     /**
      * @param $id - do objecto pesquisado
+     * @param $completo - especifica se deve ser retornado o objecto com todos
+     * os seus objectos relacionados.
      * @return $objecto encontrado
      */
-    public function pesquisar($id) {
+    public function pesquisar($id, Request $completo) {
         $estudante = Estudante::find($id);
         if (!$estudante)
             return Auxiliar::retornarErros('Estudante nao encontrado', 404);
@@ -120,7 +128,6 @@ class EstudanteController extends Controller implements InterfaceController{
         $estudante = Estudante::find($idEstudante);
 
         if($estudante) {
-            $trabalho = $estudante->trabalho();
             return Auxiliar::retornarDados('trabalho', $estudante->trabalho, 200);
         }
         return Auxiliar::retornarErros('Estudante nao encontrado', 404);
@@ -135,11 +142,18 @@ class EstudanteController extends Controller implements InterfaceController{
         $estudante = Estudante::find($idEstudante);
 
         if($estudante) {
-            $curso = $estudante->curso;
-            return Auxiliar::retornarDados('curso', $curso, 200);
+            return Auxiliar::retornarDados('curso', $estudante->curso, 200);
         }
         return Auxiliar::retornarErros('Estudante nao encontrado', 404);
     }
+
+
+
+
+
+
+
+
 
 
 

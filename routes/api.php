@@ -24,3 +24,4 @@ use Illuminate\Http\Request;
     Route::put('estudantes/{id}', 'EstudanteController@editar');
     Route::get('estudantes/{id}', 'EstudanteController@pesquisar');
     Route::delete('estudantes/{id}', 'EstudanteController@remover');
+

@@ -17,9 +17,11 @@ interface InterfaceController{
     /**
      * funcao que busca lista de objectos
      * @param $utilimo - (True or false) Ultimo ou nao
+     * @param $completo - especifica se deve ser retornado o objecto com todos
+     * os seus objectos relacionados.
      * @return lista de todos objectos
      */
-    public function listar($utilimo = false);
+    public function listar(Request $completo);
 
 
     /**
@@ -42,7 +44,7 @@ interface InterfaceController{
      * @param $id - do objecto pesquisado
      * @return $objecto encontrado
      */
-    public function pesquisar($id);
+    public function pesquisar($id, Request $completo);
 
 
     /**

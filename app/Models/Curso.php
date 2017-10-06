@@ -12,7 +12,7 @@ class Curso extends Model
     protected $table = 'cursos';
     protected $fillable = ['designacao'];
 
-
+//    public $with = ['estudantes', 'directorCurso'];
 
     public function estudantes(){
         return $this->hasMany('App\Models\Estudante', 'cursos_id');

@@ -6,7 +6,7 @@
 2. Entre no directorio root (SikoSSP) - `cd SikoSSP`
 4. Entre no directorio da aplicacao laravel - `LaravelAPI`
 
-### Para Laravel:
+### Configuracao do Projecto:
 1. Crie uma base de dados com nome `sup3`;
 2. Entre no directorio da aplicacao Laravel - `cd LaravelAPI/`
 3. Instale as dependencias da aplicacao Laravel `composer install`
@@ -21,10 +21,27 @@ Para testar se os dados foram gerados de facto execute o seguinte:
 
 
 
+## Documentacao da API
+O dominio padrao para acesso aos dados da api eh a a segunte: `http://127.0.0.1:8000/api/`
+
+Esta api disponibilida recursos baseando-se num padrao que consiste no seguinte:
+
+Para buscar dados de um objecto, especificamos o nome do objecto no **plural**.
+    Ex:
+
+    pessoa - pessoas
+    trabalho - trabalhos
+    docente - docentes
+    etc...
 
 
 
-                                                     # TEAM SIKO
+Ex: Para buscar dados do objecto Estudante
+
+    http://127.0.0.1:8000/api/estudantes
 
 
 
+
+
+    sdd

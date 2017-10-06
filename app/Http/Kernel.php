@@ -43,6 +43,8 @@ class Kernel extends HttpKernel
         ],
     ];
 
+
+
     /**
      * The application's route middleware.
      *
