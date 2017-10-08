@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class TemaController extends Controller
+class TemaController extends ModelController
 {
     //
 }

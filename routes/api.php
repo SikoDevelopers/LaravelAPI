@@ -25,3 +25,14 @@ use Illuminate\Http\Request;
     Route::get('estudantes/{id}', 'EstudanteController@pesquisar');
     Route::delete('estudantes/{id}', 'EstudanteController@remover');
 
+
+/**
+ * Rotas para docentes
+ */
+    Route::get('docentes', 'DocenteController@listar');
+    Route::get('docentes/{id}/trabalhos', 'DocenteController@trabalhos');
+    Route::get('docentes/{id}/cursos', 'DocenteController@cursos');
+    Route::post('docentes', 'DocenteController@salvar');
+    Route::put('docentes/{id}', 'DocenteController@editar');
+    Route::get('docentes/{id}', 'DocenteController@pesquisar');
+    Route::delete('docentes/{id}', 'DocenteController@remover');

@@ -2,9 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Docente;
 
-class DocenteController extends Controller
+
+class DocenteController extends ModelController
 {
-    //
+
+
+    public function __construct() {
+        $this->objecto = new Docente();
+        $this->nomeObjecto = 'docente';
+        $this->nomeObjectos = 'docentes';
+        $this->relacionados = ['areas', 'temas'];
+    }
+
+
 }

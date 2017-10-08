@@ -3,84 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Estudante;
-use App\Http\Controllers\interfaces\InterfaceController;
+
 use Illuminate\Http\Request;
-use App\Http\Controllers\classesAuxiliares\Auxiliar;
 
-class EstudanteController extends Controller implements InterfaceController{
 
-    /**
-     * funcao que busca lista de objectos
-     * @param $completo - especifica se deve ser retornado o objecto com todos
-     * os seus objectos relacionados.
-     * @return lista de todos objectos
-     */
-    public function listar(Request $completo) {
-        if ($completo->input('completo') == 'true'){
-            return Auxiliar::retornarDados('estudantes', Estudante::with(['trabalho', 'curso'])->get(), 200);
-        }
-        else
-            return Auxiliar::retornarDados('estudantes', Estudante::all(), 200);
-    }
+class EstudanteController extends ModelController {
 
-    /**
-     * Salvar um determinado Objecto
-     * @param Request $objecto - objecto a ser salvo
-     * @return $objecto - objecto se for salvo
-     */
-    public function salvar(Request $objecto) {
-        $estudante = Estudante::create($objecto->all());
-        if($estudante)
-            return Auxiliar::retornarDados('estudante', $estudante, 200);
-        else
-            return Auxiliar::retornarErros('Nao foi possivel salvar o estudante', 404);
-    }
 
-    /**
-     * @param Request $objecto - O objecto a ser actualizado
-     * @param $id - a chave primaria do objecto
-     * @return $objecto se for actualizado
-     */
-    public function editar(Request $objecto, $id) {
-        $estudante = Estudante::find($id);
-        if (!$estudante)
-        return Auxiliar::retornarErros('Estudante nao encontrado', 404);
 
-    else {
-            $estudante->update($objecto->all());
-            return Auxiliar::retornarDados('estudante', $estudante, 200);
-        }
-    }
-
-    /**
-     * @param $id - do objecto pesquisado
-     * @param $completo - especifica se deve ser retornado o objecto com todos
-     * os seus objectos relacionados.
-     * @return $objecto encontrado
-     */
-    public function pesquisar($id, Request $completo) {
-        $estudante = Estudante::find($id);
-        if (!$estudante)
-            return Auxiliar::retornarErros('Estudante nao encontrado', 404);
-        else
-            return Auxiliar::retornarDados('estudante', $estudante, 200);
+    public function __construct() {
+        $this->objecto = new Estudante();
+        $this->nomeObjecto = 'estudante';
+        $this->nomeObjectos = 'estudantes';
+        $this->relacionados = ['trabalho', 'curso'];
 
     }
 
-    /**
-     * @param Request $objecto - O objecto a ser removido
-     * @param $id - a chave primaria do objecto
-     * @return $objecto se for removido
-     */
-    public function remover(Request $objecto, $id) {
-        $estudante = Estudante::find($id);
-        if (!$estudante)
-            return Auxiliar::retornarErros('Estudante nao encontrado', 404);
-        else {
-            $estudante->delete();
-            return Auxiliar::retornarDados('estudante', $estudante, 200);
-
-        }
+    public function listar1(Request $completo) {
+        return "Listar";
     }
 
 
