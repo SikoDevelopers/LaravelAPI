@@ -10,7 +10,7 @@ class Trabalho extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $table = 'trabalhos';
-    protected $fillable = ['titulo', 'descricao', 'estudantes_id', 'eventos_id', 'is_aprovado'];
+    protected $fillable = ['titulo', 'descricao', 'estudantes_id', 'eventos_id', 'is_aprovado', 'areas_supervisor_externos_id'];
 
 
     public function estudante(){
@@ -35,5 +35,8 @@ class Trabalho extends Model
     }
 
 
+    public function areaSupervisorExterno(){
+        return $this->belongsTo('App\Models\AreasSupervisorExterno', 'areas_supervisor_externos_id');
+    }
 
 }

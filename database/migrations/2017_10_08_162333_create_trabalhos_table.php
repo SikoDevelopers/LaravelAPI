@@ -22,6 +22,7 @@ class CreateTrabalhosTable extends Migration {
 			$table->boolean('is_aprovado')->nullable();
 			$table->softDeletes();
 			$table->timestamps();
+			$table->integer('areas_supervisor_externos_id')->nullable()->index('fk_trabalhos_areas_supervisor_externos1_idx');
 		});
 	}
 

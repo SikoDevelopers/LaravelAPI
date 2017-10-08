@@ -19,6 +19,12 @@ class Area extends Model
         return $this->belongsToMany('App\Models\Docente', 'docente_areas','areas_id','docentes_id');
     }
 
+
+    public function supervisorExternos()
+    {
+        return $this->belongsToMany('App\Models\AreasSupervisorExterno', 'areas_supervisor_externos','areas_id','supervisor_externos_id');
+    }
+
     public function temas(){
         return $this->hasMany('App\Models\Tema', 'areas_id');
     }

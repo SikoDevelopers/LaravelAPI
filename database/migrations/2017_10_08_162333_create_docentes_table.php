@@ -20,6 +20,7 @@ class CreateDocentesTable extends Migration {
 			$table->string('sessao', 45)->nullable();
 			$table->softDeletes();
 			$table->timestamps();
+			$table->integer('users_id')->index('fk_docentes_users1_idx');
 		});
 	}
 

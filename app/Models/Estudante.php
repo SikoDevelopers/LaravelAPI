@@ -10,7 +10,7 @@ class Estudante extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $table = 'estudantes';
-    protected $fillable = ['nome', 'apelido', 'data_nascimento', 'morada', 'sessao', 'cursos_id'];
+    protected $fillable = ['nome', 'apelido', 'data_nascimento', 'morada', 'sessao', 'cursos_id', 'users_id'];
 
 //    public $with = ['curso', 'trabalho'];
 
@@ -23,5 +23,9 @@ class Estudante extends Model
         return $this->hasOne('App\Models\Trabalho', 'estudantes_id');
     }
 
+
+    public function user(){
+        return $this->belongsTo('App\User', 'users_id');
+    }
 
 }

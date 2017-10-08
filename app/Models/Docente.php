@@ -10,7 +10,7 @@ class Docente extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $table = 'docentes';
-    protected $fillable = ['nome', 'apelido', 'sessao'];
+    protected $fillable = ['nome', 'apelido', 'sessao', 'users_id'];
 
 
     public function areas()
@@ -21,6 +21,10 @@ class Docente extends Model
 
     public function temas(){
         return $this->hasMany('App\Models\Tema', 'docentes_id');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\User', 'users_id');
     }
 
 

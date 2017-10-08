@@ -23,6 +23,7 @@ class CreateEstudantesTable extends Migration {
 			$table->integer('cursos_id')->index('fk_estudantes_cursos1_idx');
 			$table->softDeletes();
 			$table->timestamps();
+			$table->integer('users_id')->index('fk_estudantes_users1_idx');
 		});
 	}
 

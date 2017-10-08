@@ -14,6 +14,7 @@ class AddForeignKeysToTrabalhosTable extends Migration {
 	{
 		Schema::table('trabalhos', function(Blueprint $table)
 		{
+			$table->foreign('areas_supervisor_externos_id', 'fk_trabalhos_areas_supervisor_externos1')->references('id')->on('areas_supervisor_externos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 			$table->foreign('estudantes_id', 'fk_trabalhos_estudantes1')->references('id')->on('estudantes')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 			$table->foreign('eventos_id', 'fk_trabalhos_eventos1')->references('id')->on('eventos')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
@@ -29,6 +30,7 @@ class AddForeignKeysToTrabalhosTable extends Migration {
 	{
 		Schema::table('trabalhos', function(Blueprint $table)
 		{
+			$table->dropForeign('fk_trabalhos_areas_supervisor_externos1');
 			$table->dropForeign('fk_trabalhos_estudantes1');
 			$table->dropForeign('fk_trabalhos_eventos1');
 		});

@@ -20,6 +20,7 @@ class CreateDirectoresCursosTable extends Migration {
 			$table->integer('cursos_id')->index('fk_directores_curso_cursos1_idx');
 			$table->softDeletes();
 			$table->timestamps();
+			$table->integer('users_id')->index('fk_directores_cursos_users1_idx');
 		});
 	}
 
