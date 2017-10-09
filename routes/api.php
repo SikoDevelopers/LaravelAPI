@@ -59,6 +59,30 @@ use Illuminate\Http\Request;
     Route::delete('docentes/{id}', 'DocenteController@remover');
 
 
+/**
+* Rotas para areas
+*/
+
+    Route::get('areas', 'AreaController@listar');
+//    Route::get('areas/{id}/docentes', 'AreaController@trabalhos');
+//    Route::get('areas/{id}/cursos', 'AreaController@cursos');
+    Route::post('areas', 'AreaController@salvar');
+    Route::put('areas/{id}', 'AreaController@editar');
+    Route::get('areas/{id}', 'AreaController@pesquisar');
+    Route::delete('areas/{id}', 'AreaController@remover');
+
+
+/**
+* Rotas para Area Supervisor Externo
+*/
+
+    Route::get('area_supervisor_externos', 'AreaSupervisorExternoController@listar');
+//    Route::get('area_supervisor_externos/{id}/docentes', 'AreaSupervisorExternoController@trabalhos');
+//    Route::get('area_supervisor_externos/{id}/cursos', 'AreaSupervisorExternoController@cursos');
+    Route::post('area_supervisor_externos', 'AreaSupervisorExternoController@salvar');
+    Route::put('area_supervisor_externos/{id}', 'AreaSupervisorExternoController@editar');
+    Route::get('area_supervisor_externos/{id}', 'AreaSupervisorExternoController@pesquisar');
+    Route::delete('area_supervisor_externos/{id}', 'AreaSupervisorExternoController@remover');
 
 
 

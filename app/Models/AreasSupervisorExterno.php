@@ -9,7 +9,6 @@ class AreasSupervisorExterno extends Model
 {
     use SoftDeletes;
     protected $dates = ['deleted_at'];
-
     protected $table = 'areas_supervisor_externos';
     protected $fillable = ['areas_id', 'supervisor_externos_id'];
 

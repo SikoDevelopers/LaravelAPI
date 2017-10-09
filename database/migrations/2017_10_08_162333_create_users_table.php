@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->string('email', 45)->nullable();
-			$table->string('password', 45)->nullable();
+			$table->string('password', 200)->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 			$table->integer('tipo_users_id')->index('fk_users_tipo_users1_idx');
