@@ -6,6 +6,9 @@ use App\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use JWTAuth;
+use Tymon\JWTAuth\Exceptions\TokenExpiredException;
+use Tymon\JWTAuth\Exceptions\TokenInvalidException;
+
 class UserController extends Controller
 {
 
@@ -25,8 +28,10 @@ class UserController extends Controller
         }catch (JWTException $ex){
             response()->json(['mensagem' => 'Erro ao gerar token'], 500);
         }
-//        $user = $this->getUser();
-        return response()->json(['token' => $token], 200);
+
+        $user = $this->getUser(new Request(['token' => $token]));
+
+        return response()->json(['token' => $token, 'user' => $user], 200);
 
 
     }
@@ -35,10 +40,10 @@ class UserController extends Controller
 
     public function getUser(Request $request){
         $user = JWTAuth::toUser($request->token);
-        $user->tipoUser;
-        $user->docente;
 
-        return response()->json(['user' => $user], 200);
+//        $user = JWTAuth::parseToken()->authenticate();
+
+        return $user;
     }
 
 

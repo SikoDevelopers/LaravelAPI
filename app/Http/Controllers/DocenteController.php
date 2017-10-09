@@ -37,7 +37,6 @@ class DocenteController extends ModelController
         ]);
 
         $user = new User($objectos->all());
-        $user->password = bcrypt($user->password);
         $docente = new Docente($objectos->all());
 
 

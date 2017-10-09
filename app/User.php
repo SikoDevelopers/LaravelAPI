@@ -14,6 +14,7 @@ class User extends Authenticateble
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
+    protected $with = ['docente', 'estudante', 'funcionario', 'supervisorExterno', 'directorCurso'];
 
     protected $table = 'users';
     protected $fillable = ['email', 'password', 'tipo_users_id'];
@@ -47,6 +48,9 @@ class User extends Authenticateble
     }
 
 
+    public function setPasswordAttribute($password) {
+        $this->attributes['password'] = bcrypt($password);
+    }
 
 
 }

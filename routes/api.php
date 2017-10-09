@@ -13,17 +13,35 @@ use Illuminate\Http\Request;
 |
 */
 
+
+/**
+ * Rotas para criacao de contas
+ */
+    Route::post('docentes/signup', ['uses' => 'DocenteController@salvarTransacao']);
+
+
+/**
+ * Rota para Login
+ */
+    Route::post('users/login', 'UserController@login');
+
+
+/**
+ * Rotas para Users
+ */
+    Route::get('user', 'UserController@getUser');
+
+
+
 /**
  * Rotas para estudantes
  */
-
-    Route::post('docentes/signup', ['uses' => 'DocenteController@salvarTransacao']);
 
 
     Route::get('estudantes', 'EstudanteController@listar')->middleware('autenticado');;
     Route::get('estudantes/{id}/trabalhos', 'EstudanteController@trabalhos');
     Route::get('estudantes/{id}/cursos', 'EstudanteController@cursos');
-    Route::post('estudantes', 'EstudanteController@salvar');
+    Route::post('estudantes', 'EstudanteController@salvarTransacao');
     Route::put('estudantes/{id}', 'EstudanteController@editar');
     Route::get('estudantes/{id}', 'EstudanteController@pesquisar');
     Route::delete('estudantes/{id}', 'EstudanteController@remover');
@@ -35,11 +53,17 @@ use Illuminate\Http\Request;
     Route::get('docentes', 'DocenteController@listar');
     Route::get('docentes/{id}/trabalhos', 'DocenteController@trabalhos');
     Route::get('docentes/{id}/cursos', 'DocenteController@cursos');
-    Route::post('docentes', 'DocenteController@salvar');
+    Route::post('docentes', 'DocenteController@salvarTransacao');
     Route::put('docentes/{id}', 'DocenteController@editar');
     Route::get('docentes/{id}', 'DocenteController@pesquisar');
     Route::delete('docentes/{id}', 'DocenteController@remover');
 
-    Route::post('users/login', 'UserController@login');
-    Route::get('user', 'UserController@getUser');
+
+
+
+
+
+
+
+
 
