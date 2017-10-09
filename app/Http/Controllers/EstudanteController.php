@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\classesAuxiliares\Auxiliar;
 use App\Models\Estudante;
 
 use Illuminate\Http\Request;
@@ -30,7 +31,7 @@ class EstudanteController extends ModelController {
      * @param Request[] ...$objectos - conjunto de objectos a serem salvos
      * @return $object - conjunto de objectos salvos
      */
-    public function salvarTransacao(Request ...$objectos) {
+    public function salvarTransacao(Request $objectos) {
 
     }
 

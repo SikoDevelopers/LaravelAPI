@@ -10,9 +10,10 @@
 1. Crie uma base de dados com nome `sup3`;
 2. Entre no directorio da aplicacao Laravel - `cd LaravelAPI/`
 3. Instale as dependencias da aplicacao Laravel `composer install`
-4. Gere as tabelas na base de dados atraves das mingrations - `php artisan migrate`;
-5. Preencha todas a tabelas com dados de testes dos seeders -  `php artisan db:seed`;
-6. Sirva a aplicacao - "php aritsan serve"
+4. Instale as dependencias da aplicacao Laravel `composer update`
+5. Gere as tabelas na base de dados atraves das mingrations - `php artisan migrate`;
+6. Preencha todas a tabelas com dados de testes dos seeders -  `php artisan db:seed`;
+7. Sirva a aplicacao - "php aritsan serve"
 
 Para testar se os dados foram gerados de facto execute o seguinte:
 * `php artisan tinker`

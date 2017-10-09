@@ -32,6 +32,7 @@ class  ModelController extends Controller implements InterfaceController
 
 
     public function salvar(Request $objecto) {
+
         $var_objecto = $this->objecto->create($objecto->all());
         if($var_objecto)
             return Auxiliar::retornarDados($this->nomeObjecto, $var_objecto, 200);
@@ -69,7 +70,7 @@ class  ModelController extends Controller implements InterfaceController
     }
 
 
-    public function salvarTransacao(Request ...$objectos) {
+    public function salvarTransacao(Request $objectos) {
 
     }
 

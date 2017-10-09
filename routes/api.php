@@ -17,7 +17,10 @@ use Illuminate\Http\Request;
  * Rotas para estudantes
  */
 
-    Route::get('estudantes', 'EstudanteController@listar');
+    Route::post('docentes/signup', ['uses' => 'DocenteController@salvarTransacao']);
+
+
+    Route::get('estudantes', 'EstudanteController@listar')->middleware('autenticado');;
     Route::get('estudantes/{id}/trabalhos', 'EstudanteController@trabalhos');
     Route::get('estudantes/{id}/cursos', 'EstudanteController@cursos');
     Route::post('estudantes', 'EstudanteController@salvar');
@@ -36,3 +39,7 @@ use Illuminate\Http\Request;
     Route::put('docentes/{id}', 'DocenteController@editar');
     Route::get('docentes/{id}', 'DocenteController@pesquisar');
     Route::delete('docentes/{id}', 'DocenteController@remover');
+
+    Route::post('users/login', 'UserController@login');
+    Route::get('user', 'UserController@getUser');
+
