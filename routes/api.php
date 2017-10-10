@@ -245,6 +245,61 @@ use Illuminate\Http\Request;
     Route::get('funcionarios/{id}', 'FuncionarioController@pesquisar');
     Route::delete('funcionarios/{id}', 'FuncionarioController@remover');
 
+/**
+* Rotas para Funcao
+*/
+    Route::get('funcoes', 'FuncaoController@listar');
+//  Route::get('funcoes/{id}/docentes', 'FuncaoController@trabalhos');
+//  Route::get('funcoes/{id}/curso', 'FuncaoController@cursos');
+    Route::post('funcoes', 'FuncaoController@salvar');
+    Route::put('funcoes/{id}', 'FuncaoController@editar');
+    Route::get('funcoes/{id}', 'FuncaoController@pesquisar');
+    Route::delete('funcoes/{id}', 'FuncaoController@remover');
+
+/**
+* Rotas para SupervisorExterno
+*/
+    Route::get('supervisor_externos', 'SupervisorExternoController@listar');
+//  Route::get('supervisor_externos/{id}/docentes', 'SupervisorExternoController@trabalhos');
+//  Route::get('supervisor_externos/{id}/curso', 'SupervisorExternoController@cursos');
+    Route::post('supervisor_externos', 'SupervisorExternoController@salvar');
+    Route::put('supervisor_externos/{id}', 'SupervisorExternoController@editar');
+    Route::get('supervisor_externos/{id}', 'SupervisorExternoController@pesquisar');
+    Route::delete('supervisor_externos/{id}', 'SupervisorExternoController@remover');
+
+/**
+* Rotas para Tema
+*/
+    Route::get('temas', 'TemaController@listar');
+//  Route::get('temas/{id}/docentes', 'TemaController@trabalhos');
+//  Route::get('temas/{id}/curso', 'TemaController@cursos');
+    Route::post('temas', 'TemaController@salvar');
+    Route::put('temas/{id}', 'TemaController@editar');
+    Route::get('temas/{id}', 'TemaController@pesquisar');
+    Route::delete('temas/{id}', 'TemaController@remover');
+
+/**
+* Rotas para TipoUser
+*/
+    Route::get('tipo_users', 'TipoUserController@listar');
+//  Route::get('tipo_users/{id}/docentes', 'TipoUserController@trabalhos');
+//  Route::get('tipo_users/{id}/curso', 'TipoUserController@cursos');
+    Route::post('tipo_users', 'TipoUserController@salvar');
+    Route::put('tipo_users/{id}', 'TipoUserController@editar');
+    Route::get('tipo_users/{id}', 'TipoUserController@pesquisar');
+    Route::delete('tipo_users/{id}', 'TipoUserController@remover');
+
+/**
+* Rotas para Trabalho
+*/
+    Route::get('trabalhos', 'TrabalhoController@listar');
+//  Route::get('trabalhos/{id}/docentes', 'TrabalhoController@trabalhos');
+//  Route::get('trabalhos/{id}/curso', 'TrabalhoController@cursos');
+    Route::post('trabalhos', 'TrabalhoController@salvar');
+    Route::put('trabalhos/{id}', 'TrabalhoController@editar');
+    Route::get('trabalhos/{id}', 'TrabalhoController@pesquisar');
+    Route::delete('trabalhos/{id}', 'TrabalhoController@remover');
+
 
 
 
