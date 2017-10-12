@@ -10,8 +10,8 @@ class DirectorCursoController extends ModelController
 
     public function __construct() {
         $this->objecto = new  DirectorCurso();
-        $this->nomeObjecto = ' DirectorCurso';
-        $this->nomeObjectos = ' DirectorCursos';
+        $this->nomeObjecto = ' directorCurso';
+        $this->nomeObjectos = ' directorCursos';
         $this->relacionados = ['curso', 'user'];
     }
 }

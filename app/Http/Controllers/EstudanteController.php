@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\classesAuxiliares\Auxiliar;
 use App\Models\Estudante;
 
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 
 class EstudanteController extends ModelController {
@@ -20,29 +22,48 @@ class EstudanteController extends ModelController {
 
     }
 
-    public function listar1(Request $completo) {
-        return "Listar";
-    }
-
 
     /**
-     * funcao que salva um conjunto de objectos numa transacao
-     * em um eh dependente do outro
-     * @param Request[] ...$objectos - conjunto de objectos a serem salvos
-     * @return $object - conjunto de objectos salvos
+     * Criando conta para estudante
+     * @param Request $objectos
+     * @return \Illuminate\Http\JsonResponse
      */
     public function salvarTransacao(Request $objectos) {
 
+        $this->validate($objectos, [
+            'nome' => 'required|max:50',
+            'apelido' => 'required',
+            'sessao' => 'nullable',
+            'email' => 'required|email|unique:users',
+            'password' => 'required',
+            'tipo_users_id' => 'required',
+            'cursos_id' => 'required'
+        ]);
+
+
+        $user = new User($objectos->all());
+        $estudante = new Estudante($objectos->all());
+
+
+        DB::beginTransaction();
+
+        if(!$user->save())
+            DB::rollBack();
+        else{
+            $estudante->users_id = $user->id;
+            if(!$estudante->save())
+                DB::rollBack();
+            DB::commit();
+        }
+
+        return response()->json(['user' => $user, 'estudante' => $estudante], 200);
     }
 
-    /**
-     * funcao que pesquisa baseado em varios atributos
-     * @param array ...$atributos - conjunto de atributos que serao usados para a pesquisa
-     * @return $objecto retornado
-     */
-    public function pesquisarMuitos(...$atributos) {
 
-    }
+
+
+
+
 
 
     /**

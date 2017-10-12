@@ -10,8 +10,8 @@ class EstadoFicheiroController extends ModelController
 
     public function __construct() {
         $this->objecto = new EstadoFicheiro();
-        $this->nomeObjecto = 'EstadoFicheiro';
-        $this->nomeObjectos = 'EstadoFicheiros';
+        $this->nomeObjecto = 'estadoFicheiro';
+        $this->nomeObjectos = 'estadoFicheiros';
         $this->relacionados = ['ficheirosTrabalhos'];
     }
 }
