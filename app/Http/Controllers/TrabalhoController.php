@@ -10,8 +10,8 @@ class TrabalhoController extends ModelController
 
     public function __construct() {
         $this->objecto = new   Trabalho();
-        $this->nomeObjecto = ' Trabalho';
-        $this->nomeObjectos = ' Trabalhos';
+        $this->nomeObjecto = 'trabalho';
+        $this->nomeObjectos = 'trabalhos';
         $this->relacionados = ['estudante','ficheirosTrabalhos','evento','docenteAreas','evento','docenteAreas','areaSupervisorExterno'];
     }
 }

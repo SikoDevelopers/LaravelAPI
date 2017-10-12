@@ -10,8 +10,8 @@ class SupervisorExternoController extends ModelController
 
     public function __construct() {
         $this->objecto = new   SupervisorExterno();
-        $this->nomeObjecto = ' SupervisorExterno';
-        $this->nomeObjectos = ' SupervisorExternos';
+        $this->nomeObjecto = 'supervisorExterno';
+        $this->nomeObjectos = 'supervisorExternos';
         $this->relacionados = ['areas','user'];
     }
 }

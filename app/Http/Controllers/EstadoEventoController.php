@@ -10,8 +10,8 @@ class EstadoEventoController extends ModelController
 
     public function __construct() {
         $this->objecto = new EstadoEvento();
-        $this->nomeObjecto = 'EstadoEvento';
-        $this->nomeObjectos = 'EstadoEventos';
+        $this->nomeObjecto = 'estadoEvento';
+        $this->nomeObjectos = 'estadoEventos';
         $this->relacionados = ['eventos'];
     }
 

@@ -10,8 +10,8 @@ class TemaController extends ModelController
 
     public function __construct() {
         $this->objecto = new   Tema();
-        $this->nomeObjecto = ' Tema';
-        $this->nomeObjectos = ' Tema';
+        $this->nomeObjecto = 'tema';
+        $this->nomeObjectos = 'tema';
         $this->relacionados = ['docente','area'];
     }
 }

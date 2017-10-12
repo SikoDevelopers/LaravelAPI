@@ -10,8 +10,8 @@ class CategoriaFicheiroController extends ModelController
 
     public function __construct() {
         $this->objecto = new CategoriaFicheiro();
-        $this->nomeObjecto = 'CategoriaFicheiro';
-        $this->nomeObjectos = 'CategoriaFicheiros';
+        $this->nomeObjecto = 'categoriaFicheiro';
+        $this->nomeObjectos = 'categoriaFicheiros';
         $this->relacionados = ['ficheirosTrabalhos'];
     }
 }

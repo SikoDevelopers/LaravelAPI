@@ -9,8 +9,8 @@ class FicheiroReprovadoController extends ModelController
 {
     public function __construct() {
         $this->objecto = new  FicheiroReprovado();
-        $this->nomeObjecto = ' FicheiroReprovado';
-        $this->nomeObjectos = ' FicheiroReprovados';
+        $this->nomeObjecto = 'ficheiroReprovado';
+        $this->nomeObjectos = 'ficheiroReprovados';
         $this->relacionados = ['ficheirosTrabalho'];
     }
 }

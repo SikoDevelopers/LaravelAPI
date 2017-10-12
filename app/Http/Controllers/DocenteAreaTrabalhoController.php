@@ -10,8 +10,8 @@ class DocenteAreaTrabalhoController extends ModelController
 
     public function __construct() {
         $this->objecto = new  DocentesAreasTrabalho();
-        $this->nomeObjecto = ' DocentesAreasTrabalho';
-        $this->nomeObjectos = ' DocentesAreasTrabalhos';
+        $this->nomeObjecto = 'docentesAreasTrabalho';
+        $this->nomeObjectos = 'docentesAreasTrabalhos';
         $this->relacionados = ['funcao'];
     }
 }

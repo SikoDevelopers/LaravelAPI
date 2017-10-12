@@ -10,8 +10,8 @@ class CategoriaEventoController extends ModelController
 
     public function __construct() {
         $this->objecto = new CategoriaEvento();
-        $this->nomeObjecto = 'CategoriaEvento';
-        $this->nomeObjectos = 'CategoriaEventos';
+        $this->nomeObjecto = 'categoriaEvento';
+        $this->nomeObjectos = 'categoriaEventos';
         $this->relacionados = ['eventos'];
     }
 

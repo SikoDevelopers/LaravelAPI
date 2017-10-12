@@ -18,6 +18,10 @@ use Illuminate\Http\Request;
  * Rotas para criacao de contas
  */
     Route::post('docentes/signup', ['uses' => 'DocenteController@salvarTransacao']);
+    Route::post('estudantes/signup', ['uses' => 'EstudanteController@salvarTransacao']);
+    Route::post('director_curos/signup', ['uses' => 'DirectorCursoController@salvarTransacao']);
+    Route::post('supervisor_externo/signup', ['uses' => 'SupervisorExternoController@salvarTransacao']);
+    Route::post('funcionario/signup', ['uses' => 'FuncionarioController@salvarTransacao']);
 
 
 /**
@@ -27,7 +31,7 @@ use Illuminate\Http\Request;
 
 
 /**
- * Rotas para Users
+ * Rotas para retornar user logado
  */
     Route::get('user', 'UserController@getUser');
 
