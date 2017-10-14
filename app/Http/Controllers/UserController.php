@@ -24,16 +24,26 @@ class UserController extends Controller
 
         try{
             if(! $token = JWTAuth::attempt($credencias))
-                return response()->json(['mensagem' => 'Credencias Erradas'], 401);
+                return response()->json(['mensagem' => 'Credencias Erradas', 'status' => 401], 401);
         }catch (JWTException $ex){
-            response()->json(['mensagem' => 'Erro ao gerar token'], 500);
+            response()->json(['mensagem' => 'Erro ao gerar token', 'status' => 500], 500);
         }
 
         $user = $this->getUser(new Request(['token' => $token]));
 
-        return response()->json(['token' => $token, 'user' => $user], 200);
+        return response()->json(['token' => $token, 'user' => $user, 'status' => 200], 200);
 
 
+    }
+
+
+
+    public function validarEmail(Request $request){
+        $this->validate($request, [
+            'email' => 'required|email|unique:users'
+            ]);
+
+        return response()->json(['estado'=>'valido', 'email'=> $request->input('email')], 200);
     }
 
 

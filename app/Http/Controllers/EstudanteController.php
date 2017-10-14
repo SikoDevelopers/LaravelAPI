@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\classesAuxiliares\Auxiliar;
 use App\Models\Estudante;
 
+use App\Models\TipoUser;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -33,15 +34,17 @@ class EstudanteController extends ModelController {
         $this->validate($objectos, [
             'nome' => 'required|max:50',
             'apelido' => 'required',
-            'sessao' => 'nullable',
             'email' => 'required|email|unique:users',
             'password' => 'required',
-            'tipo_users_id' => 'required',
             'cursos_id' => 'required'
         ]);
 
 
         $user = new User($objectos->all());
+        $user->tipo_users_id = TipoUser::select('id')
+                                ->where('designacao', '=','Estudante')
+                                ->first()->id;
+
         $estudante = new Estudante($objectos->all());
 
 
