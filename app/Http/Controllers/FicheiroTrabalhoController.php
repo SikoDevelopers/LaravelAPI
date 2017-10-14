@@ -9,8 +9,8 @@ class FicheiroTrabalhoController extends ModelController
 {
     public function __construct() {
         $this->objecto = new  FicheirosTrabalho();
-        $this->nomeObjecto = ' FicheiroTrabalho';
-        $this->nomeObjectos = ' FicheiroTrabalhos';
+        $this->nomeObjecto = 'ficheiroTrabalho';
+        $this->nomeObjectos = 'ficheiroTrabalhos';
         $this->relacionados = ['categoriaFicheiro','trabalho','estadoFicheiros','ficheiroReprovado'];
     }
 }

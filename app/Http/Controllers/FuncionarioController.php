@@ -10,8 +10,8 @@ class FuncionarioController extends ModelController
 
     public function __construct() {
         $this->objecto = new  Funcionario();
-        $this->nomeObjecto = ' Funcionario';
-        $this->nomeObjectos = ' Funcionarios';
+        $this->nomeObjecto = 'funcionario';
+        $this->nomeObjectos = 'funcionarios';
         $this->relacionados = ['user'];
     }
 }

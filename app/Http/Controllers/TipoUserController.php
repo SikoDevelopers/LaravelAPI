@@ -10,8 +10,8 @@ class TipoUserController extends ModelController
 
     public function __construct() {
         $this->objecto = new   TipoUser();
-        $this->nomeObjecto = ' TipoUser';
-        $this->nomeObjectos = ' TipoUsers';
+        $this->nomeObjecto = 'tipoUser';
+        $this->nomeObjectos = 'tipoUsers';
         $this->relacionados = ['users'];
     }
 }
