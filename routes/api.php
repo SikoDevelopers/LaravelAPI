@@ -305,6 +305,7 @@ use Illuminate\Http\Request;
     Route::delete('trabalhos/{id}', 'TrabalhoController@remover');
 
 
+    Route::get('users/email/validar', "UserController@validarEmail");
 
 
 
