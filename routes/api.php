@@ -29,7 +29,6 @@ use Illuminate\Http\Request;
  */
     Route::post('users/login', 'UserController@login');
 
-
 /**
  * Rotas para retornar user logado
  */
@@ -124,24 +123,24 @@ use Illuminate\Http\Request;
 /**
 * Rotas para Director Curso
 */
-    Route::get('director_curso', 'DirectorCursoController@listar');
-//  Route::get('director_curso/{id}/docentes', 'DirectorCursoController@trabalhos');
-//  Route::get('director_curso/{id}/curso', 'DirectorCursoController@cursos');
-    Route::post('director_curso', 'DirectorCursoController@salvar');
-    Route::put('director_curso/{id}', 'DirectorCursoController@editar');
-    Route::get('director_curso/{id}', 'DirectorCursoController@pesquisar');
-    Route::delete('director_curso/{id}', 'DirectorCursoController@remover');
+    Route::get('director_cursos', 'DirectorCursoController@listar');
+//  Route::get('director_cursso/{id}/docentes', 'DirectorCursoController@trabalhos');
+//  Route::get('director_cursos/{id}/curso', 'DirectorCursoController@cursos');
+    Route::post('director_cursos', 'DirectorCursoController@salvar');
+    Route::put('director_cursos/{id}', 'DirectorCursoController@editar');
+    Route::get('director_cursos/{id}', 'DirectorCursoController@pesquisar');
+    Route::delete('director_cursos/{id}', 'DirectorCursoController@remover');
 
 /**
 * Rotas para Docente Area
 */
-    Route::get('docente_area', 'DocenteAreaController@listar');
-//  Route::get('docente_area/{id}/docentes', 'DocenteAreaController@trabalhos');
-//  Route::get('docente_area/{id}/curso', 'DocenteAreaController@cursos');
-    Route::post('docente_area', 'DocenteAreaController@salvar');
-    Route::put('docente_area/{id}', 'DocenteAreaController@editar');
-    Route::get('docente_area/{id}', 'DocenteAreaController@pesquisar');
-    Route::delete('docente_area/{id}', 'DocenteAreaController@remover');
+    Route::get('docente_areas', 'DocenteAreaController@listar');
+//  Route::get('docente_areas/{id}/docentes', 'DocenteAreaController@trabalhos');
+//  Route::get('docente_areas/{id}/curso', 'DocenteAreaController@cursos');
+    Route::post('docente_areas', 'DocenteAreaController@salvar');
+    Route::put('docente_areas/{id}', 'DocenteAreaController@editar');
+    Route::get('docente_areas/{id}', 'DocenteAreaController@pesquisar');
+    Route::delete('docente_areas/{id}', 'DocenteAreaController@remover');
 
 /**
 * Rotas para Docentes Areas Trabalho
