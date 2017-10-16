@@ -13,6 +13,7 @@ class Trabalho extends Model
     protected $fillable = ['titulo', 'descricao', 'estudantes_id', 'eventos_id', 'is_aprovado', 'areas_supervisor_externos_id'];
 
 
+
     public function estudante(){
         return $this->belongsTo('App\Models\Estudante', 'estudantes_id');
     }

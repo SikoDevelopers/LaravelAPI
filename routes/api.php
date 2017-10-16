@@ -40,7 +40,7 @@ use Illuminate\Http\Request;
 /**
  * Rotas para estudantes
  */
-    Route::get('estudantes', 'EstudanteController@listar')->middleware('autenticado');;
+    Route::get('estudantes', 'EstudanteController@listar')->middleware('autenticado');
     Route::get('estudantes/{id}/trabalhos', 'EstudanteController@trabalhos');
     Route::get('estudantes/{id}/cursos', 'EstudanteController@cursos');
     Route::post('estudantes', 'EstudanteController@salvarTransacao');
@@ -310,6 +310,7 @@ use Illuminate\Http\Request;
 
 
 
+    //Rotas adicionais
 
 
 
