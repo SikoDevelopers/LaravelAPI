@@ -12,7 +12,7 @@ class DocenteAreaController extends ModelController
         $this->objecto = new   DocenteArea();
         $this->nomeObjecto = 'docenteArea';
         $this->nomeObjectos = 'docenteAreas';
-        $this->relacionados = ['trabalhos,docentes'];
+        $this->relacionados = ['trabalhos'];
     }
 
 

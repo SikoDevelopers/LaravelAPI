@@ -21,7 +21,7 @@ class TrabalhoController extends ModelController
         $this->objecto = new   Trabalho();
         $this->nomeObjecto = 'trabalho';
         $this->nomeObjectos = 'trabalhos';
-        $this->relacionados = ['estudante','ficheirosTrabalhos','evento','docenteAreas','evento','docenteAreas','areaSupervisorExterno'];
+        $this->relacionados = ['estudante','ficheirosTrabalhos','evento','docenteAreas','areaSupervisorExterno'];
     }
 
     public function pesquisarSupervisorArea($supervisor_id,$areas_id,$tipo){
@@ -29,8 +29,10 @@ class TrabalhoController extends ModelController
         if($tipo==1){
             $docenteArea = new DocenteArea();
             $docenteArea=DocenteArea::where(['areas_id'=>$areas_id],
-                ['docentes_id'=>$supervisor_id])->first();
-            return $docenteArea;
+                ['docentes_id'=>$supervisor_id],['funcao_id'=>1])->first();
+
+            $sup=DocentesAreasTrabalho::where(['docente_areas_id'=>$docenteArea->id],['funcoes_id'=>1])->first();
+            return $sup;
         }elseif ($tipo==2){
             $supExtArea = new  AreasSupervisorExterno();
             $supExtArea = AreasSupervisorExterno::where(['areas_id'=>$areas_id],
@@ -76,8 +78,12 @@ class TrabalhoController extends ModelController
 
 
 
+//            $sup = $trabalhoPrincipal->supervisor();
 
-        return response()->json(['trabalho'=>$trabalhoPrincipal,'ficheiro'=>$ficheiro_protcolo]);
+
+
+        $trabalhoPrincipal->save();
+        return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
 
     }
 
