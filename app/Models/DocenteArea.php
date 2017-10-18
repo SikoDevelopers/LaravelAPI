@@ -17,4 +17,7 @@ class DocenteArea extends Model
             ->withPivot('id', 'funcoes_id');
     }
 
+
+
+
 }

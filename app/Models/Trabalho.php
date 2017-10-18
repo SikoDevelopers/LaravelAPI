@@ -36,8 +36,10 @@ class Trabalho extends Model
     }
 
 
-    public function areaSupervisorExterno(){
-        return $this->belongsTo('App\Models\AreasSupervisorExterno', 'areas_supervisor_externos_id');
-    }
+//
+//
+//    public function areaSupervisorExterno(){
+//        return $this->belongsTo('App\Models\AreasSupervisorExterno', 'areas_supervisor_externos_id');
+//    }
 
 }
