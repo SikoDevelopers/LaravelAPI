@@ -141,6 +141,8 @@ use Illuminate\Http\Request;
     Route::put('docente_areas/{id}', 'DocenteAreaController@editar');
     Route::get('docente_areas/{id}', 'DocenteAreaController@pesquisar');
     Route::delete('docente_areas/{id}', 'DocenteAreaController@remover');
+    Route::get('search_docente_area/{docentes_id}/{areas_id}', 'DocenteAreaController@pesquisarDocenteArea');
+
 
 /**
 * Rotas para Docentes Areas Trabalho
@@ -302,8 +304,6 @@ use Illuminate\Http\Request;
     Route::put('trabalhos/{id}', 'TrabalhoController@editar');
     Route::get('trabalhos/{id}', 'TrabalhoController@pesquisar');
     Route::delete('trabalhos/{id}', 'TrabalhoController@remover');
-
-
     Route::get('users/email/validar', "UserController@validarEmail");
 
 
