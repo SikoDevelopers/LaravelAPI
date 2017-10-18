@@ -12,6 +12,7 @@ class Docente extends Model
     protected $table = 'docentes';
     protected $fillable = ['nome', 'apelido', 'sessao', 'users_id'];
 
+    protected $with = ['temas', 'areas'];
 
     public function areas()
     {

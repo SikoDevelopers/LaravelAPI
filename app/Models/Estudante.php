@@ -12,7 +12,7 @@ class Estudante extends Model
     protected $table = 'estudantes';
     protected $fillable = ['nome', 'apelido', 'data_nascimento', 'morada', 'sessao', 'cursos_id', 'users_id'];
 
-//    public $with = ['curso', 'trabalho'];
+    public $with = ['curso'];
 
     public function curso(){
         return $this->belongsTo('App\Models\Curso', 'cursos_id');
