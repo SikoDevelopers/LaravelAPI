@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
-
 use App\Models\AreasSupervisorExterno;
 use App\Models\DocenteArea;
 use App\Models\DocentesAreasTrabalho;
@@ -10,6 +8,8 @@ use App\Models\Estudante;
 use App\Models\FicheirosTrabalho;
 use App\Models\SupervisorExterno;
 use App\Http\Controllers\classesAuxiliares\Auxiliar;
+use App\Models\Area;
+use App\Models\Docente;
 use App\Models\Trabalho;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -22,6 +22,7 @@ class TrabalhoController extends ModelController
         $this->nomeObjecto = 'trabalho';
         $this->nomeObjectos = 'trabalhos';
         $this->relacionados = ['estudante','ficheirosTrabalhos','evento','docenteAreas','areaSupervisorExterno'];
+
     }
 
     public function pesquisarSupervisorArea($supervisor_id,$areas_id,$tipo){
@@ -40,7 +41,6 @@ class TrabalhoController extends ModelController
 
             return $supExtArea;
         }
-
     }
 
     public function salvar(Request $objecto) {
@@ -95,11 +95,17 @@ class TrabalhoController extends ModelController
 
 
 
-    public function getParticipantesTrabalho($idTrabalho){
+    public function getParticipantesTrabalho($idTrabalho) {
 
-        $trbalho = Trabalho::find($idTrabalho);
-        return Auxiliar::retornarDados('trabalho', $trbalho, 200);
+        if ($trabalho = Trabalho::find($idTrabalho)->with('estudante', 'docenteAreas')) {
+//            $docentesAreas =  $trabalho->docenteAreas;
 
+//            $area = $trabalho->docenteAreas;
+//            $estudante = $trabalho->estudante;
+
+            return response()->json(['trabalho' => $trabalho], 200);
+        }
+        return response()->json(['trabalho' => $trabalho], 404);
     }
 
 
