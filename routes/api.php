@@ -310,8 +310,18 @@ use Illuminate\Http\Request;
 
 
 
+    //Rotas de processo de submissao
+    Route::get('prcesso_submissao', 'ProcessoSubmissaoController@listar');
+    //  Route::get('funcionarios/{id}/docentes', 'FuncionarioController@trabalhos');
+    //  Route::get('funcionarios/{id}/curso', 'FuncionarioController@cursos');
+    Route::post('prcesso_submissao', 'ProcessoSubmissaoController@salvar');
+    Route::put('prcesso_submissao/{id}', 'ProcessoSubmissaoController@editar');
+    Route::get('prcesso_submissao/{id}', 'ProcessoSubmissaoController@pesquisar');
+    Route::delete('prcesso_submissao/{id}', 'ProcessoSubmissaoController@remover');
+
+
 
     //Rotas adicionais
-
+    Route::get('trabalhos/participantes/{id}', 'TrabalhoController@getParticipantesTrabalho');
 
 

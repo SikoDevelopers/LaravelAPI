@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\AreasSupervisorExterno;
 use App\Models\DocenteArea;
 use App\Models\DocentesAreasTrabalho;
 use App\Models\Estudante;
 use App\Models\FicheirosTrabalho;
 use App\Models\SupervisorExterno;
+use App\Http\Controllers\classesAuxiliares\Auxiliar;
 use App\Models\Trabalho;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -21,6 +23,7 @@ class TrabalhoController extends ModelController
         $this->nomeObjectos = 'trabalhos';
         $this->relacionados = ['estudante','ficheirosTrabalhos','evento','docenteAreas','evento','docenteAreas','areaSupervisorExterno'];
     }
+
     public function pesquisarSupervisorArea($supervisor_id,$areas_id,$tipo){
 
         if($tipo==1){
@@ -53,7 +56,6 @@ class TrabalhoController extends ModelController
         if($objecto->tipoSup==1){
             $docenteAreaTra = new DocentesAreasTrabalho();
             $docenteAreaTra->trabalhos_id =$trabalhoPrincipal->id;
-
             $docenteAreaTra->funcoes_id = 1;
             $docenteAreaTra->docente_areas_id = $this->pesquisarSupervisorArea($objecto->supervisor_id,$objecto->areas_id,$objecto->tipoSup)->id;
             $docenteAreaTra->save();
@@ -65,7 +67,6 @@ class TrabalhoController extends ModelController
 
 //        //Gravacao do protocolo
         $ficheiro_protcolo = new FicheirosTrabalho();
-
         Storage::putFileAs('public',$objecto->file('file'),'protocolo.pdf'.$objecto->user);
         $ficheiro_protcolo->data= $objecto->data;
         $ficheiro_protcolo->caminho='protocolo.pdf'.$objecto->user;
@@ -76,7 +77,18 @@ class TrabalhoController extends ModelController
 
 
 
-//        return response()->json(['trabalho'=>$trabalhoPrincipal,'ficheiro'=>$ficheiro_protcolo]);
+        return response()->json(['trabalho'=>$trabalhoPrincipal,'ficheiro'=>$ficheiro_protcolo]);
 
     }
+
+
+
+    public function getParticipantesTrabalho($idTrabalho){
+
+        $trbalho = Trabalho::find($idTrabalho);
+        return Auxiliar::retornarDados('trabalho', $trbalho, 200);
+
+    }
+
+
 }
