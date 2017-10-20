@@ -48,7 +48,7 @@ class  ModelController extends Controller implements InterfaceController
     }
 
 
-    public function salvar(Request $objecto) {
+    public function salvar(Request $request) {
 
         $var_objecto = $this->objecto->create($objecto->all());
         if($var_objecto)
