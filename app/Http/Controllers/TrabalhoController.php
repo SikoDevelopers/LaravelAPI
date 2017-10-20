@@ -87,8 +87,8 @@ class TrabalhoController extends ModelController
 //
 //        $trabalhoPrincipal->save();
 //        return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
-        Storage::putFileAs('public', $objecto->protocolo,'protocolo.pdf');
-//        return response()->json(['trabalho'=>$objecto->titulo,'documento'=>$objecto->protocolo]);
+//        Storage::putFileAs('public', $objecto->protocolo,'protocolo.pdf');
+        return response()->json(['trabalho'=>$objecto->titulo,'documento'=>$objecto->protocolo]);
 
 
     }
