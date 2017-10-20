@@ -25,19 +25,19 @@ class TrabalhoController extends ModelController
 
     }
 
-    public function pesquisarSupervisorArea($supervisor_id,$areas_id,$tipo){
+    public function pesquisarSupervisorArea($supesrvisor_id,$areas_id,$tipo){
 
         if($tipo==1){
             $docenteArea = new DocenteArea();
             $docenteArea=DocenteArea::where(['areas_id'=>$areas_id],
-                ['docentes_id'=>$supervisor_id],['funcao_id'=>1])->first();
+                ['docentes_id'=>$supesrvisor_id],['funcao_id'=>1])->first();
 
             $sup=DocentesAreasTrabalho::where(['docente_areas_id'=>$docenteArea->id],['funcoes_id'=>1])->first();
             return $sup;
         }elseif ($tipo==2){
             $supExtArea = new  AreasSupervisorExterno();
             $supExtArea = AreasSupervisorExterno::where(['areas_id'=>$areas_id],
-                ['supervisor_externos_id'=>$supervisor_id])->first();
+                ['supervisor_externos_id'=>$supesrvisor_id])->first();
 
             return $supExtArea;
         }
@@ -45,56 +45,9 @@ class TrabalhoController extends ModelController
 
     public function salvar(Request $objecto) {
 
-<<<<<<< HEAD
-//
-//        $trabalhoPrincipal = new Trabalho();
-//        //PegarEstudante
-//        $estudante = new Estudante();
-//
-//        $estudante = Estudante::where('users_id',$objecto->user)->first();
-//        $trabalhoPrincipal->estudantes_id=$estudante->id;
-//        $trabalhoPrincipal->titulo=$objecto->titulo;
-//        $trabalhoPrincipal->descricao=$objecto->descricao;
-//        $trabalhoPrincipal->save();
-//
-//
-//        //Gravacao de Supervisor
-//        if($objecto->tipoSup==1){
-//            $docenteAreaTra = new DocentesAreasTrabalho();
-//            $docenteAreaTra->trabalhos_id =$trabalhoPrincipal->id;
-//            $docenteAreaTra->funcoes_id = 1;
-//            $docenteAreaTra->docente_areas_id = $this->pesquisarSupervisorArea($objecto->supervisor_id,$objecto->areas_id,$objecto->tipoSup)->id;
-//            $docenteAreaTra->save();
-//        }elseif ($objecto->tipoSup==2){
-//
-//            $trabalhoPrincipal->areas_supervisor_externos_id =$this->pesquisarSupervisorArea($objecto->supervisor_id,$objecto->areas_id,$objecto->tipoSup)->id;
-//        }
-//
-//
-////        //Gravacao do protocolo
-//        $ficheiro_protcolo = new FicheirosTrabalho();
-//        Storage::putFileAs('public',$objecto->file('file'),'protocolo.pdf'.$objecto->user);
-//        $ficheiro_protcolo->data= $objecto->data;
-//        $ficheiro_protcolo->caminho='protocolo.pdf'.$objecto->user;
-//        $ficheiro_protcolo->categorias_ficheiros_id =1;
-//        $ficheiro_protcolo->trabalhos_id=$trabalhoPrincipal->id;
-//        $ficheiro_protcolo->save();
-//
-//
-//
-////            $sup = $trabalhoPrincipal->supervisor();
-//
-//
-//
-//        $trabalhoPrincipal->save();
-//        return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
-//        Storage::putFileAs('public', $objecto->protocolo,'protocolo.pdf');
-        return response()->json(['trabalho'=>$objecto->titulo,'documento'=>$objecto->protocolo]);
-=======
         $trabalhoPrincipal = new Trabalho();
         //PegarEstudante
         $estudante = new Estudante();
->>>>>>> parent of 3a91ff0... submissao 60% estavel
 
         $estudante = Estudante::where('users_id',$objecto->user)->first();
         $trabalhoPrincipal->estudantes_id=$estudante->id;
@@ -124,10 +77,9 @@ class TrabalhoController extends ModelController
         $ficheiro_protcolo->save();
 
 
-
-//            $sup = $trabalhoPrincipal->supervisor();
-
-
+        //preenchimeto do trabalho
+        $trabalhoPrincipal->titulo = $objecto->titulo;
+        $trabalhoPrincipal->descricao = $objecto->descricao;
 
         $trabalhoPrincipal->save();
         return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
