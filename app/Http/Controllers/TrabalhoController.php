@@ -44,14 +44,17 @@ class TrabalhoController extends ModelController
     }
 
     public function salvar(Request $request) {
-//
-//        $trabalhoPrincipal = new Trabalho();
-//        //PegarEstudante
-//        $estudante = new Estudante();
-//
-//        $estudante = Estudante::where('users_id',$request->user)->first();
-//        $trabalhoPrincipal->estudantes_id=$estudante->id;
-//        $trabalhoPrincipal->save();
+
+        $trabalhoPrincipal = new Trabalho();
+        $trabalhoPrincipal->titulo = $request->titulo;
+        $trabalhoPrincipal->descricao = $request->descricao;
+
+       //PegarEstudante
+        $estudante = new Estudante();
+
+        $estudante = Estudante::where('users_id',$request->user)->first();
+        $trabalhoPrincipal->estudantes_id=$estudante->id;
+        $trabalhoPrincipal->save();
 //
 //
 //        //Gravacao de Supervisor
@@ -75,11 +78,6 @@ class TrabalhoController extends ModelController
 //        $ficheiro_protcolo->categorias_ficheiros_id =1;
 //        $ficheiro_protcolo->trabalhos_id=$trabalhoPrincipal->id;
 //        $ficheiro_protcolo->save();
-//
-//
-//        //preenchimeto do trabalho
-//        $trabalhoPrincipal->titulo = $request->titulo;
-//        $trabalhoPrincipal->descricao = $request->descricao;
 //
 //        $trabalhoPrincipal->save();
 //        return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
