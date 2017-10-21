@@ -74,20 +74,21 @@ class TrabalhoController extends ModelController
         }
 
         //Gravacao do protocolo
-        $ficheiro_protcolo = new FicheirosTrabalho();
+        $ficheiro_protocolo = new FicheirosTrabalho();
         Storage::putFileAs('public',$request->file('protocolo'),$request->user.'protocolo.pdf');
-        $ficheiro_protcolo->data= $request->data;
-        $ficheiro_protcolo->caminho=$request->user.'protocolo.pdf';
-        $ficheiro_protcolo->categorias_ficheiros_id =1;
-        $ficheiro_protcolo->trabalhos_id=$trabalhoPrincipal->id;
-//        $ficheiro_protcolo->save();
+        $ficheiro_protocolo->data= $request->data;
+        $ficheiro_protocolo->caminho=$request->user.'protocolo.pdf';
+        $ficheiro_protocolo->categorias_ficheiros_id =1;
+        $ficheiro_protocolo->trabalhos_id=$trabalhoPrincipal->id;
+        $ficheiro_protocolo->save();
 
-//        $trabalhoPrincipal->save();
+
+        return response()->json(['trabalho'=>$ficheiro_protocolo]);
 //        return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
-        return response()->json(['user'=>$request->user,'tema'=>$request->titulo,'descricao'=>$request->descricao,'supervisor'=>$request->supervisor,
-            'tipo supervisor'=>$request->tipoSup,'area'=>$request->area,'data'=>$request->data,'timestamp'=>$request->timestamp
-            ,'trabalho id'=>$trabalhoPrincipal->id
-            ]);
+//        return response()->json(['user'=>$request->user,'tema'=>$request->titulo,'descricao'=>$request->descricao,'supervisor'=>$request->supervisor,
+//            'tipo supervisor'=>$request->tipoSup,'area'=>$request->area,'data'=>$request->data,'timestamp'=>$request->timestamp
+//            ,'trabalho id'=>$trabalhoPrincipal->id
+//            ]);
 
     }
 
