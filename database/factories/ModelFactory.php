@@ -131,7 +131,7 @@ $factory->define(\App\Models\Trabalho::class, function (\Faker\Generator $faker)
         'estudantes_id' => $faker->numberBetween(1, \App\Models\Estudante::all()->count()),
         'eventos_id' => null,
         'is_aprovado' => false,
-        'areas_supervisor_externos_id' => $faker->numberBetween(1, \App\Models\AreasSupervisorExterno::all()->count()),
+//        'areas_supervisor_externos_id' => $faker->numberBetween(1, \App\Models\AreasSupervisorExterno::all()->count()),
     ];
 });
 
@@ -220,20 +220,20 @@ $factory->define(\App\Models\Funcionario::class, function (\Faker\Generator $fak
     ];
 });
 
-$factory->define(\App\Models\SupervisorExterno::class, function (\Faker\Generator $faker){
-    return [
-        'nome' => $faker->firstName,
-        'apelido' => $faker->lastName,
-        'users_id' => $faker->unique()->numberBetween(1, \App\User::all()->count()),
-    ];
-});
+//$factory->define(\App\Models\SupervisorExterno::class, function (\Faker\Generator $faker){
+//    return [
+//        'nome' => $faker->firstName,
+//        'apelido' => $faker->lastName,
+//        'users_id' => $faker->unique()->numberBetween(1, \App\User::all()->count()),
+//    ];
+//});
 
-$factory->define(\App\Models\AreasSupervisorExterno::class, function (\Faker\Generator $faker){
-    return [
-        'areas_id' => $faker->numberBetween(1, \App\Models\Area::all()->count()),
-        'supervisor_externos_id' => $faker->numberBetween(1, \App\Models\SupervisorExterno::all()->count()),
-    ];
-});
+//$factory->define(\App\Models\AreasSupervisorExterno::class, function (\Faker\Generator $faker){
+//    return [
+//        'areas_id' => $faker->numberBetween(1, \App\Models\Area::all()->count()),
+//        'supervisor_externos_id' => $faker->numberBetween(1, \App\Models\SupervisorExterno::all()->count()),
+//    ];
+//});
 
 
 

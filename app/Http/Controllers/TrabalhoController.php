@@ -24,7 +24,7 @@ class TrabalhoController extends ModelController
         $this->objecto = new Trabalho();
         $this->nomeObjecto = 'trabalho';
         $this->nomeObjectos = 'trabalhos';
-        $this->relacionados = ['estudante','ficheirosTrabalhos','evento','docenteAreas','areaSupervisorExterno'];
+        $this->relacionados = ['estudante','ficheirosTrabalhos','evento','docenteAreas'];
 
 
     }
@@ -112,8 +112,8 @@ class TrabalhoController extends ModelController
                               'funcao', Funcao::find($docente_area->pivot->funcoes_id)));
           }
 
-          if($trabalho->areaSupervisorExterno)
-            array_add($trabalho, 'supervisor_externo', SupervisorExterno::find($trabalho->areaSupervisorExterno->supervisor_externos_id));
+//          if($trabalho->areaSupervisorExterno)
+//            array_add($trabalho, 'supervisor_externo', SupervisorExterno::find($trabalho->areaSupervisorExterno->supervisor_externos_id));
 
             return response()->json(['trabalho' => $trabalho, 'docentes' => $docentes->all()], 200);
         }

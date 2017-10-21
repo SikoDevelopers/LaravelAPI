@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
         factory(\App\User::class, 40)->create();
         factory(\App\Models\Area::class, 4)->create();
         factory(\App\Models\Funcionario::class, 5)->create();
-        factory(\App\Models\SupervisorExterno::class, 5)->create();
-        factory(\App\Models\AreasSupervisorExterno::class, 10)->create();
+//        factory(\App\Models\SupervisorExterno::class, 5)->create();
+//        factory(\App\Models\AreasSupervisorExterno::class, 10)->create();
         factory(\App\Models\Curso::class, 4)->create();
         factory(\App\Models\Docente::class,20)->create();
         factory(\App\Models\Funcao::class, 4)->create();
