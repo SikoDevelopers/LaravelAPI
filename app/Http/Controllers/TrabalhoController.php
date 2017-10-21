@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\classesAuxiliares\Auxiliar;
 use App\Models\Area;
 use App\Models\Docente;
+use App\Models\Funcao;
+use App\Models\SupervisorExterno;
 use App\Models\Trabalho;
 use Illuminate\Http\Request;
+
 
 class TrabalhoController extends ModelController
 {
@@ -19,15 +21,26 @@ class TrabalhoController extends ModelController
     }
 
 
+    /**
+     * @param $idTrabalho
+     * @return \Illuminate\Http\JsonResponse
+     * Metodo que dado um trabalho, retorna todos os docentes envolvidos nesse trabalho, com as
+     * suas respectivas funcoes e responsabilidades nesse trabalho
+     */
     public function getParticipantesTrabalho($idTrabalho) {
+        $docentes = collect();
+        if ($trabalho = Trabalho::find($idTrabalho)) {
 
-        if ($trabalho = Trabalho::find($idTrabalho)->with('estudante', 'docenteAreas')) {
-//            $docentesAreas =  $trabalho->docenteAreas;
+          foreach ($trabalho->docenteAreas as $docente_area){
+              $docentes->push(array_add(
+                              array_add(Docente::find($docente_area->docentes_id),
+                                  'area_participacao', Area::find($docente_area->areas_id)),
+                              'funcao', Funcao::find($docente_area->pivot->funcoes_id)));
+          }
 
-//            $area = $trabalho->docenteAreas;
-//            $estudante = $trabalho->estudante;
+          array_add($trabalho, 'supervisor_externo', SupervisorExterno::find($trabalho->areaSupervisorExterno->supervisor_externos_id));
 
-            return response()->json(['trabalho' => $trabalho], 200);
+            return response()->json(['trabalho' => $trabalho, 'docentes' => $docentes->all()], 200);
         }
         return response()->json(['trabalho' => $trabalho], 404);
     }
