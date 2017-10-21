@@ -11,7 +11,7 @@ class Trabalho extends Model
     protected $dates = ['deleted_at'];
     protected $table = 'trabalhos';
     protected $fillable = ['titulo', 'descricao', 'estudantes_id', 'eventos_id', 'is_aprovado', 'areas_supervisor_externos_id'];
-    protected $with=['estudante','ficheirosTrabalhos','evento','docenteAreas'];
+//    protected $with = ['estudante','ficheirosTrabalhos','evento','docenteAreas'];
 
 
     public function estudante(){
@@ -41,5 +41,8 @@ class Trabalho extends Model
         return DocentesAreasTrabalho::where(['docente_areas_id'=>$docente_areas_id],['trabalhos_id'=>$trabalhos_id],['funcoes_id'=>1]);
     }
 
+    public function areaSupervisorExterno(){
+        return $this->belongsTo('App\Models\AreasSupervisorExterno', 'areas_supervisor_externos_id');
+    }
 
 }
