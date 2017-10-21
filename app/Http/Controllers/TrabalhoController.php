@@ -29,11 +29,10 @@ class TrabalhoController extends ModelController
 
         if($tipo==1){
             $docenteArea = new DocenteArea();
-            $docenteArea=DocenteArea::where(['areas_id'=>$areas_id],
-                ['docentes_id'=>$supesrvisor_id],['funcao_id'=>1])->first();
+            $docenteArea=DocenteArea::where(['areas_id'=>$areas_id], ['docentes_id'=>$supesrvisor_id])->first();
 
-            $sup=DocentesAreasTrabalho::where(['docente_areas_id'=>$docenteArea->id],['funcoes_id'=>1])->first();
-            return $sup;
+
+            return $docenteArea->id;
         }elseif ($tipo==2){
             $supExtArea = new  AreasSupervisorExterno();
             $supExtArea = AreasSupervisorExterno::where(['areas_id'=>$areas_id],
@@ -58,32 +57,32 @@ class TrabalhoController extends ModelController
 //
 //
 //        //Gravacao de Supervisor
-//        if($request->tipoSup==1){
-//            $docenteAreaTra = new DocentesAreasTrabalho();
-//            $docenteAreaTra->trabalhos_id =$trabalhoPrincipal->id;
-//            $docenteAreaTra->funcoes_id = 1;
-//            $docenteAreaTra->docente_areas_id = $this->pesquisarSupervisorArea($request->supervisor_id,$request->areas_id,$request->tipoSup)->id;
-//            $docenteAreaTra->save();
-//        }elseif ($request->tipoSup==2){
-//
-//            $trabalhoPrincipal->areas_supervisor_externos_id =$this->pesquisarSupervisorArea($request->supervisor_id,$request->areas_id,$request->tipoSup)->id;
-//        }
-//
-//
-////        //Gravacao do protocolo
-//        $ficheiro_protcolo = new FicheirosTrabalho();
-//        Storage::putFileAs('public',$request->file('file'),'protocolo.pdf'.$request->user);
-//        $ficheiro_protcolo->data= $request->data;
-//        $ficheiro_protcolo->caminho='protocolo.pdf'.$request->user;
-//        $ficheiro_protcolo->categorias_ficheiros_id =1;
-//        $ficheiro_protcolo->trabalhos_id=$trabalhoPrincipal->id;
+        if($request->tipoSup==1){
+            $docenteAreaTra = new DocentesAreasTrabalho();
+            $docenteAreaTra->trabalhos_id =$trabalhoPrincipal->id;
+            $docenteAreaTra->funcoes_id = 1;
+//            $docenteAreaTra= DocentesAreasTrabalho::where(['docente_areas_id'=>$this->pesquisarSupervisorArea($request->superviso,$request->area,$request->tipoSup)],['funcoes_id'=>1])->first();
+            $docenteAreaTra->docente_areas_id = $this->pesquisarSupervisorArea($request->superviso,$request->area,$request->tipoSup);
+            $docenteAreaTra->save();
+        }elseif ($request->tipoSup==2){
+
+            $trabalhoPrincipal->areas_supervisor_externos_id =$this->pesquisarSupervisorArea($request->supervisor,$request->area,$request->tipoSup)->id;
+        }
+
+        //Gravacao do protocolo
+        $ficheiro_protcolo = new FicheirosTrabalho();
+        Storage::putFileAs('public',$request->file('protocolo'),$request->user.'protocolo.pdf');
+        $ficheiro_protcolo->data= $request->data;
+        $ficheiro_protcolo->caminho=$request->user.'protocolo.pdf';
+        $ficheiro_protcolo->categorias_ficheiros_id =1;
+        $ficheiro_protcolo->trabalhos_id=$trabalhoPrincipal->id;
 //        $ficheiro_protcolo->save();
-//
+
 //        $trabalhoPrincipal->save();
 //        return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
         return response()->json(['user'=>$request->user,'tema'=>$request->titulo,'descricao'=>$request->descricao,'supervisor'=>$request->supervisor,
             'tipo supervisor'=>$request->tipoSup,'area'=>$request->area,'data'=>$request->data,'timestamp'=>$request->timestamp
-
+            ,'trabalho id'=>$trabalhoPrincipal->id
             ]);
 
     }
