@@ -66,7 +66,6 @@ class TrabalhoController extends ModelController
             $docenteAreaTra = new DocentesAreasTrabalho();
             $docenteAreaTra->trabalhos_id =$trabalhoPrincipal->id;
             $docenteAreaTra->funcoes_id = 1;
-//            $docenteAreaTra= DocentesAreasTrabalho::where(['docente_areas_id'=>$this->pesquisarSupervisorArea($request->superviso,$request->area,$request->tipoSup)],['funcoes_id'=>1])->first();
             $docenteAreaTra->docente_areas_id = $this->pesquisarSupervisorArea($request->superviso,$request->area,$request->tipoSup);
             $docenteAreaTra->save();
         }elseif ($request->tipoSup==2){
