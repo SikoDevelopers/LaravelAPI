@@ -21,10 +21,11 @@ class TrabalhoController extends ModelController
 {
 
     public function __construct() {
-        $this->objecto = new   Trabalho();
+        $this->objecto = new Trabalho();
         $this->nomeObjecto = 'trabalho';
         $this->nomeObjectos = 'trabalhos';
         $this->relacionados = ['estudante','ficheirosTrabalhos','evento','docenteAreas','areaSupervisorExterno'];
+
 
     }
 
@@ -96,7 +97,7 @@ class TrabalhoController extends ModelController
 
     /**
      * @param $idTrabalho
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\JsonResponse - toda informacoe relevante sobre um trabalho
      * Metodo que dado um trabalho, retorna todos os docentes envolvidos nesse trabalho, com as
      * suas respectivas funcoes e responsabilidades nesse trabalho
      */
@@ -111,7 +112,8 @@ class TrabalhoController extends ModelController
                               'funcao', Funcao::find($docente_area->pivot->funcoes_id)));
           }
 
-          array_add($trabalho, 'supervisor_externo', SupervisorExterno::find($trabalho->areaSupervisorExterno->supervisor_externos_id));
+          if($trabalho->areaSupervisorExterno)
+            array_add($trabalho, 'supervisor_externo', SupervisorExterno::find($trabalho->areaSupervisorExterno->supervisor_externos_id));
 
             return response()->json(['trabalho' => $trabalho, 'docentes' => $docentes->all()], 200);
         }
