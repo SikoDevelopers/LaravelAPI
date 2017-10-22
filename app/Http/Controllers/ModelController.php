@@ -24,28 +24,24 @@ class  ModelController extends Controller implements InterfaceController
 
     public function listar(Request $completo) {
 
-//        if(($completo->get('completo') == true) and $completo->exists('paginacao')){
-//            return Auxiliar::retornarDados($this->nomeObjectos, $this->objecto->with($this->relacionados)
-//                ->paginate($completo->input('paginacao')), 200);
-//        }
 
         if($completo->exists('paginacao') and ($completo->get('completo') == true)){
-            return Auxiliar::retornarDados($this->nomeObjectos, $this->objecto->with($this->relacionados)
+            return Auxiliar::retornarDados($this->nomeObjectos, $this->objecto->with($this->relacionados)->orderBy('id','desc')
                 ->paginate($completo->input('paginacao')), 200);
         }
 
         if ($completo->input('completo') == 'true'){
-            return Auxiliar::retornarDados($this->nomeObjectos, $this->objecto->with($this->relacionados)->get(), 200);
+            return Auxiliar::retornarDados($this->nomeObjectos, $this->objecto->with($this->relacionados)->orderBy('id','desc')->get(), 200);
         }
 
 
         if ($completo->exists('paginacao') and $completo->get('paginacao') > 0){
-            return Auxiliar::retornarDados($this->nomeObjectos, $this->objecto->all()
+            return Auxiliar::retornarDados($this->nomeObjectos, $this->objecto->orderBy('id','desc')
                 ->paginate($completo->input('paginacao')), 200);
         }
 
         else
-            return Auxiliar::retornarDados($this->nomeObjectos, $this->objecto->all(), 200);
+            return Auxiliar::retornarDados($this->nomeObjectos, $this->objecto->orderBy('id','desc')->get(), 200);
     }
 
 
