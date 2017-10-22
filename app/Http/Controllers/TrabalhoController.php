@@ -37,12 +37,6 @@ class TrabalhoController extends ModelController
 
 
             return $docenteArea->id;
-        }elseif ($tipo==2){
-            $supExtArea = new  AreasSupervisorExterno();
-            $supExtArea = AreasSupervisorExterno::where(['areas_id'=>$areas_id],
-                ['supervisor_externos_id'=>$supesrvisor_id])->first();
-
-            return $supExtArea;
         }
     }
 
@@ -60,16 +54,13 @@ class TrabalhoController extends ModelController
         $trabalhoPrincipal->save();
 
 //        //Gravacao de Supervisor
-        if($request->tipoSup==1){
+
             $docenteAreaTra = new DocentesAreasTrabalho();
             $docenteAreaTra->trabalhos_id =$trabalhoPrincipal->id;
             $docenteAreaTra->funcoes_id = 1;
             $docenteAreaTra->docente_areas_id = $this->pesquisarSupervisorArea($request->superviso,$request->area,$request->tipoSup);
             $docenteAreaTra->save();
-        }elseif ($request->tipoSup==2){
 
-            $trabalhoPrincipal->areas_supervisor_externos_id =$this->pesquisarSupervisorArea($request->supervisor,$request->area,$request->tipoSup)->id;
-        }
 
         //Gravacao do protocolo
         $ficheiro_protocolo = new FicheirosTrabalho();
