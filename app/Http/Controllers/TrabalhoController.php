@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AreasSupervisorExterno;
+use App\Models\CategoriaFicheiro;
 use App\Models\DocenteArea;
 use App\Models\DocentesAreasTrabalho;
 use App\Models\Estudante;
@@ -14,6 +15,7 @@ use App\Models\Docente;
 use App\Models\Funcao;
 use App\Models\Trabalho;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -24,7 +26,7 @@ class TrabalhoController extends ModelController
         $this->objecto = new Trabalho();
         $this->nomeObjecto = 'trabalho';
         $this->nomeObjectos = 'trabalhos';
-        $this->relacionados = ['estudante','ficheirosTrabalhos','evento','docenteAreas','areaSupervisorExterno'];
+        $this->relacionados = ['estudante','ficheirosTrabalhos','evento','docenteAreas'];
 
 
     }
@@ -111,13 +113,45 @@ class TrabalhoController extends ModelController
                               'funcao', Funcao::find($docente_area->pivot->funcoes_id)));
           }
 
-          if($trabalho->areaSupervisorExterno)
-            array_add($trabalho, 'supervisor_externo', SupervisorExterno::find($trabalho->areaSupervisorExterno->supervisor_externos_id));
+//          if($trabalho->areaSupervisorExterno)
+//            array_add($trabalho, 'supervisor_externo', SupervisorExterno::find($trabalho->areaSupervisorExterno->supervisor_externos_id));
 
             return response()->json(['trabalho' => $trabalho, 'docentes' => $docentes->all()], 200);
         }
         return response()->json(['trabalho' => $trabalho], 404);
     }
+
+
+
+    public function getProtocolos(){
+
+        $protocolos = CategoriaFicheiro::select('categorias_ficheiros.designacao','estudantes.nome','ficheiros_trabalhos.id', 'ficheiros_trabalhos.data', 'ficheiros_trabalhos.caminho', 'ficheiros_trabalhos.ficheiros_reprovados_id', 'trabalhos.titulo', 'trabalhos.descricao')
+            ->where('categorias_ficheiros.id', '=', '2')
+            ->join('ficheiros_trabalhos', 'categorias_ficheiros.id', '=','ficheiros_trabalhos.categorias_ficheiros_id')
+            ->join('trabalhos', 'ficheiros_trabalhos.trabalhos_id', '=', 'trabalhos.id')
+            ->join('estudantes', 'trabalhos.estudantes_id', '=', 'estudantes.id')
+            ->orderByDesc('ficheiros_trabalhos.id')
+            ->get();
+        return response()->json(['protocolos'=>$protocolos]);
+    }
+
+    public function getTrabalhos(){
+
+        $protocolos = CategoriaFicheiro::select('categorias_ficheiros.designacao','estudantes.nome','ficheiros_trabalhos.id', 'ficheiros_trabalhos.data', 'ficheiros_trabalhos.caminho', 'ficheiros_trabalhos.ficheiros_reprovados_id', 'trabalhos.titulo', 'trabalhos.descricao')
+            ->where('categorias_ficheiros.id', '=', '1')
+            ->join('ficheiros_trabalhos', 'categorias_ficheiros.id', '=','ficheiros_trabalhos.categorias_ficheiros_id')
+            ->join('trabalhos', 'ficheiros_trabalhos.trabalhos_id', '=', 'trabalhos.id')
+            ->join('estudantes', 'trabalhos.estudantes_id', '=', 'estudantes.id')
+            ->orderByDesc('ficheiros_trabalhos.id')
+            ->get();
+        return response()->json(['trabalhos'=>$protocolos]);
+    }
+
+
+    public function getSupervisores() {
+        $supervisores = Trabalho::select('');
+    }
+
 
 
 }
