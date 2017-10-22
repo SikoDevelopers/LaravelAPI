@@ -34,6 +34,7 @@ class TrabalhoController extends ModelController
 
             $docenteArea = new DocenteArea();
             $docenteArea=DocenteArea::where(['areas_id'=>$areas_id], ['docentes_id'=>$supesrvisor_id])->first();
+
             return $docenteArea->id;
 
     }
@@ -62,19 +63,19 @@ class TrabalhoController extends ModelController
 
         //Gravacao do protocolo
         $ficheiro_protocolo = new FicheirosTrabalho();
-        Storage::putFileAs('public',$request->file('protocolo'),$request->user.$trabalhoPrincipal->created_at.'protocolo.pdf');
+        Storage::putFileAs('public',$request->file('protocolo'),$request->user.'protocolo.pdf');
         $ficheiro_protocolo->data= "2006-08-15";
-        $ficheiro_protocolo->caminho=$request->user.$trabalhoPrincipal->created_at.'protocolo.pdf';
+        $ficheiro_protocolo->caminho=$request->user.'protocolo.pdf';
         $ficheiro_protocolo->categorias_ficheiros_id =1;
         $ficheiro_protocolo->trabalhos_id=$trabalhoPrincipal->id;
         $ficheiro_protocolo->save();
 
 
-        return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
-//        return response()->json(['user'=>$request->user,'tema'=>$request->titulo,'descricao'=>$request->descricao,'supervisor'=>$request->supervisor,
-//            'tipo supervisor'=>$request->tipoSup,'area'=>$request->area,'data'=>$request->data,'timestamp'=>$request->timestamp
-//            ,'trabalho id'=>$trabalhoPrincipal->id
-//            ]);
+//        return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
+        return response()->json(['user'=>$request->user,'tema'=>$request->titulo,'descricao'=>$request->descricao,'supervisor'=>$request->supervisor,
+            'area'=>$request->area,'data'=>$request->data,'timestamp'=>$request->timestamp
+            ,'trabalho id'=>$trabalhoPrincipal->id
+            ]);
 
     }
 
