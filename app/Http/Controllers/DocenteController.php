@@ -54,4 +54,8 @@ class DocenteController extends ModelController
         return response()->json(['user' => $user, 'docente' => $docente], 200);
     }
 
+
+
+
+
 }
