@@ -31,66 +31,58 @@ class TrabalhoController extends ModelController
 
     }
 
+    /**
+     * @param $supesrvisor_id
+     * @param $areas_id
+     * @param $tipo
+     * @return mixed
+     */
     public function pesquisarSupervisorArea($supesrvisor_id,$areas_id,$tipo){
-
-        if($tipo==1){
             $docenteArea = new DocenteArea();
             $docenteArea=DocenteArea::where(['areas_id'=>$areas_id], ['docentes_id'=>$supesrvisor_id])->first();
-
-
             return $docenteArea->id;
-        }elseif ($tipo==2){
-            $supExtArea = new  AreasSupervisorExterno();
-            $supExtArea = AreasSupervisorExterno::where(['areas_id'=>$areas_id],
-                ['supervisor_externos_id'=>$supesrvisor_id])->first();
-
-            return $supExtArea;
-        }
     }
 
-    public function salvar(Request $request) {
 
+    /**
+     * @param Request $request - FormData que traz todos dados referentes ao trabalho
+     * @return \Illuminate\Http\JsonResponse - Metodo para salvar um trabalho, onde consequentemente e gravado tambem
+     * o protocolo (que vem junto com um ficheiro), e gravado tambem um docente area trabalho.
+     */
+    public function salvar(Request $request) {
         $trabalhoPrincipal = new Trabalho();
         $trabalhoPrincipal->titulo = $request->titulo;
         $trabalhoPrincipal->descricao = $request->descricao;
 
        //PegarEstudante
         $estudante = new Estudante();
-
         $estudante = Estudante::where('users_id',$request->user)->first();
         $trabalhoPrincipal->estudantes_id=$estudante->id;
         $trabalhoPrincipal->save();
-//
-//
-//        //Gravacao de Supervisor
 
-        if($request->tipoSup==1){
+       //Gravacao de Supervisor
             $docenteAreaTra = new DocentesAreasTrabalho();
             $docenteAreaTra->trabalhos_id =$trabalhoPrincipal->id;
             $docenteAreaTra->funcoes_id = 1;
-//            $docenteAreaTra= DocentesAreasTrabalho::where(['docente_areas_id'=>$this->pesquisarSupervisorArea($request->superviso,$request->area,$request->tipoSup)],['funcoes_id'=>1])->first();
             $docenteAreaTra->docente_areas_id = $this->pesquisarSupervisorArea($request->superviso,$request->area,$request->tipoSup);
             $docenteAreaTra->save();
-        }elseif ($request->tipoSup==2){
 
-            $trabalhoPrincipal->areas_supervisor_externos_id =$this->pesquisarSupervisorArea($request->supervisor,$request->area,$request->tipoSup)->id;
-        }
 
         //Gravacao do protocolo
-        $ficheiro_protcolo = new FicheirosTrabalho();
-        Storage::putFileAs('public',$request->file('protocolo'),$request->user.'protocolo.pdf');
-        $ficheiro_protcolo->data= $request->data;
-        $ficheiro_protcolo->caminho=$request->user.'protocolo.pdf';
-        $ficheiro_protcolo->categorias_ficheiros_id =1;
-        $ficheiro_protcolo->trabalhos_id=$trabalhoPrincipal->id;
-//        $ficheiro_protcolo->save();
+        $ficheiro_protocolo = new FicheirosTrabalho();
+        Storage::putFileAs('public',$request->file('protocolo'),$request->user.$request->timestamp.'protocolo.pdf');
+        $ficheiro_protocolo->data= "2006-08-15";
+        $ficheiro_protocolo->caminho=$request->user.$request->timestamp.'protocolo.pdf';
+        $ficheiro_protocolo->categorias_ficheiros_id =1;
+        $ficheiro_protocolo->trabalhos_id=$trabalhoPrincipal->id;
+        $ficheiro_protocolo->save();
 
-//        $trabalhoPrincipal->save();
-//        return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
-        return response()->json(['user'=>$request->user,'tema'=>$request->titulo,'descricao'=>$request->descricao,'supervisor'=>$request->supervisor,
-            'tipo supervisor'=>$request->tipoSup,'area'=>$request->area,'data'=>$request->data,'timestamp'=>$request->timestamp
-            ,'trabalho id'=>$trabalhoPrincipal->id
-            ]);
+
+        return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
+//        return response()->json(['user'=>$request->user,'tema'=>$request->titulo,'descricao'=>$request->descricao,'supervisor'=>$request->supervisor,
+//            'area'=>$request->area,'data'=>$request->data,'timestamp'=>$request->timestamp
+//            ,'trabalho id'=>$trabalhoPrincipal->id
+//            ]);
 
     }
 
