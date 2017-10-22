@@ -321,5 +321,7 @@ use Illuminate\Http\Request;
 
     //Rotas adicionais
     Route::get('trabalhos/participantes/{id}', 'TrabalhoController@getParticipantesTrabalho');
+    Route::get('apenas/protocolos', 'TrabalhoController@getProtocolos');
+    Route::get('apenas/trabalhos', 'TrabalhoController@getTrabalhos');
 
 
