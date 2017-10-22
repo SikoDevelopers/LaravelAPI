@@ -63,9 +63,9 @@ class TrabalhoController extends ModelController
 
         //Gravacao do protocolo
         $ficheiro_protocolo = new FicheirosTrabalho();
-        Storage::putFileAs('public',$request->file('protocolo'),$request->user.'protocolo.pdf');
+        Storage::putFileAs('public',$request->file('protocolo'),$request->user.$request->timestamp.'protocolo.pdf');
         $ficheiro_protocolo->data= "2006-08-15";
-        $ficheiro_protocolo->caminho=$request->user.'protocolo.pdf';
+        $ficheiro_protocolo->caminho=$request->user.$request->timestamp.'protocolo.pdf';
         $ficheiro_protocolo->categorias_ficheiros_id =1;
         $ficheiro_protocolo->trabalhos_id=$trabalhoPrincipal->id;
         $ficheiro_protocolo->save();
