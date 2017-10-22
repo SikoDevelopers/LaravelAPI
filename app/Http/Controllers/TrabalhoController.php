@@ -71,11 +71,11 @@ class TrabalhoController extends ModelController
         $ficheiro_protocolo->save();
 
 
-//        return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
-        return response()->json(['user'=>$request->user,'tema'=>$request->titulo,'descricao'=>$request->descricao,'supervisor'=>$request->supervisor,
-            'area'=>$request->area,'data'=>$request->data,'timestamp'=>$request->timestamp
-            ,'trabalho id'=>$trabalhoPrincipal->id
-            ]);
+        return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
+//        return response()->json(['user'=>$request->user,'tema'=>$request->titulo,'descricao'=>$request->descricao,'supervisor'=>$request->supervisor,
+//            'area'=>$request->area,'data'=>$request->data,'timestamp'=>$request->timestamp
+//            ,'trabalho id'=>$trabalhoPrincipal->id
+//            ]);
 
     }
 
