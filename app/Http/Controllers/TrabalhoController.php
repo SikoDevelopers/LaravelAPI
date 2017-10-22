@@ -31,13 +31,11 @@ class TrabalhoController extends ModelController
 
     public function pesquisarSupervisorArea($supesrvisor_id,$areas_id,$tipo){
 
-        if($tipo==1){
+
             $docenteArea = new DocenteArea();
             $docenteArea=DocenteArea::where(['areas_id'=>$areas_id], ['docentes_id'=>$supesrvisor_id])->first();
-
-
             return $docenteArea->id;
-        }
+
     }
 
     public function salvar(Request $request) {
