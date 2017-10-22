@@ -29,31 +29,36 @@ class TrabalhoController extends ModelController
 
     }
 
+    /**
+     * @param $supesrvisor_id
+     * @param $areas_id
+     * @param $tipo
+     * @return mixed
+     */
     public function pesquisarSupervisorArea($supesrvisor_id,$areas_id,$tipo){
-
-
             $docenteArea = new DocenteArea();
             $docenteArea=DocenteArea::where(['areas_id'=>$areas_id], ['docentes_id'=>$supesrvisor_id])->first();
-
             return $docenteArea->id;
-
     }
 
-    public function salvar(Request $request) {
 
+    /**
+     * @param Request $request - FormData que traz todos dados referentes ao trabalho
+     * @return \Illuminate\Http\JsonResponse - Metodo para salvar um trabalho, onde consequentemente e gravado tambem
+     * o protocolo (que vem junto com um ficheiro), e gravado tambem um docente area trabalho.
+     */
+    public function salvar(Request $request) {
         $trabalhoPrincipal = new Trabalho();
         $trabalhoPrincipal->titulo = $request->titulo;
         $trabalhoPrincipal->descricao = $request->descricao;
 
        //PegarEstudante
         $estudante = new Estudante();
-
         $estudante = Estudante::where('users_id',$request->user)->first();
         $trabalhoPrincipal->estudantes_id=$estudante->id;
         $trabalhoPrincipal->save();
 
-//        //Gravacao de Supervisor
-
+       //Gravacao de Supervisor
             $docenteAreaTra = new DocentesAreasTrabalho();
             $docenteAreaTra->trabalhos_id =$trabalhoPrincipal->id;
             $docenteAreaTra->funcoes_id = 1;
