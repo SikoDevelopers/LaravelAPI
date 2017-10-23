@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         factory(\App\Models\Curso::class, 4)->create();
         factory(\App\Models\Docente::class,20)->create();
         factory(\App\Models\Funcao::class, 4)->create();
-        factory(\App\Models\CategoriaFicheiro::class, 2)->create();
+//        factory(\App\Models\CategoriaFicheiro::class, 2)->create();
         factory(\App\Models\EstadoFicheiro::class, 5)->create();
         factory(\App\Models\CategoriaEvento::class, 2)->create();
         factory(\App\Models\EstadoEvento::class, 3)->create();

@@ -45,13 +45,13 @@ $factory->define(\App\Models\Funcao::class, function (Faker\Generator $faker) us
     ];
 });
 
-$categorias = ['Protocolo', 'Trabalho'];
-$factory->define(\App\Models\CategoriaFicheiro::class, function (Faker\Generator $faker) use ($categorias){
-    return [
-        'designacao' => $faker->unique()->randomElement($categorias),
-        'descricao' => $faker->text(67),
-    ];
-});
+//$categorias = ['Protocolo', 'Trabalho'];
+//$factory->define(\App\Models\CategoriaFicheiro::class, function (Faker\Generator $faker) use ($categorias){
+//    return [
+//        'designacao' => 'Protocolo',
+//        'descricao' => $faker->text(67),
+//    ];
+//});
 
 $estados = ['Pendente', 'Protocolo Submetido', 'Tese Submetida', 'Defesa Marcada', 'Trabalho por Retiticar'];
 $factory->define(\App\Models\EstadoFicheiro::class, function(Faker\Generator $faker) use ($estados) {
