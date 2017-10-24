@@ -18,9 +18,8 @@ class TemaController extends ModelController
 
     public function getTemasDoDocente(Request $request){
 
-            $temas = Tema::where('docentes_id',$request->id)->with($this->relacionados)->orderBy('id','desc')->get();
-//        
-        //return Auxiliar::retornarDados($this->nomeObjectos,$this->objecto->with($this->relacionados)->orderBy('id','desc')->get,200);
+        $temas = Tema::where('docentes_id',$request->id)->with($this->relacionados)->orderBy('id','desc')->get();
+
         return response()->json(['temas_docente'=>$temas]);
     }
 
