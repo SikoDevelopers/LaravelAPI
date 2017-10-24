@@ -283,6 +283,7 @@ use Illuminate\Http\Request;
     Route::post('temas', 'TemaController@salvar');
     Route::put('temas/{id}', 'TemaController@editar');
     Route::get('temas/{id}', 'TemaController@pesquisar');
+    Route::get('temas_docente/{id}', 'TemaController@getTemasDoDocente');
     Route::delete('temas/{id}', 'TemaController@remover');
 
 /**
