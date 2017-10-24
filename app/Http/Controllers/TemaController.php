@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\classesAuxiliares\Auxiliar;
 use App\Models\Tema;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,12 @@ class TemaController extends ModelController
     }
 
     public function getTemasDoDocente(Request $request){
-        $temas = Tema::where('docentes_id',$request->id)->orderBy('id','desc')->get();
+
+            $temas = Tema::where('docentes_id',$request->id)->with($this->relacionados)->orderBy('id','desc')->get();
+//        
+        //return Auxiliar::retornarDados($this->nomeObjectos,$this->objecto->with($this->relacionados)->orderBy('id','desc')->get,200);
         return response()->json(['temas_docente'=>$temas]);
     }
+
+
 }
