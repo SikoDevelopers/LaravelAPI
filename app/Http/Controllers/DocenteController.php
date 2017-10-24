@@ -59,10 +59,10 @@ class DocenteController extends ModelController
     }
 
 
-public function getDocenteByUserId(Request $request){
-    $docente = Docente::where('users_id',$request->id)->first();
-        return response()->json(['docente'=>$docente]);
-}
+    public function getDocenteByUserId(Request $request){
+        $docente = Docente::where('users_id',$request->id)->first();
+            return response()->json(['docente'=>$docente]);
+    }
 
 
 }
