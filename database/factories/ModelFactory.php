@@ -45,13 +45,13 @@ $factory->define(\App\Models\Funcao::class, function (Faker\Generator $faker) us
     ];
 });
 
-//$categorias = ['Protocolo', 'Trabalho'];
-//$factory->define(\App\Models\CategoriaFicheiro::class, function (Faker\Generator $faker) use ($categorias){
-//    return [
-//        'designacao' => 'Protocolo',
-//        'descricao' => $faker->text(67),
-//    ];
-//});
+$categorias = ['Protocolo', 'Trabalho'];
+$factory->define(\App\Models\CategoriaFicheiro::class, function (Faker\Generator $faker) use ($categorias){
+    return [
+        'designacao' => $faker->unique()->randomElement($categorias),
+        'descricao' => $faker->text(67),
+    ];
+});
 
 $estados = ['Pendente', 'Protocolo Submetido', 'Tese Submetida', 'Defesa Marcada', 'Trabalho por Retiticar'];
 $factory->define(\App\Models\EstadoFicheiro::class, function(Faker\Generator $faker) use ($estados) {
@@ -95,21 +95,21 @@ $factory->define(\App\Models\Estudante::class, function (Faker\Generator $faker)
 });
 
 $factory->define(\App\Models\DirectorCurso::class, function (Faker\Generator $faker){
-    $cursos = \App\Models\Curso::all();
+
 
     return [
         'nome' => $faker->unique()->firstName('male'),
         'apelido' => $faker->unique()->lastName,
-        'cursos_id' => $faker->unique()->numberBetween(1, $cursos->count()),
-        'users_id' => $faker->numberBetween(1, \App\User::all()->count()),
+        'cursos_id' => $faker->unique()->numberBetween(1, \App\Models\Curso::all()->count()),
+        'users_id' => $faker->unique()->numberBetween(1, \App\User::all()->count()),
     ];
 });
 
 $factory->define(\App\Models\DocenteArea::class, function (Faker\Generator $faker){
 
     return [
-        'docentes_id' => $faker->numberBetween(1, \App\Models\Docente::all()->count()),
-        'areas_id' => $faker->numberBetween(1, \App\Models\Area::all()->count()),
+        'docentes_id' => random_int(1, \App\Models\Docente::all()->count()),
+        'areas_id' => random_int(1, \App\Models\Area::all()->count()),
     ];
 });
 
