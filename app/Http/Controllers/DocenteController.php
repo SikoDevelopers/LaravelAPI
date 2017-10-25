@@ -122,6 +122,10 @@ class DocenteController extends ModelController
 
         echo $estudantes_que_supervisiona;
 
+        return response()->json(['docente'=>$estudantes_que_supervisiona]);
+
+
+
     }
 
     public function retornarAreasDoDocente(Request $request){
