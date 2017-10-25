@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Docente;
 use App\Models\DocenteArea;
+use App\Models\DocentesAreasTrabalho;
 use App\Models\Estudante;
 use App\Models\TipoUser;
 use App\User;
@@ -67,14 +68,39 @@ class DocenteController extends ModelController
     }
 
     public function getSupervisionandos(Request $request){
-        $docente_areas = retornarAreasDoDocente($request);
-        echo $docente_areas;
+        /**
+         * Indo buscar todas areas do docente e armazenamos na var $docente_areas.
+         */
+        $docente_areas = DocenteArea::select('id')->where('docentes_id',$request->id)->get();
+
+        $trabalhos_que_supervisona = collect();
+        $docente_area = 0;
+
+        if($docente_areas){
+            foreach ($docente_areas as $docente_area){
+                echo $docente_area;
+
+                $trab = DocentesAreasTrabalho::select('trabalhos_id')
+                    ->where('funcoes_id','=',1,'and')
+                    ->where('docente_areas_id','=',$docente_area->id,'and')->first();
+
+                if($trab){
+                    $trabalhos_que_supervisona->push(
+                        $trab
+                    );
+                }
+                $trab = null;
+
+            }
+        }
+
+       echo $trabalhos_que_supervisona;
 //        $supervisionandos = Estudante::select('apelido','nome','trabalho.titulo','created_at','is_aprovado')
 //            ->where('');
     }
 
     public function retornarAreasDoDocente(Request $request){
-        return DocenteArea::select('id','areas_id')->where('docente_id',$request->id)->get();
+      //  return
 
     }
     public function getProtocolos(){
