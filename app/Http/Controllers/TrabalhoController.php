@@ -63,7 +63,7 @@ class TrabalhoController extends ModelController
        //Gravacao de Supervisor
             $docenteAreaTra = new DocentesAreasTrabalho();
             $docenteAreaTra->trabalhos_id =$trabalhoPrincipal->id;
-            $docenteAreaTra->funcoes_id = 1;
+            $docenteAreaTra->funcoes_id =  DB::table('funcoes')->where('designacao', 'Supervisor')->value('id');
             $docenteAreaTra->docente_areas_id = $this->pesquisarSupervisorArea($request->superviso,$request->area,$request->tipoSup);
             $docenteAreaTra->save();
 
@@ -73,7 +73,7 @@ class TrabalhoController extends ModelController
         Storage::putFileAs('public',$request->file('protocolo'),$request->user.$request->timestamp.'protocolo.pdf');
         $ficheiro_protocolo->data= "2006-08-15";
         $ficheiro_protocolo->caminho=$request->user.$request->timestamp.'protocolo.pdf';
-        $ficheiro_protocolo->categorias_ficheiros_id =1;
+        $ficheiro_protocolo->categorias_ficheiros_id =DB::table('categorias_ficheiros')->where('designacao', 'Protocolo')->value('id');
         $ficheiro_protocolo->trabalhos_id=$trabalhoPrincipal->id;
         $ficheiro_protocolo->save();
 
@@ -86,8 +86,8 @@ class TrabalhoController extends ModelController
 
     }
 
-    public function hasJob(Request $request){
-        $estudante_id = DB::table('estudantes')->where('users_id', $request->user)->value('id');
+    public function hasJob($id){
+        $estudante_id = DB::table('estudantes')->where('users_id', $id)->value('id');
         $job = Trabalho::where('estudantes_id',$estudante_id)->first();
 
         if ($job!=null)
