@@ -73,10 +73,16 @@ class DocenteController extends ModelController
          */
         $docente_areas = DocenteArea::select('id')->where('docentes_id',$request->id)->get();
 
-        $trabalhos_que_supervisona = collect();
-        $docente_area = 0;
 
+
+
+        /**
+         * Indo buscar todos trabalhos que o docente supervisona
+         */
+        $docente_area = null;
+        $trabalhos_que_supervisona = collect();
         if($docente_areas){
+
             foreach ($docente_areas as $docente_area){
                 echo $docente_area;
 
@@ -94,9 +100,17 @@ class DocenteController extends ModelController
             }
         }
 
-       echo $trabalhos_que_supervisona;
-//        $supervisionandos = Estudante::select('apelido','nome','trabalho.titulo','created_at','is_aprovado')
-//            ->where('');
+        echo $trabalhos_que_supervisona;
+
+        $trabalho_que_supervisona = null;
+        $estudantes_que_supertvisiona = collect();
+        if($trabalhos_que_supervisona){
+            foreach ($trabalhos_que_supervisona as $trabalho_que_supervisona){
+
+            }
+
+        }
+
     }
 
     public function retornarAreasDoDocente(Request $request){
