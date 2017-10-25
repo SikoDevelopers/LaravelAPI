@@ -64,7 +64,7 @@ class TrabalhoController extends ModelController
             $docenteAreaTra = new DocentesAreasTrabalho();
             $docenteAreaTra->trabalhos_id =$trabalhoPrincipal->id;
             $docenteAreaTra->funcoes_id = 1;
-            $docenteAreaTra->docente_areas_id = $this->pesquisarSupervisorArea($request->superviso,$request->area,$request->tipoSup);
+            $docenteAreaTra->docente_areas_id = $this->pesquisarSupervisorArea($request->supervisor,$request->area,$request->tipoSup);
             $docenteAreaTra->save();
 
 
@@ -85,6 +85,18 @@ class TrabalhoController extends ModelController
 //            ]);
 
     }
+
+    public function hasJob(Request $request){
+        $estudante_id = DB::table('estudantes')->where('users_id', $request->user)->value('id');
+        $job = Trabalho::where('estudantes_id',$estudante_id)->first();
+
+        if ($job!=null)
+            return response()->json(['job'=>$job,'resultado'=>true,'estudante'=>$estudante_id]);
+        else
+            return response()->json(['job'=>$job,'resultado'=>false,'estudante'=>$estudante_id]);
+        return response()->json(['job'=>$job,'resultado'=>'error','estudante'=>$estudante_id]);
+    }
+
 
 
 
@@ -143,6 +155,8 @@ class TrabalhoController extends ModelController
     public function getSupervisores() {
         $supervisores = Trabalho::select('');
     }
+
+
 
 
 

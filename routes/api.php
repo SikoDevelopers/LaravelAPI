@@ -283,6 +283,7 @@ use Illuminate\Http\Request;
     Route::post('temas', 'TemaController@salvar');
     Route::put('temas/{id}', 'TemaController@editar');
     Route::get('temas/{id}', 'TemaController@pesquisar');
+    Route::get('temas_docente/{id}', 'TemaController@getTemasDoDocente');
     Route::delete('temas/{id}', 'TemaController@remover');
 
 /**
@@ -306,6 +307,7 @@ use Illuminate\Http\Request;
     Route::put('trabalhos/{id}', 'TrabalhoController@editar');
     Route::get('trabalhos/{id}', 'TrabalhoController@pesquisar');
     Route::delete('trabalhos/{id}', 'TrabalhoController@remover');
+    Route::get('estudante_job', 'TrabalhoController@hasJob');
 
 
     Route::get('users/email/validar', "UserController@validarEmail");
