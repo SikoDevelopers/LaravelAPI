@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Docente;
+use App\Models\DocenteArea;
+use App\Models\Estudante;
 use App\Models\TipoUser;
 use App\User;
 use Illuminate\Http\Request;
@@ -64,11 +66,17 @@ class DocenteController extends ModelController
             return response()->json(['docente'=>$docente]);
     }
 
-    public function getSupervisionandos(){
-        
+    public function getSupervisionandos(Request $request){
+        $docente_areas = retornarAreasDoDocente($request);
+        echo $docente_areas;
+//        $supervisionandos = Estudante::select('apelido','nome','trabalho.titulo','created_at','is_aprovado')
+//            ->where('');
     }
 
+    public function retornarAreasDoDocente(Request $request){
+        return DocenteArea::select('id','areas_id')->where('docente_id',$request->id)->get();
 
+    }
     public function getProtocolos(){
 
         $protocolos = CategoriaFicheiro::select('categorias_ficheiros.designacao','estudantes.nome','ficheiros_trabalhos.id', 'ficheiros_trabalhos.data', 'ficheiros_trabalhos.caminho', 'ficheiros_trabalhos.ficheiros_reprovados_id', 'trabalhos.titulo', 'trabalhos.descricao')
