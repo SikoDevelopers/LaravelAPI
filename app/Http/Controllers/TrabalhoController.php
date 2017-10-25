@@ -157,7 +157,16 @@ class TrabalhoController extends ModelController
     }
 
 
+    /**
+     * metodo para retornar trabalho de estudante especifico, indicando o estudante_id
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getTrabalhoEstudante($id){
+        $trabalho = DB::table('trabalhos')->where('estudantes_id',$id)->first();
 
+        return response()->json(['trabalho'=>$trabalho]);
+}
 
 
 }
