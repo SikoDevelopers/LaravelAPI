@@ -64,5 +64,21 @@ class DocenteController extends ModelController
             return response()->json(['docente'=>$docente]);
     }
 
+    public function getSupervisionandos(){
+        
+    }
+
+
+    public function getProtocolos(){
+
+        $protocolos = CategoriaFicheiro::select('categorias_ficheiros.designacao','estudantes.nome','ficheiros_trabalhos.id', 'ficheiros_trabalhos.data', 'ficheiros_trabalhos.caminho', 'ficheiros_trabalhos.ficheiros_reprovados_id', 'trabalhos.titulo', 'trabalhos.descricao')
+            ->where('categorias_ficheiros.id', '=', '2')
+            ->join('ficheiros_trabalhos', 'categorias_ficheiros.id', '=','ficheiros_trabalhos.categorias_ficheiros_id')
+            ->join('trabalhos', 'ficheiros_trabalhos.trabalhos_id', '=', 'trabalhos.id')
+            ->join('estudantes', 'trabalhos.estudantes_id', '=', 'estudantes.id')
+            ->orderByDesc('ficheiros_trabalhos.id')
+            ->get();
+        return response()->json(['protocolos'=>$protocolos]);
+    }
 
 }
