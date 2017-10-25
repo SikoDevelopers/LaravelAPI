@@ -7,6 +7,7 @@ use App\Models\DocenteArea;
 use App\Models\DocentesAreasTrabalho;
 use App\Models\Estudante;
 use App\Models\TipoUser;
+use App\Models\Trabalho;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -84,7 +85,7 @@ class DocenteController extends ModelController
         if($docente_areas){
 
             foreach ($docente_areas as $docente_area){
-                echo $docente_area;
+//                echo $docente_area;
 
                 $trab = DocentesAreasTrabalho::select('trabalhos_id')
                     ->where('funcoes_id','=',1,'and')
@@ -99,17 +100,27 @@ class DocenteController extends ModelController
 
             }
         }
-
-        echo $trabalhos_que_supervisona;
+//
+//        echo $trabalhos_que_supervisona;
 
         $trabalho_que_supervisona = null;
-        $estudantes_que_supertvisiona = collect();
+        $estudantes_que_supervisiona = collect();
         if($trabalhos_que_supervisona){
-            foreach ($trabalhos_que_supervisona as $trabalho_que_supervisona){
 
+            foreach ($trabalhos_que_supervisona as $trabalho_que_supervisona){
+                $est = Trabalho::select('apelido','nome','trabalhos.titulo','trabalhos.created_at','trabalhos.is_aprovado')
+                    ->where('trabalhos.id',$trabalho_que_supervisona->trabalhos_id)
+                    ->join('estudantes','trabalhos.estudantes_id','=','estudantes.id')
+                    ->get();
+
+                if($est){
+                    $estudantes_que_supervisiona->push($est);
+                }
             }
 
         }
+
+        echo $estudantes_que_supervisiona;
 
     }
 
