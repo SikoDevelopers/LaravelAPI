@@ -46,6 +46,7 @@ use Illuminate\Http\Request;
     Route::put('estudantes/{id}', 'EstudanteController@editar');
     Route::get('estudantes/{id}', 'EstudanteController@pesquisar');
     Route::delete('estudantes/{id}', 'EstudanteController@remover');
+    Route::get('estudantes_byuser/{id}', 'EstudanteController@getEstduanteByuser');
 
 
 /**
@@ -227,6 +228,7 @@ use Illuminate\Http\Request;
     Route::post('ficheiros_trabalhos', 'FicheiroTrabalhoController@salvar');
     Route::put('ficheiros_trabalhos/{id}', 'FicheiroTrabalhoController@editar');
     Route::get('ficheiros_trabalhos/{id}', 'FicheiroTrabalhoController@pesquisar');
+    Route::get('ficheiros_de_trabalho/{id}', 'FicheiroTrabalhoController@getFicheiros');
     Route::delete('ficheiros_trabalhos/{id}', 'FicheiroTrabalhoController@remover');
 
 
@@ -309,6 +311,7 @@ use Illuminate\Http\Request;
     Route::get('trabalhos/{id}', 'TrabalhoController@pesquisar');
     Route::delete('trabalhos/{id}', 'TrabalhoController@remover');
     Route::get('estudante_job/{id}', 'TrabalhoController@hasJob');
+    Route::get('trabalho_estudante/{id}', 'TrabalhoController@getTrabalhoEstudante');
 
 
     Route::get('users/email/validar', "UserController@validarEmail");
