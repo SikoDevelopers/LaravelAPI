@@ -307,7 +307,7 @@ use Illuminate\Http\Request;
     Route::put('trabalhos/{id}', 'TrabalhoController@editar');
     Route::get('trabalhos/{id}', 'TrabalhoController@pesquisar');
     Route::delete('trabalhos/{id}', 'TrabalhoController@remover');
-    Route::get('estudante_job', 'TrabalhoController@hasJob');
+    Route::get('estudante_job/{id}', 'TrabalhoController@hasJob');
 
 
     Route::get('users/email/validar', "UserController@validarEmail");
