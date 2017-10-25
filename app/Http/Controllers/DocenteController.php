@@ -104,7 +104,7 @@ class DocenteController extends ModelController
 //        echo $trabalhos_que_supervisona;
 
         $trabalho_que_supervisona = null;
-        $estudantes_que_supervisiona = collect();
+        $estudantes_que_supervisiona =  collect();
         if($trabalhos_que_supervisona){
 
             foreach ($trabalhos_que_supervisona as $trabalho_que_supervisona){
@@ -114,32 +114,19 @@ class DocenteController extends ModelController
                     ->get();
 
                 if($est){
+//                    array_add($estudantes_que_supervisiona, 'estudantes', $est);
                     $estudantes_que_supervisiona->push($est);
                 }
             }
 
         }
 
-        echo $estudantes_que_supervisiona;
+//        echo $estudantes_que_supervisiona;
 
-        return response()->json(['docente'=>$estudantes_que_supervisiona]);
-
-    }
-
-    public function retornarAreasDoDocente(Request $request){
-      //  return
+        return response()->json(['estudantes_do_docente'=>$estudantes_que_supervisiona]);
 
     }
-    public function getProtocolos(){
 
-        $protocolos = CategoriaFicheiro::select('categorias_ficheiros.designacao','estudantes.nome','ficheiros_trabalhos.id', 'ficheiros_trabalhos.data', 'ficheiros_trabalhos.caminho', 'ficheiros_trabalhos.ficheiros_reprovados_id', 'trabalhos.titulo', 'trabalhos.descricao')
-            ->where('categorias_ficheiros.id', '=', '2')
-            ->join('ficheiros_trabalhos', 'categorias_ficheiros.id', '=','ficheiros_trabalhos.categorias_ficheiros_id')
-            ->join('trabalhos', 'ficheiros_trabalhos.trabalhos_id', '=', 'trabalhos.id')
-            ->join('estudantes', 'trabalhos.estudantes_id', '=', 'estudantes.id')
-            ->orderByDesc('ficheiros_trabalhos.id')
-            ->get();
-        return response()->json(['protocolos'=>$protocolos]);
-    }
+
 
 }
