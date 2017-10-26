@@ -61,6 +61,7 @@ use Illuminate\Http\Request;
     Route::delete('docentes/{id}', 'DocenteController@remover');
     Route::get('docentes_user/{id}', 'DocenteController@getDocenteByUserId');
     Route::get('docentes/{id}/estudantes', 'DocenteController@getSupervisionandos');
+    Route::get('docentes/{id}/oponencias', 'DocenteController@getOponencias');
 
 
 
