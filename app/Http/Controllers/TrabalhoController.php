@@ -86,6 +86,11 @@ class TrabalhoController extends ModelController
 
     }
 
+    /**
+     * Metodo para verificar se um estudante tem trabalho
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function hasJob($id){
         $estudante_id = DB::table('estudantes')->where('users_id', $id)->value('id');
         $job = Trabalho::where('estudantes_id',$estudante_id)->first();
