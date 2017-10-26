@@ -21,19 +21,9 @@ class FicheiroTrabalhoController extends ModelController
      * @param $id
      */
 public function getFicheiros($id){
-          $ficheiros = FicheirosTrabalho::where('trabalhos_id',$id)->get();
-          $allFiles=[];
+          $ficheiros = FicheirosTrabalho::where('trabalhos_id',$id)->with('estadoFicheiros','categoriaFicheiro')->get();
 
-
-
-
-    for ( $cont = 0;$cont <count($ficheiros);$cont++){
-
-            $allFiles[$cont] = Storage::url($ficheiros[$cont]['caminho']);
-
-     }
-
-     return response()->json(['ficheiros'=>$allFiles]);
+     return response()->json(['ficheiros'=>$ficheiros]);
     }
 
     /**
