@@ -16,13 +16,36 @@ class FicheiroTrabalhoController extends ModelController
         $this->relacionados = ['categoriaFicheiro','trabalho','estadoFicheiros','ficheiroReprovado'];
     }
 
-
+    /**
+     * Metodo para pegar todos ficheiros de trabalho (caminhos)
+     * @param $id
+     */
 public function getFicheiros($id){
           $ficheiros = DB::table('ficheiros_trabalhos')->where('trabalhos_id',id);
           $allFiles=[];
         foreach ($ficheiros as $index => $ficheiro){
 
             $allFiles[$index] = Storage::url($ficheiro['caminho']);
+     }
+
+     return response()->json(['ficheiros'=>$allFiles]);
     }
+
+    /**
+     * Metodo para fazer display de ficheiro de trabalho
+     * @param Request $request
+     */
+    public function displayFile($caminho){
+        $pathToFile = Storage::url($caminho);
+//        return response()->file($pathToFile);
+        return response()->json(['resultado'=>'teste']);
+
+    }
+
+public function display($caminho){
+    $pathToFile = Storage::path($caminho);
+//        return response()->file($pathToFile);
+        return response()->download(storage_path('app/public/'.$caminho));
 }
+
 }
