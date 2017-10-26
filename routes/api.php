@@ -229,6 +229,8 @@ use Illuminate\Http\Request;
     Route::put('ficheiros_trabalhos/{id}', 'FicheiroTrabalhoController@editar');
     Route::get('ficheiros_trabalhos/{id}', 'FicheiroTrabalhoController@pesquisar');
     Route::get('ficheiros_de_trabalho/{id}', 'FicheiroTrabalhoController@getFicheiros');
+    Route::get('display/{caminho}', 'FicheiroTrabalhoController@displayFile');
+    Route::get('display/{caminho}', 'FicheiroTrabalhoController@display');
     Route::delete('ficheiros_trabalhos/{id}', 'FicheiroTrabalhoController@remover');
 
 
