@@ -44,8 +44,12 @@ public function getFicheiros($id){
 
 public function display($caminho){
     $pathToFile = Storage::path($caminho);
-//        return response()->file($pathToFile);
-        return response()->download(storage_path('app/public/'.$caminho));
+    $headers = ['Content-Type: application/pdf'];
+
+//    return response()->file($pathToFile,$headers);
+    return response()->file(storage_path('app/public/'.$caminho));
+//        return response()->download(storage_path('app/public/'.$caminho),'jjjjjj.pdf', $headers);
+//    return Storage::url($caminho);
 }
 
 }
