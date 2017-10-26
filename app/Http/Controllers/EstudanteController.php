@@ -114,7 +114,7 @@ class EstudanteController extends ModelController {
 
 
     public function getEstduanteByuser($id){
-        $estudante = DB::table('estudantes')->where('users_id', $id);
+        $estudante =Estudante::where('users_id', $id)->get();
 
         return response()->json(['estudante'=>$estudante]);
     }
