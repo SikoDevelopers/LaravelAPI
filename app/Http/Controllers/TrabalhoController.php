@@ -168,7 +168,7 @@ class TrabalhoController extends ModelController
      * @return \Illuminate\Http\JsonResponse
      */
     public function getTrabalhoEstudante($id){
-        $trabalho = DB::table('trabalhos')->where('estudantes_id',$id)->first();
+        $trabalho =Trabalho::where('estudantes_id',$id)->with('ficheirosTrabalhos')->first();
 
         return response()->json(['trabalho'=>$trabalho]);
 }
