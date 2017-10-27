@@ -6,8 +6,10 @@ use App\Models\AreasSupervisorExterno;
 use App\Models\CategoriaFicheiro;
 use App\Models\DocenteArea;
 use App\Models\DocentesAreasTrabalho;
+use App\Models\EstadoFicheiro;
 use App\Models\Estudante;
 use App\Models\FicheirosTrabalho;
+use App\Models\FicheiroTrabalho_EstadoFicheiro;
 use App\Models\SupervisorExterno;
 use App\Http\Controllers\classesAuxiliares\Auxiliar;
 use App\Models\Area;
@@ -53,6 +55,7 @@ class TrabalhoController extends ModelController
         $trabalhoPrincipal = new Trabalho();
         $trabalhoPrincipal->titulo = $request->titulo;
         $trabalhoPrincipal->descricao = $request->descricao;
+        $estadoFicheiro = new FicheiroTrabalho_EstadoFicheiro();
 
        //PegarEstudante
         $estudante = new Estudante();
@@ -76,6 +79,10 @@ class TrabalhoController extends ModelController
         $ficheiro_protocolo->categorias_ficheiros_id =DB::table('categorias_ficheiros')->where('designacao', 'Protocolo')->value('id');
         $ficheiro_protocolo->trabalhos_id=$trabalhoPrincipal->id;
         $ficheiro_protocolo->save();
+        $estadoFicheiro->ficheiros_trabalhos_id =$ficheiro_protocolo->id;
+        $estadoFicheiro->estados_ficheiros_id =3;
+        $estadoFicheiro->is_actual =1;
+        $estadoFicheiro->save();
 
 
         return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
