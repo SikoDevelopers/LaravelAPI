@@ -113,8 +113,11 @@ class EstudanteController extends ModelController {
     }
 
 
+    public function getEstduanteByuser($id){
+        $estudante =Estudante::where('users_id', $id)->get();
 
-
+        return response()->json(['estudante'=>$estudante]);
+    }
 
 
 

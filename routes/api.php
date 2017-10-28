@@ -46,6 +46,7 @@ use Illuminate\Http\Request;
     Route::put('estudantes/{id}', 'EstudanteController@editar');
     Route::get('estudantes/{id}', 'EstudanteController@pesquisar');
     Route::delete('estudantes/{id}', 'EstudanteController@remover');
+    Route::get('estudantes_byuser/{id}', 'EstudanteController@getEstduanteByuser');
 
 
 /**
@@ -59,8 +60,11 @@ use Illuminate\Http\Request;
     Route::get('docentes/{id}', 'DocenteController@pesquisar');
     Route::delete('docentes/{id}', 'DocenteController@remover');
     Route::get('docentes_user/{id}', 'DocenteController@getDocenteByUserId');
-    Route::get('docentes/{id}/supervisandos', 'DocenteController@getSupervisandos')
-;
+    Route::get('docentes/{id}/supervisandos', 'DocenteController@getSupervisandos');
+    Route::get('docentes/{id}/estudantes', 'DocenteController@getSupervisionandos');
+    Route::get('docentes/{id}/oponencias', 'DocenteController@getOponencias');
+
+
 
 /**
 * Rotas para areas
@@ -226,6 +230,9 @@ use Illuminate\Http\Request;
     Route::post('ficheiros_trabalhos', 'FicheiroTrabalhoController@salvar');
     Route::put('ficheiros_trabalhos/{id}', 'FicheiroTrabalhoController@editar');
     Route::get('ficheiros_trabalhos/{id}', 'FicheiroTrabalhoController@pesquisar');
+    Route::get('ficheiros_de_trabalho/{id}', 'FicheiroTrabalhoController@getFicheiros');
+    Route::get('display/{caminho}', 'FicheiroTrabalhoController@display');
+    Route::get('ficheiros_estado', 'FicheiroTrabalhoController@estadoFicheiro');
     Route::delete('ficheiros_trabalhos/{id}', 'FicheiroTrabalhoController@remover');
 
 
@@ -239,6 +246,7 @@ use Illuminate\Http\Request;
     Route::post('Ficheiro_trabalho_estado_ficheiros', 'FicheiroTrabalhoEstadoFicheiroController@salvar');
     Route::put('Ficheiro_trabalho_estado_ficheiros/{id}', 'FicheiroTrabalhoEstadoFicheiroController@editar');
     Route::get('Ficheiro_trabalho_estado_ficheiros/{id}', 'FicheiroTrabalhoEstadoFicheiroController@pesquisar');
+    Route::get('estado_ficheiros/{id}', 'FicheiroTrabalhoEstadoFicheiroController@getEstadoFicheiro');
     Route::delete('Ficheiro_trabalho_estado_ficheiros/{id}', 'FicheiroTrabalhoEstadoFicheiroController@remover');
 
 
@@ -310,6 +318,8 @@ use Illuminate\Http\Request;
     Route::delete('trabalhos/{id}', 'TrabalhoController@remover');
     Route::get('estudante_job', 'TrabalhoController@hasJob');
     Route::post('trabalho/participantes', 'TrabalhoController@adicionarParticipantes');
+    Route::get('estudante_job/{id}', 'TrabalhoController@hasJob');
+    Route::get('trabalho_estudante/{id}', 'TrabalhoController@getTrabalhoEstudante');
 
 
 Route::get('users/email/validar', "UserController@validarEmail");

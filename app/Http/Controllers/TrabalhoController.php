@@ -6,8 +6,10 @@ use App\Models\AreasSupervisorExterno;
 use App\Models\CategoriaFicheiro;
 use App\Models\DocenteArea;
 use App\Models\DocentesAreasTrabalho;
+use App\Models\EstadoFicheiro;
 use App\Models\Estudante;
 use App\Models\FicheirosTrabalho;
+use App\Models\FicheiroTrabalho_EstadoFicheiro;
 use App\Models\SupervisorExterno;
 use App\Http\Controllers\classesAuxiliares\Auxiliar;
 use App\Models\Area;
@@ -53,6 +55,7 @@ class TrabalhoController extends ModelController
         $trabalhoPrincipal = new Trabalho();
         $trabalhoPrincipal->titulo = $request->titulo;
         $trabalhoPrincipal->descricao = $request->descricao;
+        $estadoFicheiro = new FicheiroTrabalho_EstadoFicheiro();
 
        //PegarEstudante
         $estudante = new Estudante();
@@ -63,8 +66,8 @@ class TrabalhoController extends ModelController
        //Gravacao de Supervisor
             $docenteAreaTra = new DocentesAreasTrabalho();
             $docenteAreaTra->trabalhos_id =$trabalhoPrincipal->id;
-            $docenteAreaTra->funcoes_id = 1;
-            $docenteAreaTra->docente_areas_id = $this->pesquisarSupervisorArea($request->supervisor,$request->area,$request->tipoSup);
+            $docenteAreaTra->funcoes_id =  DB::table('funcoes')->where('designacao', 'Supervisor')->value('id');
+            $docenteAreaTra->docente_areas_id = $this->pesquisarSupervisorArea($request->superviso,$request->area,$request->tipoSup);
             $docenteAreaTra->save();
 
 
@@ -73,9 +76,13 @@ class TrabalhoController extends ModelController
         Storage::putFileAs('public',$request->file('protocolo'),$request->user.$request->timestamp.'protocolo.pdf');
         $ficheiro_protocolo->data= "2006-08-15";
         $ficheiro_protocolo->caminho=$request->user.$request->timestamp.'protocolo.pdf';
-        $ficheiro_protocolo->categorias_ficheiros_id =1;
+        $ficheiro_protocolo->categorias_ficheiros_id =DB::table('categorias_ficheiros')->where('designacao', 'Protocolo')->value('id');
         $ficheiro_protocolo->trabalhos_id=$trabalhoPrincipal->id;
         $ficheiro_protocolo->save();
+        $estadoFicheiro->ficheiros_trabalhos_id =$ficheiro_protocolo->id;
+        $estadoFicheiro->estados_ficheiros_id =3;
+        $estadoFicheiro->is_actual =1;
+        $estadoFicheiro->save();
 
 
         return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
@@ -86,8 +93,13 @@ class TrabalhoController extends ModelController
 
     }
 
-    public function hasJob(Request $request){
-        $estudante_id = DB::table('estudantes')->where('users_id', $request->user)->value('id');
+    /**
+     * Metodo para verificar se um estudante tem trabalho
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function hasJob($id){
+        $estudante_id = DB::table('estudantes')->where('users_id', $id)->value('id');
         $job = Trabalho::where('estudantes_id',$estudante_id)->first();
 
         if ($job!=null)
@@ -170,8 +182,9 @@ class TrabalhoController extends ModelController
         return null;
     }
 
-
+    
     /**
+
      *cria um Docente_areastrabalho (Participantes envolvidos em um trabalho)
      * @param Request $request
      * @return mixed
@@ -205,6 +218,15 @@ class TrabalhoController extends ModelController
 
 
 
+     * metodo para retornar trabalho de estudante especifico, indicando o estudante_id
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getTrabalhoEstudante($id){
+        $trabalho =Trabalho::where('estudantes_id',$id)->with('ficheirosTrabalhos')->first();
+
+        return response()->json(['trabalho'=>$trabalho]);
+}
 
 
 }
