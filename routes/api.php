@@ -243,7 +243,6 @@ use Illuminate\Http\Request;
     Route::post('Ficheiro_trabalho_estado_ficheiros', 'FicheiroTrabalhoEstadoFicheiroController@salvar');
     Route::put('Ficheiro_trabalho_estado_ficheiros/{id}', 'FicheiroTrabalhoEstadoFicheiroController@editar');
     Route::get('Ficheiro_trabalho_estado_ficheiros/{id}', 'FicheiroTrabalhoEstadoFicheiroController@pesquisar');
-    Route::get('estado_ficheiros/{id}', 'FicheiroTrabalhoEstadoFicheiroController@getEstadoFicheiro');
     Route::delete('Ficheiro_trabalho_estado_ficheiros/{id}', 'FicheiroTrabalhoEstadoFicheiroController@remover');
 
 
