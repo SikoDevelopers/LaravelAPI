@@ -11,7 +11,7 @@ class FuncaoController extends ModelController
     public function __construct() {
         $this->objecto = new   Funcao();
         $this->nomeObjecto = 'funcao';
-        $this->nomeObjectos = 'funces';
+        $this->nomeObjectos = 'funcoes';
         $this->relacionados = ['docentesAreasTrabalhos'];
     }
 }

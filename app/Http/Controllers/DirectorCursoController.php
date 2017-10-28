@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\DirectorCurso;
-use Illuminate\Http\Request;
 
 class DirectorCursoController extends ModelController
 {
