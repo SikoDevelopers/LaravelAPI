@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Docente;
 use App\Models\DocentesAreasTrabalho;
 use App\Models\DocenteArea;
-use App\Models\DocentesAreasTrabalho;
 use App\Models\Estudante;
 use App\Models\TipoUser;
 use App\Models\Trabalho;
