@@ -153,7 +153,7 @@ class TrabalhoController extends ModelController
 
     public function getTrabalhos(){
 
-        $protocolos = CategoriaFicheiro::select('categorias_ficheiros.designacao','estudantes.nome','ficheiros_trabalhos.id', 'ficheiros_trabalhos.data', 'ficheiros_trabalhos.caminho', 'ficheiros_trabalhos.ficheiros_reprovados_id', 'trabalhos.titulo', 'trabalhos.descricao')
+        $protocolos = CategoriaFicheiro::select('trabalhos.id','categorias_ficheiros.designacao','estudantes.nome','ficheiros_trabalhos.id', 'ficheiros_trabalhos.data', 'ficheiros_trabalhos.caminho', 'ficheiros_trabalhos.ficheiros_reprovados_id', 'trabalhos.titulo', 'trabalhos.descricao')
             ->where('categorias_ficheiros.id', '=', '1')
             ->join('ficheiros_trabalhos', 'categorias_ficheiros.id', '=','ficheiros_trabalhos.categorias_ficheiros_id')
             ->join('trabalhos', 'ficheiros_trabalhos.trabalhos_id', '=', 'trabalhos.id')
@@ -164,13 +164,62 @@ class TrabalhoController extends ModelController
     }
 
 
-    public function getSupervisores() {
-        $supervisores = Trabalho::select('');
+    /**
+     * Retorna a areas do supervisor num determinado trabalho
+     * @param $id
+     * @return mixed
+     */
+    public function getAreaSupervisorNoTrabalho($id){
+        $docenteAreas = Trabalho::find($id)->docenteAreas;
+
+        foreach($docenteAreas as $docenteArea1){
+            if(Funcao::find($docenteArea1->pivot->funcoes_id)->designacao == 'Supervisor')
+                return $docenteArea1->areas_id;
+        }
+
+
+
+        return null;
+    }
+
+    
+    /**
+
+     *cria um Docente_areastrabalho (Participantes envolvidos em um trabalho)
+     * @param Request $request
+     * @return mixed
+     */
+    public function adicionarParticipantes(Request $request){
+        $trabalho = $request->input('trabalho');
+        $participantes = $request->input('participantes');
+
+        $areaSupervisor = $this->getAreaSupervisorNoTrabalho($trabalho['id']);
+
+//        if($areaSupervisor == null)
+
+
+            DB::beginTransaction();
+
+            foreach ($participantes as $participante) {
+                if (!$docente_area = DocenteArea::create(['areas_id' => $areaSupervisor, 'docentes_id' => $participante['id']]))
+                    DB::rollBack();
+                else {
+                    if (!$docente_area_trabalho = DocentesAreasTrabalho::create(['docente_areas_id' => $docente_area['id'], 'trabalhos_id' => $trabalho['id'], 'funcoes_id' => $participante['funcao']['id']]))
+                        DB::rollBack();
+                    else {
+                        DB::commit();
+                    }
+                }
+            }
+        return ['docente_area' => $docente_area, 'particpante' => $docente_area_trabalho];
+//        return Auxiliar::retornarErros('Nao foi possivel criar participantes', '404');
     }
 
 
+
+
     /**
-     * metodo para retornar trabalho de estudante especifico, indicando o estudante_id
+    * metodo para retornar trabalho de estudante especifico, indicando o estudante_id
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */

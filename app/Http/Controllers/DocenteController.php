@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Docente;
-use App\Models\DocenteArea;
 use App\Models\DocentesAreasTrabalho;
+use App\Models\DocenteArea;
 use App\Models\Estudante;
 use App\Models\TipoUser;
 use App\Models\Trabalho;
@@ -65,7 +65,28 @@ class DocenteController extends ModelController
 
     public function getDocenteByUserId(Request $request){
         $docente = Docente::where('users_id',$request->id)->first();
-            return response()->json(['docente'=>$docente]);
+            return response()->json(['dcoente'=>$docente]);
+    }
+
+
+    /**
+     * @param $id
+     * Retorna os supervisandos de um determinado docente
+     */
+    public function getSupervisandos($id){
+//        if($docente = Docente::find($id)) {
+//            $docentesAreasTrabalhos = DocentesAreasTrabalho::where('');
+//        }
+//
+
+//        $docente = Docente::select('docentes.nome')->join('areas', 'docentes.id', '=', 'docente_areas.docentes_id');
+
+        $docente = DocentesAreasTrabalho::where('docentes.id', '=', '2')
+            ->join('docente_areas', 'docente_areas_trabalhos.docente_areas_id', '=', 'docente_areas.id')
+            ->join('docentes', 'docente_areas.docentes_id', '=', 'docentes.id')
+            ->join('funcoes', 'docente_areas_trabalhos.funcoes_id', '=','funcoes.id')->count();
+
+        return response()->json(['supervisandos'=>$docente]);
     }
 
     /**
