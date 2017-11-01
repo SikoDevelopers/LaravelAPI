@@ -235,7 +235,9 @@ class TrabalhoController extends ModelController
      * @return \Illuminate\Http\JsonResponse - json com os dados do trabalho
      */
     public function getTrabalho($id){
-        $trabalho;
+        $trabalho = Trabalho::find($id)
+                    ->with('estudante')
+                    ->first();
         return response()->json(['trabalho'=>$trabalho]);
 
     }
