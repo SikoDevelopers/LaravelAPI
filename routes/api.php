@@ -320,6 +320,7 @@ use Illuminate\Http\Request;
     Route::post('trabalho/participantes', 'TrabalhoController@adicionarParticipantes');
     Route::get('estudante_job/{id}', 'TrabalhoController@hasJob');
     Route::get('trabalho_estudante/{id}', 'TrabalhoController@getTrabalhoEstudante');
+    Route::get('trabalho/{id}', 'TrabalhoController@getTrabalho');
 
 
 Route::get('users/email/validar', "UserController@validarEmail");
