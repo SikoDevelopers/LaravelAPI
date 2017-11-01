@@ -29,8 +29,6 @@ class TrabalhoController extends ModelController
         $this->nomeObjecto = 'trabalho';
         $this->nomeObjectos = 'trabalhos';
         $this->relacionados = ['estudante','ficheirosTrabalhos','evento','docenteAreas'];
-
-
     }
 
     /**
@@ -228,7 +226,18 @@ class TrabalhoController extends ModelController
         $trabalho =Trabalho::where('estudantes_id',$id)->with('ficheirosTrabalhos')->first();
 
         return response()->json(['trabalho'=>$trabalho]);
-}
+    }
 
+
+    /**
+     * Metodo usado para ir buscar um trablho dado o id
+     * @param $id - id do trabalho
+     * @return \Illuminate\Http\JsonResponse - json com os dados do trabalho
+     */
+    public function getTrabalho($id){
+        $trabalho;
+        return response()->json(['trabalho'=>$trabalho]);
+
+    }
 
 }
