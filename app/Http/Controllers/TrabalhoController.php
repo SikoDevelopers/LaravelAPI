@@ -218,7 +218,7 @@ class TrabalhoController extends ModelController
 
 
 
-     * metodo para retornar trabalho de estudante especifico, indicando o estudante_id
+     /** metodo para retornar trabalho de estudante especifico, indicando o estudante_id
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
