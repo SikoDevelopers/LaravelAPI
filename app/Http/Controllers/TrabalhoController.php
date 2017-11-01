@@ -141,8 +141,10 @@ class TrabalhoController extends ModelController
 
     public function getProtocolos(){
 
+        $tipoFicheiro = CategoriaFicheiro::select('id')->where('designacao', '=', 'Protocolo')->first()['id'];
+
         $protocolos = CategoriaFicheiro::select('categorias_ficheiros.designacao','estudantes.nome','ficheiros_trabalhos.id', 'ficheiros_trabalhos.data', 'ficheiros_trabalhos.caminho', 'ficheiros_trabalhos.ficheiros_reprovados_id', 'trabalhos.titulo', 'trabalhos.descricao')
-            ->where('categorias_ficheiros.id', '=', '2')
+            ->where('categorias_ficheiros.id', '=', $tipoFicheiro)
             ->join('ficheiros_trabalhos', 'categorias_ficheiros.id', '=','ficheiros_trabalhos.categorias_ficheiros_id')
             ->join('trabalhos', 'ficheiros_trabalhos.trabalhos_id', '=', 'trabalhos.id')
             ->join('estudantes', 'trabalhos.estudantes_id', '=', 'estudantes.id')
@@ -152,9 +154,10 @@ class TrabalhoController extends ModelController
     }
 
     public function getTrabalhos(){
+        $tipoFicheiro = CategoriaFicheiro::select('id')->where('designacao', '=', 'Trabalho')->first()['id'];
 
         $protocolos = CategoriaFicheiro::select('trabalhos.id','categorias_ficheiros.designacao','estudantes.nome','ficheiros_trabalhos.id', 'ficheiros_trabalhos.data', 'ficheiros_trabalhos.caminho', 'ficheiros_trabalhos.ficheiros_reprovados_id', 'trabalhos.titulo', 'trabalhos.descricao')
-            ->where('categorias_ficheiros.id', '=', '1')
+            ->where('categorias_ficheiros.id', '=', $tipoFicheiro)
             ->join('ficheiros_trabalhos', 'categorias_ficheiros.id', '=','ficheiros_trabalhos.categorias_ficheiros_id')
             ->join('trabalhos', 'ficheiros_trabalhos.trabalhos_id', '=', 'trabalhos.id')
             ->join('estudantes', 'trabalhos.estudantes_id', '=', 'estudantes.id')
