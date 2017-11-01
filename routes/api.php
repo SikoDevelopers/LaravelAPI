@@ -190,13 +190,13 @@ use Illuminate\Http\Request;
 * Rotas para Evento
 */
     Route::get('eventos', 'EventoController@listar');
+    Route::get('eventos/tipo', 'EventoController@getEventosTipo');
 //  Route::get('eventos/{id}/docentes', 'EventoController@trabalhos');
 //  Route::get('eventos/{id}/curso', 'EventoController@cursos');
-    Route::post('eventos', 'EventoController@salvar');
+    Route::post('eventos', 'EventoController@salvarTransacao');
     Route::put('eventos/{id}', 'EventoController@editar');
     Route::get('eventos/{id}', 'EventoController@pesquisar');
     Route::delete('eventos/{id}', 'EventoController@remover');
-
 
 /**
 * Rotas para Eventos EstadoEvento
