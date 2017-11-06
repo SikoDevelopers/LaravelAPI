@@ -129,6 +129,7 @@ class TrabalhoController extends ModelController
                               'funcao', Funcao::find($docente_area->pivot->funcoes_id)));
           }
 
+
 //          if($trabalho->areaSupervisorExterno)
 //            array_add($trabalho, 'supervisor_externo', SupervisorExterno::find($trabalho->areaSupervisorExterno->supervisor_externos_id));
 
