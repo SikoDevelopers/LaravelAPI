@@ -19,7 +19,7 @@ class CreateProcessoSubmissaoTable extends Migration {
 			$table->timestamps();
 			$table->dateTime('data_inicio');
 			$table->dateTime('data_fim');
-			$table->string('tipo_processo');
+			$table->string('tipo_processo', 191);
 		});
 	}
 

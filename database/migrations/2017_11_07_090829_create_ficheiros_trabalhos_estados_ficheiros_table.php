@@ -21,6 +21,7 @@ class CreateFicheirosTrabalhosEstadosFicheirosTable extends Migration {
 			$table->integer('id', true);
 			$table->softDeletes();
 			$table->timestamps();
+			$table->string('parecer', 200)->nullable();
 		});
 	}
 

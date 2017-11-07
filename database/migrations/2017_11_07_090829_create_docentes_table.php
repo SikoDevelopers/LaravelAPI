@@ -21,6 +21,7 @@ class CreateDocentesTable extends Migration {
 			$table->softDeletes();
 			$table->timestamps();
 			$table->integer('users_id')->index('fk_docentes_users1_idx');
+			$table->integer('grau_academico_id')->index('fk_docentes_grau_academico1_idx');
 		});
 	}
 
