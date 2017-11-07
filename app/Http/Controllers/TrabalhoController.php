@@ -29,8 +29,6 @@ class TrabalhoController extends ModelController
         $this->nomeObjecto = 'trabalho';
         $this->nomeObjectos = 'trabalhos';
         $this->relacionados = ['estudante','ficheirosTrabalhos','evento','docenteAreas'];
-
-
     }
 
     /**
@@ -162,8 +160,10 @@ class TrabalhoController extends ModelController
 
     public function getProtocolos(){
 
+        $tipoFicheiro = CategoriaFicheiro::select('id')->where('designacao', '=', 'Protocolo')->first()['id'];
+
         $protocolos = CategoriaFicheiro::select('categorias_ficheiros.designacao','estudantes.nome','ficheiros_trabalhos.id', 'ficheiros_trabalhos.data', 'ficheiros_trabalhos.caminho', 'ficheiros_trabalhos.ficheiros_reprovados_id', 'trabalhos.titulo', 'trabalhos.descricao')
-            ->where('categorias_ficheiros.id', '=', '2')
+            ->where('categorias_ficheiros.id', '=', $tipoFicheiro)
             ->join('ficheiros_trabalhos', 'categorias_ficheiros.id', '=','ficheiros_trabalhos.categorias_ficheiros_id')
             ->join('trabalhos', 'ficheiros_trabalhos.trabalhos_id', '=', 'trabalhos.id')
             ->join('estudantes', 'trabalhos.estudantes_id', '=', 'estudantes.id')
@@ -173,9 +173,10 @@ class TrabalhoController extends ModelController
     }
 
     public function getTrabalhos(){
+        $tipoFicheiro = CategoriaFicheiro::select('id')->where('designacao', '=', 'Trabalho')->first()['id'];
 
         $protocolos = CategoriaFicheiro::select('trabalhos.id','categorias_ficheiros.designacao','estudantes.nome','ficheiros_trabalhos.id', 'ficheiros_trabalhos.data', 'ficheiros_trabalhos.caminho', 'ficheiros_trabalhos.ficheiros_reprovados_id', 'trabalhos.titulo', 'trabalhos.descricao')
-            ->where('categorias_ficheiros.id', '=', '1')
+            ->where('categorias_ficheiros.id', '=', $tipoFicheiro)
             ->join('ficheiros_trabalhos', 'categorias_ficheiros.id', '=','ficheiros_trabalhos.categorias_ficheiros_id')
             ->join('trabalhos', 'ficheiros_trabalhos.trabalhos_id', '=', 'trabalhos.id')
             ->join('estudantes', 'trabalhos.estudantes_id', '=', 'estudantes.id')
@@ -238,9 +239,7 @@ class TrabalhoController extends ModelController
 
 
 
-
-    /**
-    * metodo para retornar trabalho de estudante especifico, indicando o estudante_id
+     /** metodo para retornar trabalho de estudante especifico, indicando o estudante_id
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
@@ -248,7 +247,20 @@ class TrabalhoController extends ModelController
         $trabalho =Trabalho::where('estudantes_id',$id)->with('ficheirosTrabalhos')->first();
 
         return response()->json(['trabalho'=>$trabalho]);
-}
+    }
 
+
+    /**
+     * Metodo usado para ir buscar um trablho dado o id
+     * @param $id - id do trabalho
+     * @return \Illuminate\Http\JsonResponse - json com os dados do trabalho
+     */
+    public function getTrabalho($id){
+        $trabalho = Trabalho::where('id','=',$id)
+                    ->with('estudante')
+                    ->first();
+        return response()->json(['trabalho'=>$trabalho]);
+
+    }
 
 }

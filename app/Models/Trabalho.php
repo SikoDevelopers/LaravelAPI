@@ -11,7 +11,7 @@ class Trabalho extends Model
     protected $dates = ['deleted_at'];
     protected $table = 'trabalhos';
     protected $fillable = ['titulo', 'descricao', 'estudantes_id', 'eventos_id', 'is_aprovado', 'areas_supervisor_externos_id'];
-//    protected $with = ['estudante','ficheirosTrabalhos','evento','docenteAreas'];
+    protected $with = ['estudante'];
 
 
     public function estudante(){
