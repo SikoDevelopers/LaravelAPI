@@ -14,6 +14,7 @@ class AddForeignKeysToDocentesTable extends Migration {
 	{
 		Schema::table('docentes', function(Blueprint $table)
 		{
+			$table->foreign('grau_academico_id', 'fk_docentes_grau_academico1')->references('id')->on('grau_academico')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 			$table->foreign('users_id', 'fk_docentes_users1')->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
 		});
 	}
@@ -28,6 +29,7 @@ class AddForeignKeysToDocentesTable extends Migration {
 	{
 		Schema::table('docentes', function(Blueprint $table)
 		{
+			$table->dropForeign('fk_docentes_grau_academico1');
 			$table->dropForeign('fk_docentes_users1');
 		});
 	}

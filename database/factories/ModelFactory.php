@@ -34,6 +34,7 @@ $factory->define(\App\Models\Docente::class, function (\Faker\Generator $faker){
         'apelido' => $faker->lastName(),
         'sessao' => $faker->text(10),
         'users_id' => $faker->numberBetween(1, \App\User::all()->count()),
+        'grau_academico_id' => $faker->numberBetween(1, \App\Models\GrauAcademico::all()->count()),
     ];
 });
 
@@ -98,7 +99,7 @@ $factory->define(\App\Models\DirectorCurso::class, function (Faker\Generator $fa
 
 
     return [
-        'nome' => $faker->unique()->firstName('male'),
+        'nome' => $faker->unique()->firstName,
         'apelido' => $faker->unique()->lastName,
         'cursos_id' => $faker->unique()->numberBetween(1, \App\Models\Curso::all()->count()),
         'users_id' => $faker->unique()->numberBetween(1, \App\User::all()->count()),
@@ -131,6 +132,7 @@ $factory->define(\App\Models\Trabalho::class, function (\Faker\Generator $faker)
         'estudantes_id' => $faker->numberBetween(1, \App\Models\Estudante::all()->count()),
         'eventos_id' => null,
         'is_aprovado' => false,
+        'co_supervisores_id' => $faker->numberBetween(1, \App\Models\CoSupervisor::all()->count()),
 //        'areas_supervisor_externos_id' => $faker->numberBetween(1, \App\Models\AreasSupervisorExterno::all()->count()),
     ];
 });
@@ -139,8 +141,8 @@ $factory->define(\App\Models\Trabalho::class, function (\Faker\Generator $faker)
 $factory->define(\App\Models\DocentesAreasTrabalho::class, function (\Faker\Generator $faker){
     return [
         'docente_areas_id' => $faker->numberBetween(1, \App\Models\DocenteArea::all()->count()),
-        'trabalhos_id' => $faker->numberBetween(1, \App\Models\Trabalho::all()->count()),
-        'funcoes_id' => $faker->numberBetween(1, \App\Models\Funcao::all()->count())
+        'trabalhos_id' => $faker->unique()->numberBetween(1, \App\Models\Trabalho::all()->count()),
+        'funcoes_id' => $faker->numberBetween(1, \App\Models\Funcao::select('id')->where('designacao', '=', 'Supervisor')->first()['id'])
     ];
 });
 
@@ -207,7 +209,7 @@ $factory->define(\App\Models\TipoUser::class, function(Faker\Generator $faker) u
 $factory->define(\App\User::class, function (\Faker\Generator $faker){
     return [
         'email' => $faker->unique()->email,
-        'password' => $faker->password(6),
+        'password' => bcrypt('12345'),
         'tipo_users_id' => $faker->numberBetween(1, \App\Models\TipoUser::all()->count()),
     ];
 });
@@ -217,6 +219,23 @@ $factory->define(\App\Models\Funcionario::class, function (\Faker\Generator $fak
         'nome' => $faker->firstName,
         'apelido' => $faker->lastName,
         'users_id' => $faker->unique()->numberBetween(1, \App\User::all()->count()),
+    ];
+});
+
+
+$grauAcademico = ['Licenciado', 'Bacharelado', 'Doutorado', 'Mestrado'];
+$factory->define(\App\Models\GrauAcademico::class, function(Faker\Generator $faker) use ($grauAcademico){
+    return [
+        'designacao' => $faker->unique()->randomElement($grauAcademico)
+    ];
+});
+
+
+
+$factory->define(\App\Models\CoSupervisor::class, function (\Faker\Generator $faker){
+    return [
+        'nome' => $faker->name(),
+        'grau_academico_id' => $faker->unique()->numberBetween(1, \App\Models\GrauAcademico::all()->count()),
     ];
 });
 

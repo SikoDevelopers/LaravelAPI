@@ -162,7 +162,7 @@ class TrabalhoController extends ModelController
 
         $tipoFicheiro = CategoriaFicheiro::select('id')->where('designacao', '=', 'Protocolo')->first()['id'];
 
-        $protocolos = CategoriaFicheiro::select('categorias_ficheiros.designacao','estudantes.nome','ficheiros_trabalhos.id', 'ficheiros_trabalhos.data', 'ficheiros_trabalhos.caminho', 'ficheiros_trabalhos.ficheiros_reprovados_id', 'trabalhos.titulo', 'trabalhos.descricao')
+        $protocolos = CategoriaFicheiro::select('categorias_ficheiros.designacao','estudantes.nome','trabalhos.id', 'ficheiros_trabalhos.data', 'ficheiros_trabalhos.caminho', 'ficheiros_trabalhos.ficheiros_reprovados_id', 'trabalhos.titulo', 'trabalhos.descricao')
             ->where('categorias_ficheiros.id', '=', $tipoFicheiro)
             ->join('ficheiros_trabalhos', 'categorias_ficheiros.id', '=','ficheiros_trabalhos.categorias_ficheiros_id')
             ->join('trabalhos', 'ficheiros_trabalhos.trabalhos_id', '=', 'trabalhos.id')

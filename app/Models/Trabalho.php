@@ -10,7 +10,7 @@ class Trabalho extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $table = 'trabalhos';
-    protected $fillable = ['titulo', 'descricao', 'estudantes_id', 'eventos_id', 'is_aprovado', 'areas_supervisor_externos_id'];
+    protected $fillable = ['titulo', 'descricao', 'estudantes_id', 'eventos_id', 'is_aprovado', 'areas_supervisor_externos_id', 'co_supervisores_id'];
     protected $with = ['estudante'];
 
 
@@ -45,4 +45,8 @@ class Trabalho extends Model
         return $this->belongsTo('App\Models\AreasSupervisorExterno', 'areas_supervisor_externos_id');
     }
 
+
+    public function coSupervisore(){
+        return $this->belongsTo('App\Models\CoSupervisor', 'co_supervisores_id');
+    }
 }
