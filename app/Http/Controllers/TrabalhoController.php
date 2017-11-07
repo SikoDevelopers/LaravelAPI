@@ -73,9 +73,9 @@ class TrabalhoController extends ModelController
 
         //Gravacao do protocolo
         $ficheiro_protocolo = new FicheirosTrabalho();
-        Storage::putFileAs('public',$request->file('protocolo'),$request->user.$request->timestamp.'protocolo.pdf');
-        $ficheiro_protocolo->data= "2006-08-15";
-        $ficheiro_protocolo->caminho=$request->user.$request->timestamp.'protocolo.pdf';
+        Storage::putFileAs('public',$request->file('protocolo'),$request->timestamp.'protocolo.pdf');
+        $ficheiro_protocolo->data= date("Y-m-d") ;
+        $ficheiro_protocolo->caminho=$request->timestamp.'protocolo.pdf';
         $ficheiro_protocolo->categorias_ficheiros_id =DB::table('categorias_ficheiros')->where('designacao', 'Protocolo')->value('id');
         $ficheiro_protocolo->trabalhos_id=$trabalhoPrincipal->id;
         $ficheiro_protocolo->save();
@@ -86,12 +86,33 @@ class TrabalhoController extends ModelController
 
 
         return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
-//        return response()->json(['user'=>$request->user,'tema'=>$request->titulo,'descricao'=>$request->descricao,'supervisor'=>$request->supervisor,
-//            'area'=>$request->area,'data'=>$request->data,'timestamp'=>$request->timestamp
-//            ,'trabalho id'=>$trabalhoPrincipal->id
-//            ]);
 
     }
+
+
+    public function salvarFinal(Request $request){
+
+        $trabalhoPrincipal = Trabalho::where('estudantes_id',$request->estudante_id)->with('ficheirosTrabalhos')->first();
+
+        $estadoFicheiro = new FicheiroTrabalho_EstadoFicheiro();
+
+        //Gravacao do protocolo
+        $ficheiro_trabalho = new FicheirosTrabalho();
+        Storage::putFileAs('public',$request->file('trabalho'),$request->timestamp.'trabalho.pdf');
+        $ficheiro_trabalho->data= date("Y-m-d") ;
+        $ficheiro_trabalho->caminho=$request->timestamp.'trabalho.pdf';
+        $ficheiro_trabalho->categorias_ficheiros_id =DB::table('categorias_ficheiros')->where('designacao', 'Trabalho')->value('id');
+        $ficheiro_trabalho->trabalhos_id=$trabalhoPrincipal->id;
+        $ficheiro_trabalho->save();
+        $estadoFicheiro->ficheiros_trabalhos_id =$ficheiro_trabalho->id;
+        $estadoFicheiro->estados_ficheiros_id =DB::table('estados_ficheiros')->where('designacao', 'Pendente')->value('id');
+        $estadoFicheiro->is_actual =1;
+        $estadoFicheiro->save();
+        return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
+
+    }
+
+
 
     /**
      * Metodo para verificar se um estudante tem trabalho
