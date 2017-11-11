@@ -46,7 +46,7 @@ class Trabalho extends Model
     }
 
 
-    public function coSupervisore(){
+    public function coSupervisor(){
         return $this->belongsTo('App\Models\CoSupervisor', 'co_supervisores_id');
     }
 }

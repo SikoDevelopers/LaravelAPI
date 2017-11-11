@@ -175,6 +175,18 @@ use Illuminate\Http\Request;
 
 
 /**
+ * Rotas para GrauAcademico
+ */
+    Route::get('grau-academicos', 'GrauAcademicoController@listar');
+//  Route::get('estado_eventos/{id}/docentes', 'EstadoEventoController@trabalhos');
+//  Route::get('estado_eventos/{id}/curso', 'EstadoEventoController@cursos');
+    Route::post('grau-academicos', 'GrauAcademicoController@salvar');
+    Route::put('grau-academicos/{id}', 'GrauAcademicoController@editar');
+    Route::get('grau-academicos/{id}', 'GrauAcademicoController@pesquisar');
+    Route::delete('grau-academicos/{id}', 'GrauAcademicoController@remover');
+
+
+/**
 * Rotas para Estado Ficheiro
 */
     Route::get('estado_ficheiros', 'EstadoFicheiroController@listar');
@@ -265,6 +277,7 @@ use Illuminate\Http\Request;
 * Rotas para Funcao
 */
     Route::get('funcoes', 'FuncaoController@listar');
+    Route::get('funcoes/restrito', 'FuncaoController@listarRestrito');
 //  Route::get('funcoes/{id}/docentes', 'FuncaoController@trabalhos');
 //  Route::get('funcoes/{id}/curso', 'FuncaoController@cursos');
     Route::post('funcoes', 'FuncaoController@salvar');

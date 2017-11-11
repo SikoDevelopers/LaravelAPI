@@ -28,7 +28,7 @@ class TrabalhoController extends ModelController
         $this->objecto = new Trabalho();
         $this->nomeObjecto = 'trabalho';
         $this->nomeObjectos = 'trabalhos';
-        $this->relacionados = ['estudante','ficheirosTrabalhos','evento','docenteAreas'];
+        $this->relacionados = ['estudante','ficheirosTrabalhos','evento','docenteAreas', 'coSupervisor'];
     }
 
     /**
