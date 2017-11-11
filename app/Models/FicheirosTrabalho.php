@@ -12,7 +12,8 @@ class FicheirosTrabalho extends Model
     protected $table = 'ficheiros_trabalhos';
     protected $fillable = ['caminho', 'data', 'categorias_ficheiros_id', 'trabalhos_id', 'ficheiros_aprovados_id'];
 
-    protected $with = ['estadoFicheiros','categoriaFicheiro'];
+    protected $with = ['categoriaFicheiro', 'estadoFicheiros', 'ficheiroReprovado'];
+
 
     public function categoriaFicheiro(){
         return $this->belongsTo('App\Models\CategoriaFicheiro', 'categorias_ficheiros_id');
