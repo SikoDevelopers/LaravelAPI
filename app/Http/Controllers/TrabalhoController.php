@@ -78,7 +78,7 @@ class TrabalhoController extends ModelController
         $ficheiro_protocolo->trabalhos_id=$trabalhoPrincipal->id;
         $ficheiro_protocolo->save();
         $estadoFicheiro->ficheiros_trabalhos_id =$ficheiro_protocolo->id;
-        $estadoFicheiro->estados_ficheiros_id =3;
+        $estadoFicheiro->estados_ficheiros_id =DB::table('estados_ficheiros')->where('designacao', 'Protocolo Submetido')->value('id');
         $estadoFicheiro->is_actual =1;
         $estadoFicheiro->save();
 
@@ -87,7 +87,33 @@ class TrabalhoController extends ModelController
 
     }
 
+    /**Metodo para gravar protcolo de um trabalho
+     * @param Request $request
+     */
+    public function salvarProtocolo(Request $request){
 
+        $trabalhoPrincipal = Trabalho::where('estudantes_id',$request->estudante_id)->with('ficheirosTrabalhos')->first();
+
+        $estadoFicheiro = new FicheiroTrabalho_EstadoFicheiro();
+
+        $ficheiro_protocolo = new FicheirosTrabalho();
+        Storage::putFileAs('public',$request->file('protocolo'),$request->timestamp.'protocolo.pdf');
+        $ficheiro_protocolo->data= date("Y-m-d") ;
+        $ficheiro_protocolo->caminho=$request->timestamp.'protocolo.pdf';
+        $ficheiro_protocolo->categorias_ficheiros_id =DB::table('categorias_ficheiros')->where('designacao', 'Protocolo')->value('id');
+        $ficheiro_protocolo->trabalhos_id=$trabalhoPrincipal->id;
+        $ficheiro_protocolo->save();
+        $estadoFicheiro->ficheiros_trabalhos_id =$ficheiro_protocolo->id;
+        $estadoFicheiro->estados_ficheiros_id =DB::table('estados_ficheiros')->where('designacao', 'Protocolo Submetido')->value('id');
+        $estadoFicheiro->is_actual =1;
+        $estadoFicheiro->save();
+    }
+
+    /**
+     * Metoto para gravar o trabalho final
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function salvarFinal(Request $request){
 
         $trabalhoPrincipal = Trabalho::where('estudantes_id',$request->estudante_id)->with('ficheirosTrabalhos')->first();

@@ -313,6 +313,7 @@ use Illuminate\Http\Request;
 //  Route::get('trabalhos/{id}/docentes', 'TrabalhoController@trabalhos');
 //  Route::get('trabalhos/{id}/curso', 'TrabalhoController@cursos');
     Route::post('trabalhos', 'TrabalhoController@salvar');
+    Route::post('protocolo', 'TrabalhoController@salvarProtocolo');
     Route::post('trabalhos_final', 'TrabalhoController@salvarFinal');
     Route::put('trabalhos/{id}', 'TrabalhoController@editar');
     Route::get('trabalhos/{id}', 'TrabalhoController@pesquisar');

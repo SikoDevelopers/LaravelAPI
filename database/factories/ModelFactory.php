@@ -54,7 +54,7 @@ $factory->define(\App\Models\CategoriaFicheiro::class, function (Faker\Generator
     ];
 });
 
-$estados = ['Pendente', 'Protocolo Submetido', 'Tese Submetida', 'Defesa Marcada', 'Trabalho por Retiticar'];
+$estados = ['Pendente', 'Protocolo Submetido', 'Tese Submetida', 'Defesa Marcada', 'Trabalho por Retiticar','Aprovado'];
 $factory->define(\App\Models\EstadoFicheiro::class, function(Faker\Generator $faker) use ($estados) {
 
     return [
