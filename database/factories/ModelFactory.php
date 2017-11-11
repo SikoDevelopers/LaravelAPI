@@ -38,7 +38,7 @@ $factory->define(\App\Models\Docente::class, function (\Faker\Generator $faker){
     ];
 });
 
-$funcoes = ['Supervisor', 'Oponente', 'Co-supervisor', 'Juri'];
+$funcoes = ['Supervisor', 'Oponente', 'Co-supervisor', 'Presidente do Juri'];
 $factory->define(\App\Models\Funcao::class, function (Faker\Generator $faker) use ($funcoes){
     return [
         'designacao' => $faker->unique()->randomElement($funcoes),

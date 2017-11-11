@@ -38,6 +38,7 @@ class DocenteController extends ModelController
             'sessao' => 'nullable',
             'email' => 'required|email|unique:users',
             'password' => 'required',
+            'grau_academico_id' => 'required'
         ]);
 
         $user = new User($objectos->all());
