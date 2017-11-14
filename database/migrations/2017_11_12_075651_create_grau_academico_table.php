@@ -16,9 +16,8 @@ class CreateGrauAcademicoTable extends Migration {
 		{
 			$table->integer('id', true);
 			$table->string('designacao', 45)->nullable();
-            $table->timestamps();
-
-        });
+			$table->timestamps();
+		});
 	}
 
 

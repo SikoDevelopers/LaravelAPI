@@ -33,6 +33,10 @@ class Docente extends Model
         return $this->belongsTo('App\Models\GrauAcademico', 'grau_academico_id');
     }
 
+
+    public function avaliacoes(){
+        return $this->hasMany('App\Models\Avaliacoes', 'avaliacoes_id');
+    }
 }
 
 

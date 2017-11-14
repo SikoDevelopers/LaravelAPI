@@ -13,7 +13,7 @@ class FicheiroTrabalhoController extends ModelController
         $this->objecto = new  FicheirosTrabalho();
         $this->nomeObjecto = 'ficheiroTrabalho';
         $this->nomeObjectos = 'ficheiroTrabalhos';
-        $this->relacionados = ['categoriaFicheiro','trabalho','estadoFicheiros','ficheiroReprovado'];
+        $this->relacionados = ['categoriaFicheiro','trabalho','estadoFicheiros','ficheiroReprovado', 'avaliacao'];
     }
 
     /**
@@ -46,5 +46,19 @@ public function display($caminho){
 //        return response()->download(storage_path('app/public/'.$caminho),'jjjjjj.pdf', $headers);
 //    return Storage::url($caminho);
 }
+
+
+    /**
+     * retorna a avaliacao de um dado ficheiro
+     * @param $id - o ficheiro dado
+     * @return \Illuminate\Http\JsonResponse
+     *
+     */
+    public function getAvaliacao($id){
+        return response()->json(['avaliacao' => FicheirosTrabalho::find($id)->avaliacao]);
+    }
+
+
+
 
 }
