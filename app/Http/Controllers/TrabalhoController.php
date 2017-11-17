@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AreasSupervisorExterno;
 use App\Models\CategoriaFicheiro;
+use App\Models\CoSupervisor;
 use App\Models\DocenteArea;
 use App\Models\DocentesAreasTrabalho;
 use App\Models\EstadoFicheiro;
@@ -55,7 +56,24 @@ class TrabalhoController extends ModelController
         $trabalhoPrincipal->descricao = $request->descricao;
         $estadoFicheiro = new FicheiroTrabalho_EstadoFicheiro();
 
-       //PegarEstudante
+
+        //Co-Supervisor
+        if($request->control){
+
+            $coSup = new CoSupervisor();
+            $coSup->nome="Leo";
+            $coSup->grau_academico_id=2;
+            $coSup->save();
+            $trabalhoPrincipal->co_supervisores_id =$coSup->id;
+//
+        }else{
+
+//            $trabalhoPrincipal->co_supervisores_id= $request->coSupId;
+            $trabalhoPrincipal->co_supervisores_id= 4;
+        }
+
+
+        //PegarEstudante
         $estudante = new Estudante();
         $estudante = Estudante::where('users_id',$request->user)->first();
         $trabalhoPrincipal->estudantes_id=$estudante->id;
@@ -72,7 +90,7 @@ class TrabalhoController extends ModelController
         //Gravacao do protocolo
         $ficheiro_protocolo = new FicheirosTrabalho();
         Storage::putFileAs('public',$request->file('protocolo'),$request->timestamp.'protocolo.pdf');
-        $ficheiro_protocolo->data= date("Y-m-d") ;
+        $ficheiro_protocolo->data= date("d-m-Y") ;
         $ficheiro_protocolo->caminho=$request->timestamp.'protocolo.pdf';
         $ficheiro_protocolo->categorias_ficheiros_id =DB::table('categorias_ficheiros')->where('designacao', 'Protocolo')->value('id');
         $ficheiro_protocolo->trabalhos_id=$trabalhoPrincipal->id;
@@ -83,7 +101,8 @@ class TrabalhoController extends ModelController
         $estadoFicheiro->save();
 
 
-        return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
+//        return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
+        return response()->json(['request'=>$request->all()]);
 
     }
 
