@@ -10,7 +10,7 @@ class Trabalho extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $table = 'trabalhos';
-    protected $fillable = ['titulo', 'descricao', 'estudantes_id', 'eventos_id', 'is_aprovado', 'areas_supervisor_externos_id', 'co_supervisores_id'];
+    protected $fillable = ['titulo', 'descricao', 'estudantes_id', 'eventos_id', 'is_aprovado', 'areas_supervisor_externos_id', 'co_supervisores_id', 'sup_confirm'];
     protected $with = ['estudante'];
 
 
