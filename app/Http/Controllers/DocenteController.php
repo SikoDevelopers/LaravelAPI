@@ -6,6 +6,8 @@ use App\Models\Docente;
 use App\Models\DocentesAreasTrabalho;
 use App\Models\DocenteArea;
 use App\Models\Estudante;
+use App\Models\FicheirosTrabalho;
+use App\Models\FicheiroTrabalho_EstadoFicheiro;
 use App\Models\TipoUser;
 use App\Models\Trabalho;
 use App\User;
@@ -205,4 +207,73 @@ class DocenteController extends ModelController
 
     }
 
+    public function getSolicitacoesSupervisao(Request $request){
+        /**
+         * Indo buscar todas areas do docente e armazenamos na var $docente_areas.
+         */
+        $docente_areas = DocenteArea::select('id')->where('docentes_id',$request->id)->get();
+
+
+
+
+        /**
+         * Indo buscar todos trabalhos que o docente supervisiona
+         */
+        $docente_area = null;
+        $trabalhos_que_supervisona = collect();
+        if($docente_areas){
+
+            foreach ($docente_areas as $docente_area){
+
+                $trab = DocentesAreasTrabalho::select('trabalhos_id')
+                    ->where('funcoes_id','=',3,'and')
+                    ->where('docente_areas_id','=',$docente_area->id,'and')
+                    ->first();
+
+                if($trab){
+                    $trabalhos_que_supervisona->push(
+                        $trab
+                    );
+                }
+                $trab = null;
+
+            }
+        }
+
+
+        $ficheiros_trabalhos = collect();
+        $trabalho_que_supervisona = null;
+        if($trabalhos_que_supervisona){
+            foreach($trabalhos_que_supervisona as $trabalho_que_supervisona){
+                $file = FicheirosTrabalho::select('id')
+                    ->where('categorias_ficheiros_id','=',2)
+                    ->where('trabalhos_id','=',$trabalho_que_supervisona->trabalhos_id)
+                    ->first();
+                if($file){
+                    $ficheiros_trabalhos->push($file);
+                }
+
+
+            }
+        }
+        echo $ficheiros_trabalhos;
+        return;
+        $ficheiros_trabalhos_estados = collect();
+        $ficheiros_trabalho = null;
+        if($ficheiros_trabalhos){
+            foreach ($ficheiros_trabalhos as $ficheiros_trabalho){
+                $trbalho = FicheiroTrabalho_EstadoFicheiro::where('is_actual','=',1)
+                    ->where('estados_ficheiros_id','=',3)
+                    ->where('ficheiros_trabalhos_id','=',$ficheiros_trabalho[0]->id)
+                    ->first();
+
+                if($trbalho){
+                    $ficheiros_trabalhos_estados->push($trbalho);
+                }
+            }
+        }
+
+        echo $ficheiros_trabalhos_estados;
+
+    }
 }
