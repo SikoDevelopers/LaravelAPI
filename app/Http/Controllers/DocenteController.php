@@ -241,39 +241,21 @@ class DocenteController extends ModelController
         }
 
 
-        $ficheiros_trabalhos = collect();
-        $trabalho_que_supervisona = null;
+        /**
+         * Indo buscar todos pedidos de supervisao de um docente
+         */
+        $solicitacoes = collect();
+        $trabalho_que_supervisiona = null;
         if($trabalhos_que_supervisona){
-            foreach($trabalhos_que_supervisona as $trabalho_que_supervisona){
-                $file = FicheirosTrabalho::select('id')
-                    ->where('categorias_ficheiros_id','=',2)
-                    ->where('trabalhos_id','=',$trabalho_que_supervisona->trabalhos_id)
-                    ->first();
-                if($file){
-                    $ficheiros_trabalhos->push($file);
-                }
-
-
-            }
-        }
-        echo $ficheiros_trabalhos;
-        return;
-        $ficheiros_trabalhos_estados = collect();
-        $ficheiros_trabalho = null;
-        if($ficheiros_trabalhos){
-            foreach ($ficheiros_trabalhos as $ficheiros_trabalho){
-                $trbalho = FicheiroTrabalho_EstadoFicheiro::where('is_actual','=',1)
-                    ->where('estados_ficheiros_id','=',3)
-                    ->where('ficheiros_trabalhos_id','=',$ficheiros_trabalho[0]->id)
+            foreach ($trabalhos_que_supervisona as $trabalho_que_supervisona){
+                $trab = Trabalho::where('sup_confirm','=',0)
+                    ->where('id','=',$trabalho_que_supervisona->trabalhos_id)
                     ->first();
 
-                if($trbalho){
-                    $ficheiros_trabalhos_estados->push($trbalho);
-                }
+                $solicitacoes->push($trab);
             }
         }
 
-        echo $ficheiros_trabalhos_estados;
-
+        return response()->json(['solicitacoes'=>$solicitacoes]);
     }
 }
