@@ -21,7 +21,7 @@ class DocenteController extends ModelController
         $this->objecto = new Docente();
         $this->nomeObjecto = 'docente';
         $this->nomeObjectos = 'docentes';
-        $this->relacionados = ['areas', 'temas'];
+        $this->relacionados = ['areas', 'temas', 'avaliacoes'];
     }
 
 
