@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Avaliacoes extends Model
 {
     protected $table = 'avaliacoes';
-    protected $fillable = ['parecer', 'data_limite', 'data', 'docentes_id', 'fase'];
+    protected $fillable = ['parecer', 'data_limite', 'data', 'docentes_id', 'fase', 'parecer_final', 'avaliacaoFinal'];
 
     protected $with = ['docente'];
 

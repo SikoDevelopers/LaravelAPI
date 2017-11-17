@@ -29,9 +29,8 @@ class AvaliacaController extends ModelController
             'docentes_id' => 'required',
             'data_limite' => 'required',
             'data' => 'required',
-            'trabalhos_id' => 'required'
+            'id' => 'required'
         ]);
-
         DB::beginTransaction();
 
         if(! $avaliacao = Avaliacoes::create($objectos->request->all())) {
@@ -39,14 +38,33 @@ class AvaliacaController extends ModelController
             return Auxiliar::retornarErros('Erro ao criar avaliacao');
         }
         else
-            if(! $ficheirosTrabalho = FicheirosTrabalho::find($objectos->get('trabalhos_id'))->update(['avaliacoes_id' => $avaliacao->id])) {
+            if(! $ficheirosTrabalho = FicheirosTrabalho::find($objectos->get('id'))->update(['avaliacoes_id' => $avaliacao->id])) {
                 DB::rollBack();
                 return Auxiliar::retornarErros('Erro ao actualizar a tabela Ficheiros_trablhos');
             }
-        else
-            DB::commit();
 
-        return response()->json(['avaliacao' => $avaliacao, 'ficeiros_trabalho'=>$ficheirosTrabalho]);
+        DB::commit();
+
+        return redirect()->route('avaliacao_ficheiro', ['id' => $objectos->get('id')]);
+//        return response()->json(['avaliacao' => $avaliacao, 'ficeiros_trabalho'=>$ficheirosTrabalho]);
+    }
+
+
+    public function removerAvaliacao($idAvaliacao, Request $idFicheiroTrabalho) {
+        DB::beginTransaction();
+        dd($idFicheiroTrabalho, $idAvaliacao);
+
+//        if(!FicheirosTrabalho::find($idFicheiroTrabalho->get('ficheiroTrabalho_id'))->update(['avaliacoes_id' => 'null'])){
+//            DB::rollBack();
+//            return Auxiliar::retornarErros('Erro ao Actualizar Ficheiro Trabalho');
+//        }else
+//            if(!Avaliacoes::find($idAvaliacao)->delete()){
+//                DB::rollBack();
+//                return Auxiliar::retornarErros('Erro ao Deletar Avaliacao');
+//            }
+
+        DB::commit();
+        return Auxiliar::retornarDados('resultado', true, 200);
     }
 
 
