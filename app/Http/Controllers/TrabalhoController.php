@@ -94,7 +94,7 @@ class TrabalhoController extends ModelController
         $ficheiro_protocolo->trabalhos_id=$trabalhoPrincipal->id;
         $ficheiro_protocolo->save();
         $estadoFicheiro->ficheiros_trabalhos_id =$ficheiro_protocolo->id;
-        $estadoFicheiro->estados_ficheiros_id =DB::table('estados_ficheiros')->where('designacao', 'Protocolo Submetido')->value('id');
+        $estadoFicheiro->estados_ficheiros_id =DB::table('estados_ficheiros')->where('designacao', 'Pendente')->value('id');
         $estadoFicheiro->is_actual =1;
         $estadoFicheiro->save();
 
