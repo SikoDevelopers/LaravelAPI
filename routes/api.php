@@ -369,7 +369,7 @@ Route::get('users/email/validar', "UserController@validarEmail");
     Route::post('avalicoes', 'AvaliacaController@salvarTransacao');
 //    Route::put('avalicoes/{id}', 'AvaliacaController@editar');
     Route::get('avalicoes/{id}', 'AvaliacaController@pesquisar');
-    Route::get('avalicoes/{id}', 'AvaliacaController@removerAvaliacao');
+    Route::put('avalicoes/deletar/{id}', 'AvaliacaController@removerAvaliacao');
 
 
 
