@@ -17,8 +17,8 @@ class CreateCoSupervisoresTable extends Migration {
 			$table->integer('id', true);
 			$table->string('nome', 45)->nullable();
 			$table->integer('grau_academico_id')->index('fk_co_supervisores_grau_academico1_idx');
-            $table->timestamps();
-        });
+			$table->timestamps();
+		});
 	}
 
 

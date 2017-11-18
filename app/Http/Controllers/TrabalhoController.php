@@ -221,13 +221,20 @@ class TrabalhoController extends ModelController
 
         $tipoFicheiro = CategoriaFicheiro::select('id')->where('designacao', '=', 'Protocolo')->first()['id'];
 
-        $protocolos = CategoriaFicheiro::select('categorias_ficheiros.designacao','estudantes.nome','trabalhos.id', 'ficheiros_trabalhos.data', 'ficheiros_trabalhos.caminho', 'ficheiros_trabalhos.ficheiros_reprovados_id', 'trabalhos.titulo', 'trabalhos.descricao')
+        $protocolos = CategoriaFicheiro::select('categorias_ficheiros.designacao', 'trabalhos.id as trabalho_id', 'estudantes.nome','ficheiros_trabalhos.id', 'ficheiros_trabalhos.created_at', 'ficheiros_trabalhos.caminho', 'ficheiros_trabalhos.ficheiros_reprovados_id', 'trabalhos.titulo', 'trabalhos.descricao', 'estados_ficheiros.designacao as estado_ficheiro', 'estados_ficheiros.id as ficheiro_estado_id', 'ficheiros_trabalhos.avaliacoes_id')
             ->where('categorias_ficheiros.id', '=', $tipoFicheiro)
             ->join('ficheiros_trabalhos', 'categorias_ficheiros.id', '=','ficheiros_trabalhos.categorias_ficheiros_id')
+            ->leftJoin('avaliacoes', 'avaliacoes.id', '=','ficheiros_trabalhos.avaliacoes_id')
+            ->join('ficheiros_trabalhos_estados_ficheiros', 'ficheiros_trabalhos.id', '=','ficheiros_trabalhos_estados_ficheiros.ficheiros_trabalhos_id')
+            ->join('estados_ficheiros','ficheiros_trabalhos_estados_ficheiros.estados_ficheiros_id', '=', 'estados_ficheiros.id')
             ->join('trabalhos', 'ficheiros_trabalhos.trabalhos_id', '=', 'trabalhos.id')
             ->join('estudantes', 'trabalhos.estudantes_id', '=', 'estudantes.id')
             ->orderByDesc('ficheiros_trabalhos.id')
+            ->orderByDesc('estados_ficheiros.id')
+            ->latest('estados_ficheiros.id')
             ->get();
+//        return FicheirosTrabalho::find(15)->estadoFicheiros->last();
+
         return response()->json(['protocolos'=>$protocolos]);
     }
 

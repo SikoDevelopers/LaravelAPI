@@ -24,6 +24,7 @@ class CreateTrabalhosTable extends Migration {
 			$table->timestamps();
 			$table->integer('areas_supervisor_externos_id')->nullable()->index('fk_trabalhos_areas_supervisor_externos1_idx');
 			$table->integer('co_supervisores_id')->nullable()->index('fk_trabalhos_co_supervisores1_idx');
+			$table->boolean('sup_confirm')->nullable();
 		});
 	}
 

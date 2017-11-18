@@ -133,6 +133,7 @@ $factory->define(\App\Models\Trabalho::class, function (\Faker\Generator $faker)
         'eventos_id' => null,
         'is_aprovado' => false,
         'co_supervisores_id' => $faker->numberBetween(1, \App\Models\CoSupervisor::all()->count()),
+        'sup_confirm' => $faker->boolean(60),
 //        'areas_supervisor_externos_id' => $faker->numberBetween(1, \App\Models\AreasSupervisorExterno::all()->count()),
     ];
 });

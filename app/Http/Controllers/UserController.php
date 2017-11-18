@@ -32,8 +32,6 @@ class UserController extends Controller
         $user = $this->getUser(new Request(['token' => $token]));
 
         return response()->json(['token' => $token, 'user' => $user, 'status' => 200], 200);
-
-
     }
 
 
