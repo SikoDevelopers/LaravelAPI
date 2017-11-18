@@ -47,4 +47,11 @@ public function display($caminho){
 //    return Storage::url($caminho);
 }
 
+public function baixar($caminho){
+    $pathToFile = Storage::path($caminho);
+    $headers = ['Content-Type: application/pdf'];
+
+    return response()->download(storage_path('app/public/'.$caminho));
+}
+
 }

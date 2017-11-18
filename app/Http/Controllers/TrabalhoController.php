@@ -56,20 +56,18 @@ class TrabalhoController extends ModelController
         $trabalhoPrincipal->descricao = $request->descricao;
         $estadoFicheiro = new FicheiroTrabalho_EstadoFicheiro();
 
-
+//return ['request'=>$request->control];
         //Co-Supervisor
-        if($request->control){
+        if($request->get('control')=='true'){
 
             $coSup = new CoSupervisor();
-            $coSup->nome="Leo";
-            $coSup->grau_academico_id=2;
+            $coSup->nome=$request->nomeCoSup." ".$request->apelidoCoSup;
+            $coSup->grau_academico_id=$request->grauAcademico_id;
             $coSup->save();
-            $trabalhoPrincipal->co_supervisores_id =$coSup->id;
 //
         }else{
 
-//            $trabalhoPrincipal->co_supervisores_id= $request->coSupId;
-            $trabalhoPrincipal->co_supervisores_id= 4;
+            $trabalhoPrincipal->co_supervisores_id= $request->coSupId;
         }
 
 
@@ -89,9 +87,9 @@ class TrabalhoController extends ModelController
 
         //Gravacao do protocolo
         $ficheiro_protocolo = new FicheirosTrabalho();
-        Storage::putFileAs('public',$request->file('protocolo'),$request->timestamp.'protocolo.pdf');
-        $ficheiro_protocolo->data= date("d-m-Y") ;
-        $ficheiro_protocolo->caminho=$request->timestamp.'protocolo.pdf';
+        Storage::putFileAs('public',$request->file('protocolo'),$request->timestamp.'protocolo');
+        $ficheiro_protocolo->data= date("Y-m-d") ;
+        $ficheiro_protocolo->caminho=$request->timestamp.'protocolo';
         $ficheiro_protocolo->categorias_ficheiros_id =DB::table('categorias_ficheiros')->where('designacao', 'Protocolo')->value('id');
         $ficheiro_protocolo->trabalhos_id=$trabalhoPrincipal->id;
         $ficheiro_protocolo->save();
@@ -115,17 +113,19 @@ class TrabalhoController extends ModelController
 
         $estadoFicheiro = new FicheiroTrabalho_EstadoFicheiro();
 
-        $ficheiro_protocolo = new FicheirosTrabalho();
-        Storage::putFileAs('public',$request->file('protocolo'),$request->timestamp.'protocolo.pdf');
-        $ficheiro_protocolo->data= date("Y-m-d") ;
-        $ficheiro_protocolo->caminho=$request->timestamp.'protocolo.pdf';
-        $ficheiro_protocolo->categorias_ficheiros_id =DB::table('categorias_ficheiros')->where('designacao', 'Protocolo')->value('id');
-        $ficheiro_protocolo->trabalhos_id=$trabalhoPrincipal->id;
-        $ficheiro_protocolo->save();
-        $estadoFicheiro->ficheiros_trabalhos_id =$ficheiro_protocolo->id;
-        $estadoFicheiro->estados_ficheiros_id =DB::table('estados_ficheiros')->where('designacao', 'Protocolo Submetido')->value('id');
+        //Gravacao do protocolo
+        $ficheiro_trabalho = new FicheirosTrabalho();
+        Storage::putFileAs('public',$request->file('trabalho'),$request->timestamp.'trabalho');
+        $ficheiro_trabalho->data= date("Y-m-d") ;
+        $ficheiro_trabalho->caminho=$request->timestamp.'trabalho';
+        $ficheiro_trabalho->categorias_ficheiros_id =DB::table('categorias_ficheiros')->where('designacao', 'Protocolo')->value('id');
+        $ficheiro_trabalho->trabalhos_id=$trabalhoPrincipal->id;
+        $ficheiro_trabalho->save();
+        $estadoFicheiro->ficheiros_trabalhos_id =$ficheiro_trabalho->id;
+        $estadoFicheiro->estados_ficheiros_id =DB::table('estados_ficheiros')->where('designacao', 'Pendente')->value('id');
         $estadoFicheiro->is_actual =1;
         $estadoFicheiro->save();
+        return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
     }
 
     /**
@@ -134,6 +134,21 @@ class TrabalhoController extends ModelController
      * @return \Illuminate\Http\JsonResponse
      */
     public function salvarFinal(Request $request){
+        if ($request->tipoFile=='protocolo'){
+
+            return $this->salvarProtocolo($request);
+
+        }
+        if ($request->tipoFile=='relatorio'){
+            return $this->guardarTrabalhoVerssao($request);
+        }
+
+
+        return ['error'=>'error'];
+
+    }
+
+    public function guardarTrabalhoVerssao(Request $request){
 
         $trabalhoPrincipal = Trabalho::where('estudantes_id',$request->estudante_id)->with('ficheirosTrabalhos')->first();
 
@@ -141,9 +156,9 @@ class TrabalhoController extends ModelController
 
         //Gravacao do protocolo
         $ficheiro_trabalho = new FicheirosTrabalho();
-        Storage::putFileAs('public',$request->file('trabalho'),$request->timestamp.'trabalho.pdf');
+        Storage::putFileAs('public',$request->file('trabalho'),$request->timestamp.'trabalho');
         $ficheiro_trabalho->data= date("Y-m-d") ;
-        $ficheiro_trabalho->caminho=$request->timestamp.'trabalho.pdf';
+        $ficheiro_trabalho->caminho=$request->timestamp.'trabalho';
         $ficheiro_trabalho->categorias_ficheiros_id =DB::table('categorias_ficheiros')->where('designacao', 'Trabalho')->value('id');
         $ficheiro_trabalho->trabalhos_id=$trabalhoPrincipal->id;
         $ficheiro_trabalho->save();
@@ -152,7 +167,6 @@ class TrabalhoController extends ModelController
         $estadoFicheiro->is_actual =1;
         $estadoFicheiro->save();
         return response()->json(['trabalho'=>Trabalho::find($trabalhoPrincipal->id)]);
-
     }
 
 

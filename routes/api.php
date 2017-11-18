@@ -244,6 +244,7 @@ use Illuminate\Http\Request;
     Route::get('ficheiros_trabalhos/{id}', 'FicheiroTrabalhoController@pesquisar');
     Route::get('ficheiros_de_trabalho/{id}', 'FicheiroTrabalhoController@getFicheiros');
     Route::get('display/{caminho}', 'FicheiroTrabalhoController@display');
+    Route::get('baixar/{caminho}', 'FicheiroTrabalhoController@baixar');
     Route::get('ficheiros_estado', 'FicheiroTrabalhoController@estadoFicheiro');
     Route::delete('ficheiros_trabalhos/{id}', 'FicheiroTrabalhoController@remover');
 
