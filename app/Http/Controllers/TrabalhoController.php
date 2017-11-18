@@ -315,4 +315,29 @@ class TrabalhoController extends ModelController
 
     }
 
+    /**
+     * Metodo usado para ir buscar ficheiro e ares de um trabalho dado o id
+     * @param $id - id do trabalho
+     * @return \Illuminate\Http\JsonResponse - json com os dados do trabalho
+     */
+    public function getProtocolo($id){
+
+        $ficheiro = FicheirosTrabalho::where('categorias_ficheiros_id','=',1)
+                    ->where('trabalhos_id','=',$id)
+                    ->orderBy('created_at','desc')
+                    ->first();
+
+        $areaTrabalho = DocentesAreasTrabalho::where('trabalhos_id','=',$id)
+            ->orderBy('created_at','desc')
+            ->first();
+
+        $docenteArea = DocenteArea::find($areaTrabalho->id);
+
+        $area = Area::find($docenteArea->areas_id);
+
+        $ficheiro_e_area = array($ficheiro,$area);
+        return response()->json(['ficheiro_e_area'=>$ficheiro_e_area]);
+
+    }
+
 }

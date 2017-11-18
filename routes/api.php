@@ -337,6 +337,7 @@ Route::get('docentes/{id}/solicitacoes/supervisao', 'DocenteController@getSolici
     Route::get('estudante_job/{id}', 'TrabalhoController@hasJob');
     Route::get('trabalho_estudante/{id}', 'TrabalhoController@getTrabalhoEstudante');
     Route::get('trabalho/{id}', 'TrabalhoController@getTrabalho');
+Route::get('trabalho/{id}/protocolo', 'TrabalhoController@getProtocolo');
 
 
 Route::get('users/email/validar', "UserController@validarEmail");

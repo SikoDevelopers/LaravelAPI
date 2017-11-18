@@ -13,6 +13,7 @@ use App\Models\Trabalho;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\Area;
 
 
 class DocenteController extends ModelController
@@ -251,11 +252,24 @@ class DocenteController extends ModelController
                 $trab = Trabalho::where('sup_confirm','=',0)
                     ->where('id','=',$trabalho_que_supervisona->trabalhos_id)
                     ->first();
+                $ficheiro = FicheirosTrabalho::where('categorias_ficheiros_id','=',1)
+                    ->where('trabalhos_id','=',$trab->id)
+                    ->orderBy('created_at','desc')
+                    ->first();
 
-                $solicitacoes->push($trab);
+                $areaTrabalho = DocentesAreasTrabalho::where('trabalhos_id','=',$trab->id)
+                    ->orderBy('created_at','desc')
+                    ->first();
+
+                $docenteArea = DocenteArea::find($areaTrabalho->id);
+
+                $area = Area::find($docenteArea->areas_id);
+
+                $solicitacoes->push(array($trab,$ficheiro,$area));
             }
         }
 
+       // echo  $solicitacoes;
         return response()->json(['solicitacoes'=>$solicitacoes]);
     }
 }
