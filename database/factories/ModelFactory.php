@@ -210,7 +210,7 @@ $factory->define(\App\Models\TipoUser::class, function(Faker\Generator $faker) u
 $factory->define(\App\User::class, function (\Faker\Generator $faker){
     return [
         'email' => $faker->unique()->email,
-        'password' => bcrypt('12345'),
+        'password' =>'12345',
         'tipo_users_id' => $faker->numberBetween(1, \App\Models\TipoUser::all()->count()),
     ];
 });
