@@ -52,16 +52,17 @@ class AvaliacaController extends ModelController
 
     public function removerAvaliacao($idAvaliacao, Request $idFicheiroTrabalho) {
         DB::beginTransaction();
-        dd($idFicheiroTrabalho, $idAvaliacao);
 
-//        if(!FicheirosTrabalho::find($idFicheiroTrabalho->get('ficheiroTrabalho_id'))->update(['avaliacoes_id' => 'null'])){
-//            DB::rollBack();
-//            return Auxiliar::retornarErros('Erro ao Actualizar Ficheiro Trabalho');
-//        }else
-//            if(!Avaliacoes::find($idAvaliacao)->delete()){
-//                DB::rollBack();
-//                return Auxiliar::retornarErros('Erro ao Deletar Avaliacao');
-//            }
+//        return ['idFicheiro' => $idFicheiroTrabalho->all(), 'Avaliacao' => $idAvaliacao];
+
+        if(!FicheirosTrabalho::find($idFicheiroTrabalho->get('ficheiroTrabalho_id'))->update(['avaliacoes_id' => null])){
+            DB::rollBack();
+            return Auxiliar::retornarErros('Erro ao Actualizar Ficheiro Trabalho');
+        }else
+            if(!Avaliacoes::find($idAvaliacao)->delete()){
+                DB::rollBack();
+                return Auxiliar::retornarErros('Erro ao Deletar Avaliacao');
+            }
 
         DB::commit();
         return Auxiliar::retornarDados('resultado', true, 200);
