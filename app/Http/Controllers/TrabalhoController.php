@@ -340,4 +340,19 @@ class TrabalhoController extends ModelController
 
     }
 
+
+    /**
+     * Metodo usado para actualizar um trabalho visto
+     * @param $id
+     */
+    public function confirmarSupervisao($id)
+    {
+        $trabalho = Trabalho::where('id','=',$id)
+        ->first()
+        ->update(array('sup_confirm' => 1));
+
+
+        echo       $trabalho;
+    }
+
 }
