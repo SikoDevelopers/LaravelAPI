@@ -48,6 +48,14 @@ public function display($caminho){
 }
 
 
+public function baixar($caminho){
+    $pathToFile = Storage::path($caminho);
+    $headers = ['Content-Type: application/pdf'];
+
+    return response()->download(storage_path('app/public/'.$caminho));
+}
+
+
     /**
      * retorna a avaliacao de um dado ficheiro
      * @param $id - o ficheiro dado
@@ -57,7 +65,6 @@ public function display($caminho){
     public function getAvaliacao($id){
         return response()->json(['avaliacao' => FicheirosTrabalho::find($id)->avaliacao]);
     }
-
 
 
 

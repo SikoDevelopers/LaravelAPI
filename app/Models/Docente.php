@@ -35,7 +35,7 @@ class Docente extends Model
 
 
     public function avaliacoes(){
-        return $this->hasMany('App\Models\Avaliacoes', 'avaliacoes_id');
+        return $this->hasMany('App\Models\Avaliacoes', 'docentes_id');
     }
 }
 

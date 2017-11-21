@@ -39,7 +39,7 @@ use Illuminate\Http\Request;
 /**
  * Rotas para estudantes
  */
-    Route::get('estudantes', 'EstudanteController@listar')->middleware('autenticado');
+    Route::get('estudantes', 'EstudanteController@listar');
     Route::get('estudantes/{id}/trabalhos', 'EstudanteController@trabalhos');
     Route::get('estudantes/{id}/cursos', 'EstudanteController@cursos');
     Route::post('estudantes', 'EstudanteController@salvarTransacao');
@@ -244,6 +244,7 @@ Route::get('docentes/{id}/solicitacoes/supervisao', 'DocenteController@getSolici
     Route::get('ficheiros_trabalhos/{id}', 'FicheiroTrabalhoController@pesquisar');
     Route::get('ficheiros_de_trabalho/{id}', 'FicheiroTrabalhoController@getFicheiros');
     Route::get('display/{caminho}', 'FicheiroTrabalhoController@display');
+    Route::get('baixar/{caminho}', 'FicheiroTrabalhoController@baixar');
     Route::get('ficheiros_estado', 'FicheiroTrabalhoController@estadoFicheiro');
     Route::delete('ficheiros_trabalhos/{id}', 'FicheiroTrabalhoController@remover');
     Route::get('ficheiros_trabalhos/{id}/avaliacao', 'FicheiroTrabalhoController@getAvaliacao')->name('avaliacao_ficheiro');
@@ -371,7 +372,7 @@ Route::get('users/email/validar', "UserController@validarEmail");
     Route::post('avalicoes', 'AvaliacaController@salvarTransacao');
 //    Route::put('avalicoes/{id}', 'AvaliacaController@editar');
     Route::get('avalicoes/{id}', 'AvaliacaController@pesquisar');
-    Route::get('avalicoes/{id}', 'AvaliacaController@removerAvaliacao');
+    Route::put('avalicoes/deletar/{id}', 'AvaliacaController@removerAvaliacao');
 
 
 
