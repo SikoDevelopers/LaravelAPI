@@ -16,10 +16,11 @@ class DatabaseSeeder extends Seeder
         factory(\App\Models\CoSupervisor::class, 4)->create();
         factory(\App\Models\TipoUser::class, 4)->create();
         factory(\App\User::class, 10)->create();
+        factory(\App\User::class, 20)->create();
         factory(\App\Models\Area::class, 4)->create();
 //        factory(\App\Models\Funcionario::class, 5)->create();
         factory(\App\Models\Curso::class, 4)->create();
-        factory(\App\Models\Docente::class, 20)->create();
+        factory(\App\Models\Docente::class, 5)->create();
         factory(\App\Models\Funcao::class, 4)->create();
         factory(\App\Models\CategoriaFicheiro::class, 2)->create();
         factory(\App\Models\EstadoFicheiro::class, 5)->create();
