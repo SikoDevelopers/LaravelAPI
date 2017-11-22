@@ -59,14 +59,14 @@ class AvaliacaController extends ModelController
                     'email' => $emailUser
                 ];
 //
-//                $controller = new emailController();
-//                $objectos->request->add($mail);
-//                return ['avaliacao' => $controller->enviarParticipante($objectos)];
+                $controller = new emailController();
+                $objectos->request->add($mail);
+                $controller->enviarParticipante($objectos);
             }
 //            return ['avaliacao' => $trabalhoCompleto, 'user'=>$emailUser];
 //            return [$trabalhoCompleto, $emailUser];
-//        return redirect()->route('avaliacao_ficheiro', ['id' => $objectos->get('id')]);
-        return response()->json(['avaliacao' => $avaliacao, 'ficeiros_trabalho'=>$ficheirosTrabalho]);
+        return redirect()->route('avaliacao_ficheiro', ['id' => $objectos->get('id')]);
+//        return response()->json(['avaliacao' => $avaliacao, 'ficeiros_trabalho'=>$ficheirosTrabalho]);
     }
 
 

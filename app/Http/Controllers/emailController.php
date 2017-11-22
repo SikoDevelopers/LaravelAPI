@@ -51,7 +51,7 @@ class emailController extends Controller
      * }
      */
     public function enviarParticipante(Request $request){
-       return ['avaliacao' => $request->all()];
+//       return ['avaliacao' => $request->email];
 
         \Mail::send(['text'=>'emails.participantes'], ['nome'=>$request->nome, 'estudante'=>$request->estudante,'trabalho'=>$request->trabalho], function($mensagem) use ($request){
             $mensagem->to($request->email, 'Avaliador')
