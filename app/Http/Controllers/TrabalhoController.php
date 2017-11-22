@@ -64,10 +64,16 @@ class TrabalhoController extends ModelController
             $coSup->nome=$request->nomeCoSup." ".$request->apelidoCoSup;
             $coSup->grau_academico_id=$request->grauAcademico_id;
             $coSup->save();
+            $trabalhoPrincipal->co_supervisores_id=$coSup->id;
 //
         }else{
 
-            $trabalhoPrincipal->co_supervisores_id= $request->coSupId;
+            $docenteCoSup = Docente::find($request->coSupId);
+            $coSup = new CoSupervisor();
+            $coSup->nome=$docenteCoSup->nome." ".$docenteCoSup->apelido;
+            $coSup->grau_academico_id=$docenteCoSup->grau_academico_id;
+            $coSup->save();
+            $trabalhoPrincipal->co_supervisores_id=$coSup->id;
         }
 
 
