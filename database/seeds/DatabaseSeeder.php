@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
         factory(\App\Models\GrauAcademico::class, 4)->create();
         factory(\App\Models\CoSupervisor::class, 4)->create();
         factory(\App\Models\TipoUser::class, 4)->create();
-        factory(\App\User::class, 10)->create();
         factory(\App\User::class, 20)->create();
         factory(\App\Models\Area::class, 4)->create();
 //        factory(\App\Models\Funcionario::class, 5)->create();
@@ -26,7 +25,7 @@ class DatabaseSeeder extends Seeder
         factory(\App\Models\EstadoFicheiro::class, 5)->create();
         factory(\App\Models\CategoriaEvento::class, 2)->create();
         factory(\App\Models\EstadoEvento::class, 3)->create();
-        factory(\App\Models\Estudante::class, 10)->create();
+        factory(\App\Models\Estudante::class, 5)->create();
 //        factory(\App\Models\DirectorCurso::class, 4)->create();
         factory(\App\Models\DocenteArea::class,20)->create();
         factory(\App\Models\Tema::class, 10)->create();
