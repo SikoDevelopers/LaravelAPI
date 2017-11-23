@@ -51,22 +51,20 @@ class AvaliacaController extends ModelController
                 DB::commit();
 
                 $trabalhoCompleto = Trabalho::find($objectos->protocolo['trabalho_id'])->first();
-                $emailUser = User::find($objectos->avaliadorSelecionado['users_id'])->first()['email'];
-                $mail = [
+                $emailUser = User::find($objectos->avaliadorSelecionado['users_id'])['email'];
+
+                $email = [
                     'nome'=>$objectos->avaliadorSelecionado['nome'] .' '. $objectos->avaliadorSelecionado['apelido'],
                     'estudante' => $trabalhoCompleto->estudante->nome,
                     'trabalho' => $trabalhoCompleto->titulo,
                     'email' => $emailUser
                 ];
-//
+
                 $controller = new emailController();
-                $objectos->request->add($mail);
+                $objectos->request->add($email);
                 $controller->enviarParticipante($objectos);
             }
-//            return ['avaliacao' => $trabalhoCompleto, 'user'=>$emailUser];
-//            return [$trabalhoCompleto, $emailUser];
-        return redirect()->route('avaliacao_ficheiro', ['id' => $objectos->get('id')]);
-//        return response()->json(['avaliacao' => $avaliacao, 'ficeiros_trabalho'=>$ficheirosTrabalho]);
+        return redirect()->route('avaliacao_ficheiro', ['id' => $objectos->avaliacao['id']]);
     }
 
 
