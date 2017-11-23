@@ -375,5 +375,11 @@ Route::get('users/email/validar', "UserController@validarEmail");
     Route::put('avalicoes/deletar/{id}', 'AvaliacaController@removerAvaliacao');
 
 
+    Route::post('enviar_supervisor', 'emailController@enviarSupervisor');
+    Route::post('enviar_estudante', 'emailController@enviarEstudante');
+    Route::post('enviar_participantes', 'emailController@enviarParticipante');
+
+
+    Route::get('teste', 'emailController@teste');
 
 

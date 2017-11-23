@@ -24,18 +24,16 @@ class Docente extends Model
         return $this->hasMany('App\Models\Tema', 'docentes_id');
     }
 
-    public function user(){
-        return $this->belongsTo('App\User', 'users_id');
-    }
-
-
     public function grauAcademico(){
         return $this->belongsTo('App\Models\GrauAcademico', 'grau_academico_id');
     }
 
-
     public function avaliacoes(){
         return $this->hasMany('App\Models\Avaliacoes', 'docentes_id');
+    }
+
+    public function user(){
+        return $this->belongsTo('App\User', 'users_id');
     }
 }
 
