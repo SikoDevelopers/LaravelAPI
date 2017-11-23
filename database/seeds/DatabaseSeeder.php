@@ -36,13 +36,5 @@ class DatabaseSeeder extends Seeder
         factory(\App\Models\FicheiroTrabalho_EstadoFicheiro::class, 20)->create();
         factory(\App\Models\Evento::class,10)->create();
         factory(\App\Models\EventoEstadoEvento::class,10)->create();
-
-
-
-
-//        factory(\App\Models\SupervisorExterno::class, 5)->create();
-//        factory(\App\Models\AreasSupervisorExterno::class, 10)->create();
-
-
     }
 }

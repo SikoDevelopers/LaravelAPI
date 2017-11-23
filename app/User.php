@@ -14,7 +14,7 @@ class User extends Authenticateble
     use SoftDeletes;
     protected $dates = ['deleted_at'];
 
-    protected $with = ['docente', 'estudante', 'funcionario', 'supervisorExterno', 'directorCurso'];
+    protected $with = ['docente', 'estudante', 'funcionario', 'supervisorExterno', 'directorCurso', 'tipoUser'];
 
     protected $table = 'users';
     protected $fillable = ['email', 'password', 'tipo_users_id'];
