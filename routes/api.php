@@ -63,7 +63,8 @@ use Illuminate\Http\Request;
     Route::get('docentes/{id}/supervisandos', 'DocenteController@getSupervisandos');
     Route::get('docentes/{id}/estudantes', 'DocenteController@getSupervisionandos');
     Route::get('docentes/{id}/oponencias', 'DocenteController@getOponencias');
-Route::get('docentes/{id}/solicitacoes/supervisao', 'DocenteController@getSolicitacoesSupervisao');
+    Route::get('docentes/{id}/solicitacoes/supervisao', 'DocenteController@getSolicitacoesSupervisao');
+    Route::get('docentes/{id}/solicitacoes/avaliacao', 'DocenteController@getSolicitacoesAvaliacao');
 
 
 /**

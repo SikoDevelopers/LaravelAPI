@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Avaliacoes;
 use App\Models\Docente;
 use App\Models\DocentesAreasTrabalho;
 use App\Models\DocenteArea;
@@ -227,7 +228,7 @@ class DocenteController extends ModelController
             foreach ($docente_areas as $docente_area){
 
                 $trab = DocentesAreasTrabalho::select('trabalhos_id')
-                    ->where('funcoes_id','=',3,'and')
+                    ->where('funcoes_id','=',2,'and')
                     ->where('docente_areas_id','=',$docente_area->id,'and')
                     ->first();
 
@@ -240,7 +241,6 @@ class DocenteController extends ModelController
 
             }
         }
-
 
         /**
          * Indo buscar todos pedidos de supervisao de um docente
@@ -270,6 +270,96 @@ class DocenteController extends ModelController
         }
 
        // echo  $solicitacoes;
+        return response()->json(['solicitacoes'=>$solicitacoes]);
+    }
+
+
+    public function getSolicitacoesAvaliacao(Request $request){
+        /**
+         * Indo buscar todas areas do docente e armazenamos na var $docente_areas.
+         */
+        $docente_areas = DocenteArea::select('id')->where('docentes_id',$request->id)->get();
+
+
+        $trabalhos = Trabalho::all();
+
+
+
+
+        /**
+         * Indo buscar todos trabalhos que o docente supervisiona
+         */
+        $docente_area = null;
+        $trabalhos_que_supervisona = collect();
+        if($docente_areas){
+
+            foreach ($docente_areas as $docente_area){
+
+                $trab = DocentesAreasTrabalho::select('trabalhos_id')
+                    ->where('funcoes_id','=',2,'and')
+                    ->where('docente_areas_id','=',$docente_area->id,'and')
+                    ->first();
+
+                if($trab){
+                    $trabalhos_que_supervisona->push(
+                        $trab
+                    );
+                }
+                $trab = null;
+
+            }
+        }
+
+        /**
+         * Indo buscar todos pedidos de supervisao de um docente
+         */
+        $solicitacoes = collect();
+        $trabalho_que_supervisiona = null;
+        if($trabalhos_que_supervisona){
+            foreach ($trabalhos_que_supervisona as $trabalho_que_supervisona){
+                $trab = Trabalho::where('sup_confirm','=',0)
+                    ->where('id','=',$trabalho_que_supervisona->trabalhos_id)
+                    ->first();
+
+                $ficheiro = FicheirosTrabalho::where('categorias_ficheiros_id','=',1)
+                    ->where('trabalhos_id','=',$trab->id)
+                    ->orderBy('created_at','desc')
+                    ->first();
+
+                $areaTrabalho = DocentesAreasTrabalho::where('trabalhos_id','=',$trab->id)
+                    ->orderBy('created_at','desc')
+                    ->first();
+
+                $docenteArea = DocenteArea::find($areaTrabalho->id);
+
+                $area = Area::find($docenteArea->areas_id);
+
+                $solicitacoes->push(array($trab,$ficheiro,$area));
+            }
+        }
+
+        $avaliacoes = Avaliacoes::where('docentes_id','=',$request->id)
+            ->where('parecer','=',null)
+            ->orderBy('created_at','desc')
+            ->get();
+
+
+
+        $avaliacao = null;
+        $solicitacoes = collect();
+        foreach ($avaliacoes as $avaliacao){
+
+            $file = FicheirosTrabalho::where('avaliacoes_id','=',$avaliacoes[0]->id)
+                ->first();
+
+            $trabalho = Trabalho::find($file->trabalhos_id);
+
+            if($trabalho){
+                $solicitacoes->push(array($avaliacao,$file,$trabalho));
+            }
+        }
+
+      //   echo  $solicitacoes;
         return response()->json(['solicitacoes'=>$solicitacoes]);
     }
 }
