@@ -29,7 +29,7 @@ class emailController extends Controller
      */
     public function enviarSupervisor(Request $request){
 
-       \Mail::send(['text'=>'emails.supervisor'], ['nome'=>$request->nome, 'estudante'=>$request->estudante], function($mensagem) use ($request){
+       \Mail::send(['html'=>'emails.supervisor'], ['nome'=>$request->nome, 'estudante'=>$request->estudante], function($mensagem) use ($request){
           $mensagem->to($request->email, 'Supervisor')
                    ->subject('Pedido de Supervisao');
           $mensagem->from('comissaocientifica.teste@gmail.com', 'Comissao Cientifica DMI');
@@ -53,7 +53,7 @@ class emailController extends Controller
     public function enviarParticipante(Request $request){
 //       return ['avaliacao' => $request->email];
 
-        \Mail::send(['text'=>'emails.participantes'], ['nome'=>$request->nome, 'estudante'=>$request->estudante,'trabalho'=>$request->trabalho], function($mensagem) use ($request){
+        \Mail::send(['html'=>'emails.participantes'], ['nome'=>$request->nome, 'estudante'=>$request->estudante,'trabalho'=>$request->trabalho], function($mensagem) use ($request){
             $mensagem->to($request->email, 'Avaliador')
                 ->subject('Indicacao para avaliar trabalho');
             $mensagem->from('comissaocientifica.teste@gmail.com', 'Comissao Cientifica DMI');
