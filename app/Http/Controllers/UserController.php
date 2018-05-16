@@ -23,7 +23,7 @@ class UserController extends Controller
         $credencias = $request->only(['email', 'password']);
 
         try{
-            if(! $token = JWTAuth::attempt($credencias))
+            if(! $token = \Tymon\JWTAuth\JWTAuth::attempt($credencias))
                 return response()->json(['mensagem' => 'Credencias Erradas', 'status' => 401], 401);
         }catch (JWTException $ex){
             return response()->json(['mensagem' => 'Erro ao gerar token', 'status' => 500], 500);
@@ -49,10 +49,14 @@ class UserController extends Controller
     public function getUser(Request $request){
         $user = JWTAuth::toUser($request->token);
 
-//        $user = JWTAuth::parseToken()->authenticate();
+//        $user = \Tymon\JWTAuth\JWTAuth::parseToken()->authenticate();
 
         return $user;
     }
+
+
+   
+
 
 
 

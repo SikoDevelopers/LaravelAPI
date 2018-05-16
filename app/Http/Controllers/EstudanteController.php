@@ -26,12 +26,12 @@ class EstudanteController extends ModelController {
 
     /**
      * Criando conta para estudante
-     * @param Request $objectos
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function salvarTransacao(Request $objectos) {
+    public function salvarTransacao(Request $request) {
 
-        $this->validate($objectos, [
+        $this->validate($request, [
             'nome' => 'required|max:50',
             'apelido' => 'required',
             'email' => 'required|email|unique:users',
@@ -40,12 +40,12 @@ class EstudanteController extends ModelController {
         ]);
 
 
-        $user = new User($objectos->all());
+        $user = new User($request->all());
         $user->tipo_users_id = TipoUser::select('id')
                                 ->where('designacao', '=','Estudante')
                                 ->first()->id;
 
-        $estudante = new Estudante($objectos->all());
+        $estudante = new Estudante($request->all());
 
 
         DB::beginTransaction();

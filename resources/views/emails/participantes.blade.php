@@ -7,21 +7,19 @@
 
     <body>
 
-           <h1>
+           <h3>
                Caro(a) {{$nome}}
-           </h1>
+           </h3>
 
-            {{--Foi indicado recentemente para ser o avaliador de um--}}
-            {{--dos entregaveis do trabalho que tem como tema:--}}
-            {{--{{$trabalho}}, do estudante: {{$estudante}}.--}}
+            <p>Foi indicado recentemente para ser o avaliador de um
+            dos entregaveis do trabalho que tem como tema:
+            {{$trabalho}}, do estudante: {{$estudante}}.
+            </p>
 
-           {{----}}
 
-            {{--Entre no Sitema para Avaliaar esse trabalho.--}}
-            {{--localhost:4200/login--}}
-    {{----}}
-    
-            <img src="http://www.fundosanimais.com/Imagens/imagens-lobos.jpg" width="100" height="100"/>
+            <p>Entre no Sitema para Avaliaar esse trabalho.
+            localhost:4200/login
+            </p>
 
     </body>
 

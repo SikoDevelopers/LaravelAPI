@@ -84,7 +84,7 @@ class  ModelController extends Controller implements InterfaceController
     }
 
 
-    public function salvarTransacao(Request $objectos) {
+    public function salvarTransacao(Request $request) {
 
     }
 

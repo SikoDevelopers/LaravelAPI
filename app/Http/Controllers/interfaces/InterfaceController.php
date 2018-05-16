@@ -58,10 +58,10 @@ interface InterfaceController{
     /**
      * funcao que salva um conjunto de objectos numa transacao
      * em um eh dependente do outro
-     * @param Request[] $objectos - conjunto de objectos a serem salvos
+     * @param Request[] $request - conjunto de objectos a serem salvos
      * @return $object - conjunto de objectos salvos
      */
-    public function salvarTransacao(Request $objectos);
+    public function salvarTransacao(Request $request);
 
 
     /**

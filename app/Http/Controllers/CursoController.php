@@ -14,4 +14,16 @@ class CursoController extends ModelController
         $this->nomeObjectos = 'cursos';
         $this->relacionados = ['estudantes', 'directorCurso'];
     }
+
+
+
+
+
+    public function editar(Request $objecto, $id) {
+
+    }
+
+
+
+
 }

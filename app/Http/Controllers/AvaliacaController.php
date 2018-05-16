@@ -24,7 +24,7 @@ class AvaliacaController extends ModelController
     }
 
 
-    public function salvarTransacao(Request $objectos) {
+    public function salvarTransacao(Request $request) {
 
 //        return ['avaliacao' => $objectos->all()];
 
@@ -38,33 +38,33 @@ class AvaliacaController extends ModelController
 
         DB::beginTransaction();
 
-        if(! $avaliacao = Avaliacoes::create($objectos->avaliacao)) {
+        if(! $avaliacao = Avaliacoes::create($request->avaliacao)) {
             DB::rollBack();
             return Auxiliar::retornarErros('Erro ao criar avaliacao');
         }
         else
-            if(! $ficheirosTrabalho = FicheirosTrabalho::find($objectos->avaliacao['id'])->update(['avaliacoes_id' => $avaliacao->id])) {
+            if(! $ficheirosTrabalho = FicheirosTrabalho::find($request->avaliacao['id'])->update(['avaliacoes_id' => $avaliacao->id])) {
                 DB::rollBack();
                 return Auxiliar::retornarErros('Erro ao actualizar a tabela Ficheiros_trablhos');
             }
             else{
                 DB::commit();
 
-                $trabalhoCompleto = Trabalho::find($objectos->protocolo['trabalho_id'])->first();
-                $emailUser = User::find($objectos->avaliadorSelecionado['users_id'])['email'];
+                $trabalhoCompleto = Trabalho::find($request->protocolo['trabalho_id'])->first();
+                $emailUser = User::find($request->avaliadorSelecionado['users_id'])['email'];
 
                 $email = [
-                    'nome'=>$objectos->avaliadorSelecionado['nome'] .' '. $objectos->avaliadorSelecionado['apelido'],
+                    'nome'=>$request->avaliadorSelecionado['nome'] .' '. $request->avaliadorSelecionado['apelido'],
                     'estudante' => $trabalhoCompleto->estudante->nome,
                     'trabalho' => $trabalhoCompleto->titulo,
                     'email' => $emailUser
                 ];
 
                 $controller = new emailController();
-                $objectos->request->add($email);
-                $controller->enviarParticipante($objectos);
+                $request->request->add($email);
+                $controller->enviarParticipante($request);
             }
-        return redirect()->route('avaliacao_ficheiro', ['id' => $objectos->avaliacao['id']]);
+        return redirect()->route('avaliacao_ficheiro', ['id' => $request->avaliacao['id']]);
     }
 
 

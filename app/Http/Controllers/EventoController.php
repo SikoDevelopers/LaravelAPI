@@ -19,8 +19,8 @@ class EventoController extends ModelController
     }
 
 
-    public function salvarTransacao(Request $objectos) {
-        $this->validate($objectos, [
+    public function salvarTransacao(Request $request) {
+        $this->validate($request, [
             'categorias_eventos_id' => 'required',
             'trabalho' => 'required',
             'local' => 'required',
@@ -31,13 +31,13 @@ class EventoController extends ModelController
 
         DB::beginTransaction();
 
-            $evento = new Evento($objectos->all());
-            $evento->categorias_eventos_id = CategoriaEvento::select('id')->where('designacao', '=',$objectos->input('categorias_eventos_id'))->first()['id'];
+            $evento = new Evento($request->all());
+            $evento->categorias_eventos_id = CategoriaEvento::select('id')->where('designacao', '=',$request->input('categorias_eventos_id'))->first()['id'];
 
             if(!$evento->save())
                 DB::rollBack();
             else{
-                if(! $trabalho = Trabalho::find($objectos->input('trabalho')['id'])->update(['eventos_id'=>$evento['id']]))
+                if(! $trabalho = Trabalho::find($request->input('trabalho')['id'])->update(['eventos_id'=>$evento['id']]))
                     DB::rollBack();
                 else
                     DB::commit();

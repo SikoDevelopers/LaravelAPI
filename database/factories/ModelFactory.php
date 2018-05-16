@@ -28,6 +28,7 @@ $factory->define(\App\Models\Curso::class, function (Faker\Generator $faker) use
 
 });
 
+
 $factory->define(\App\Models\Docente::class, function (\Faker\Generator $faker){
     return [
         'nome' => $faker->firstName(),

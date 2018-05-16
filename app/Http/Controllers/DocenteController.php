@@ -31,12 +31,12 @@ class DocenteController extends ModelController
 
     /**
      * Criando conta para docente
-     * @param Request $objectos
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function salvarTransacao(Request $objectos) {
+    public function salvarTransacao(Request $request) {
 
-        $this->validate($objectos, [
+        $this->validate($request, [
             'nome' => 'required|max:50',
             'apelido' => 'required',
             'sessao' => 'nullable',
@@ -45,12 +45,12 @@ class DocenteController extends ModelController
             'grau_academico_id' => 'required'
         ]);
 
-        $user = new User($objectos->all());
+        $user = new User($request->all());
         $user->tipo_users_id = TipoUser::select('id')
             ->where('designacao', '=','Docente')
             ->first()->id;
 
-        $docente = new Docente($objectos->all());
+        $docente = new Docente($request->all());
 
 
         DB::beginTransaction();
